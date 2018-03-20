@@ -7,6 +7,7 @@ var GetGrave = require('util.GetGrave');
 
 var Siphon = require('task.Siphon');
 var Repair = require('task.Repair');
+var Grab = require('task.Grab');
 
 function Fixer(creep) 
 {
