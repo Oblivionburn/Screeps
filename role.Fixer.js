@@ -63,7 +63,46 @@ function Fixer(creep)
     
     if (okay)
     {
-        site = GetRepairs(creep);
+        site = GetRepairs(creep, "Spawn");
+        if (site != null)
+        {
+            if (creep.carry.energy > 0)
+            {
+                okay = false;
+                Repair(creep, site);
+            }
+        }
+    }
+    
+    if (okay)
+    {
+        site = GetRepairs(creep, "Extension");
+        if (site != null)
+        {
+            if (creep.carry.energy > 0)
+            {
+                okay = false;
+                Repair(creep, site);
+            }
+        }
+    }
+    
+    if (okay)
+    {
+        site = GetRepairs(creep, "Rampart");
+        if (site != null)
+        {
+            if (creep.carry.energy > 0)
+            {
+                okay = false;
+                Repair(creep, site);
+            }
+        }
+    }
+    
+    if (okay)
+    {
+        site = GetRepairs(creep, "Road");
         if (site != null)
         {
             if (creep.carry.energy > 0)
