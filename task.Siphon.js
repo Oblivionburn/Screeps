@@ -9,14 +9,10 @@ function Siphon(creep, structure)
     creep.memory.task = "Siphoning";
     creep.memory.target = structure.id;
     
-    var total = (GetWork(creep) * 2);
+    var total = structure.energy;
     if (creep.carry.energy + total > creep.carryCapacity)
     {
         total = creep.carryCapacity;
-    }
-    else
-    {
-        total += creep.carry.energy;
     }
     
     var result = creep.withdraw(structure, RESOURCE_ENERGY);
