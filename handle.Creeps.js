@@ -36,11 +36,6 @@ function HandleCreeps()
     
     if (elder != null)
     {
-        if (elder.ticksToLive <= 10)
-        {
-            Game.notify(elder.name + " will die in: " + elder.ticksToLive + " ticks.");
-        }
-        
         console.log(elder.name + " will die in: " + elder.ticksToLive + " ticks.");
     }
 }
