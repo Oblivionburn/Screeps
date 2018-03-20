@@ -3,16 +3,76 @@ var GetNearest = require('util.GetNearest');
 var Available = require('util.Available');
 var Occupied = require('util.Occupied');
 
-function GetRepairs(creep)
+function GetRepairs(creep, structure)
 {
     var sites = [];
-    sites = creep.room.find(FIND_STRUCTURES, 
+    if (structure == "Spawn")
     {
-        filter: (structure) => 
+        sites = creep.room.find(FIND_MY_STRUCTURES, 
         {
-            return structure.hits < structure.hitsMax;
-        }
-    });
+            filter: (structure) => 
+            {
+                return (structure.structureType == STRUCTURE_SPAWN) 
+                        && structure.hits < structure.hitsMax;
+                
+            }
+        });
+    }
+    else if (structure == "Extension")
+    {
+        sites = creep.room.find(FIND_MY_STRUCTURES, 
+        {
+            filter: (structure) => 
+            {
+                return (structure.structureType == STRUCTURE_EXTENSION) 
+                        && structure.hits < structure.hitsMax;
+            }
+        });
+    }
+    else if (structure == "Tower")
+    {
+        sites = creep.room.find(FIND_MY_STRUCTURES, 
+        {
+            filter: (structure) => 
+            {
+                return (structure.structureType == STRUCTURE_TOWER) 
+                    && structure.hits < structure.hitsMax;
+            }
+        });
+    }
+    else if (structure == "Road")
+    {
+        sites = creep.room.find(FIND_MY_STRUCTURES, 
+        {
+            filter: (structure) => 
+            {
+                return (structure.structureType == STRUCTURE_ROAD) 
+                    && structure.hits < structure.hitsMax;
+            }
+        });
+    }
+    else if (structure == "Wall")
+    {
+        sites = creep.room.find(FIND_MY_STRUCTURES, 
+        {
+            filter: (structure) => 
+            {
+                return (structure.structureType == STRUCTURE_WALL) 
+                    && structure.hits < structure.hitsMax;
+            }
+        });
+    }
+    else if (structure == "Rampart")
+    {
+        sites = creep.room.find(FIND_MY_STRUCTURES, 
+        {
+            filter: (structure) => 
+            {
+                return (structure.structureType == STRUCTURE_RAMPART) 
+                    && structure.hits < structure.hitsMax;
+            }
+        });
+    }
 
     if (sites.length > 0) 
     {
