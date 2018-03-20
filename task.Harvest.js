@@ -1,6 +1,6 @@
 var Vector = require('Vector');
 var GetWork = require('util.GetWork');
-
+var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 var Pave = require('task.Pave');
 
@@ -28,6 +28,10 @@ function Harvest(creep, structure)
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
         GoTo(creep, location, creep.memory.task);
+    }
+    else
+    {
+        creep.say("Error: " + GetError(result));
     }
 }
     

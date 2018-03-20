@@ -1,5 +1,6 @@
 var Vector = require('Vector');
 var GetWork = require('util.GetWork');
+var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 
 function Grab(creep, target) 
@@ -16,6 +17,10 @@ function Grab(creep, target)
     {
         var location = new Vector(target.pos.x, target.pos.y);
         GoTo(creep, location, creep.memory.task);
+    }
+    else
+    {
+        creep.say("Error: " + GetError(result));
     }
 }
     

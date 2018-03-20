@@ -1,4 +1,5 @@
 var Vector = require('Vector');
+var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 
 function Transfer(creep, structure) 
@@ -17,6 +18,10 @@ function Transfer(creep, structure)
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
         GoTo(creep, location, creep.memory.task);
+    }
+    else
+    {
+        creep.say("Error: " + GetError(result));
     }
 }
 
