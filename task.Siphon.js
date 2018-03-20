@@ -19,11 +19,12 @@ function Siphon(creep, structure)
         total += creep.carry.energy;
     }
     
-    if (creep.withdraw(structure, RESOURCE_ENERGY) != ERR_NOT_IN_RANGE) 
+    var result = creep.withdraw(structure, RESOURCE_ENERGY);
+    if (result == 0) 
     {
         creep.say(total + "/" + creep.carryCapacity, false);
     }
-    else
+    else if (result == -9)
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
         GoTo(creep, location, creep.memory.task);

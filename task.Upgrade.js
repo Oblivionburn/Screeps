@@ -15,7 +15,7 @@ function Upgrade(creep, structure)
     {
         creep.say(total, false);
     }
-    else
+    else if (result == -9)
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
         GoTo(creep, location, creep.memory.task);

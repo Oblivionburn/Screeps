@@ -8,11 +8,12 @@ function Transfer(creep, structure)
     
     var before = creep.carry.energy;
     
-    if (creep.transfer(structure, RESOURCE_ENERGY) != ERR_NOT_IN_RANGE) 
+    var result = creep.transfer(structure, RESOURCE_ENERGY);
+    if (result == 0) 
     {
         creep.say("Give:" + before, false);
     }
-    else
+    else if (result == -9)
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
         GoTo(creep, location, creep.memory.task);
