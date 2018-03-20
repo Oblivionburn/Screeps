@@ -1,40 +1,44 @@
 var GetStructure = require('util.GetStructure');
+var GetRepairs = require('util.GetRepairs');
 var Available = require('util.Available');
 
 var Build = require('task.Build');
 var Siphon = require('task.Siphon');
+var Repair = require('task.Repair');
 
 function Builder(creep) 
 {
+    var site = null;
     var okay = true;
     
-    var site = GetStructure(creep, "Site", false);
-    if (site != null)
+    if (creep.carry.energy < creep.carryCapacity &&
+        creep.memory.task == "Siphoning")
     {
-        if (creep.carry.energy > 0 &&
-            creep.memory.task == "Building")
+        site = GetStructure(creep, "Extension", false);
+        if (site != null)
         {
             okay = false;
-            Build(creep, site);
+            Siphon(creep, site);
         }
     }
     
     if (okay)
     {
-        if (creep.carry.energy < creep.carryCapacity)
+        site = GetStructure(creep, "Site", false);
+        if (site != null)
         {
-            var extension = GetStructure(creep, "Extension", false);
-            if (extension != null)
+            if (creep.carry.energy > 0)
             {
                 okay = false;
-                Siphon(creep, extension);
+                Build(creep, site);
             }
         }
     }
     
     if (okay)
     {
-        creep.memory.task = "Building";
+        creep.memory.target = null;
+        creep.memory.task = "Siphoning";
     }
 }
 

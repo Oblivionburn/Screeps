@@ -18,16 +18,16 @@ function Harvest(creep, structure)
     {
         total += creep.carry.energy;
     }
-    
-    Pave(creep);
-    if (creep.harvest(structure) != ERR_NOT_IN_RANGE) 
+
+    var result = creep.harvest(structure);
+    if (result == 0) 
     {
         creep.say(total + "/" + creep.carryCapacity, false);
     }
     else
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location);
+        GoTo(creep, location, creep.memory.task);
     }
 }
     

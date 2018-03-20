@@ -1,16 +1,16 @@
 function GetWork(creep)
 {
-    var work = 0;
+    var result = 0;
     
     for (i = 0; i < creep.body.length; i++)
     {
         if (creep.body[i].type == "work")
         {
-            work++;
+            result++;
         }
     }
     
-    return work;
+    return result;
 }
 
 module.exports = GetWork;

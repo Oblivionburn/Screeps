@@ -12,12 +12,12 @@ function Build(creep, structure)
     var result = creep.build(structure);
     if (result == 0) 
     {
-        creep.say("Build:" + total, false);
+        creep.say(total, false);
     }
     else
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location);
+        GoTo(creep, location, creep.memory.task);
     }
 }
 

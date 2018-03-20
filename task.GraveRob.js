@@ -14,7 +14,7 @@ function GraveRob(creep, target)
     else
     {
         var location = new Vector(target.pos.x, target.pos.y);
-        GoTo(creep, location);
+        GoTo(creep, location, creep.memory.task);
     }
 }
     

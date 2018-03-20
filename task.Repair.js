@@ -1,16 +1,15 @@
 var Vector = require('Vector');
-
+var GetWork = require('util.GetWork');
 var GoTo = require('task.GoTo');
-var Pave = require('task.Pave');
 
-function Upgrade(creep, structure) 
+function Repair(creep, structure) 
 {
-    creep.memory.task = "Upgrading";
+    creep.memory.task = "Repairing";
     creep.memory.target = structure.id;
     
-    var total = structure.progressTotal - structure.progress - 1;
+    var total = structure.hitsMax - structure.hits - (GetWork(creep) * 5);
     
-    var result = creep.upgradeController(structure);
+    var result = creep.repair(structure);
     if (result == 0) 
     {
         creep.say(total, false);
@@ -22,4 +21,4 @@ function Upgrade(creep, structure)
     }
 }
 
-module.exports = Upgrade;
+module.exports = Repair;

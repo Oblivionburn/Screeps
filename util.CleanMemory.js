@@ -4,6 +4,7 @@ function CleanMemory()
     {
         if (!Game.creeps[name]) 
         {
+            console.log(name + " has died.");
             delete Memory.creeps[name];
         }
     }

@@ -5,6 +5,8 @@ var Spawn = require('util.Spawn');
 
 function HandleSpawning() 
 {
+    var queue = "";
+    
     for (var name in Game.spawns)
     {
         var spawn = Game.spawns[name];
@@ -12,53 +14,56 @@ function HandleSpawning()
         var harvesters = GetCreeps(spawn.room, "Harvester");
         var builders = GetCreeps(spawn.room, "Builder");
         var upgraders = GetCreeps(spawn.room, "Upgrader");
-        
-        if (harvesters.length < spawn.room.controller.level)
+        var fixers = GetCreeps(spawn.room, "Fixer");
+
+        if (spawn.room.controller.level == 1)
         {
-            CleanMemory();
-            Spawn(spawn, "Harvester");
-        }
-        else if (builders.length < spawn.room.controller.level)
-        {
-            CleanMemory();
-            Spawn(spawn, "Builder");
-        }
-        else if (upgraders.length < spawn.room.controller.level)
-        {
-            CleanMemory();
-            Spawn(spawn, "Upgrader");
-        }
-        
-        if (spawn.room.controller.level == 2)
-        {
-            var sites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES, 
+            if (harvesters.length < 2)
             {
-                filter: (structure) => 
-                {
-                    return (structure.structureType == STRUCTURE_EXTENSION);
-                }
-            });
-            
-            if (sites.length < 5)
+                CleanMemory();
+                queue = Spawn(spawn, "Harvester");
+            }
+            else if (builders.length < 1)
             {
-                var location = new Vector(spawn.pos.x, spawn.pos.y);
-                spawn.room.createConstructionSite(location.X - 1, location.Y - 1, STRUCTURE_EXTENSION)
-                spawn.room.createConstructionSite(location.X, location.Y + 1, STRUCTURE_EXTENSION)
-                spawn.room.createConstructionSite(location.X + 1, location.Y - 1, STRUCTURE_EXTENSION)
-                spawn.room.createConstructionSite(location.X - 1, location.Y, STRUCTURE_EXTENSION)
-                spawn.room.createConstructionSite(location.X + 1, location.Y, STRUCTURE_EXTENSION)
+                CleanMemory();
+                queue = Spawn(spawn, "Builder");
+            }
+            else if (upgraders.length < 1)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Upgrader");
+            }
+        }
+        else if (spawn.room.controller.level == 2)
+        {
+            if (harvesters.length < 3)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Harvester");
+            }
+            else if (builders.length < 1)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Builder");
+            }
+            else if (upgraders.length < 2)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Upgrader");
+            }
+            else if (fixers.length < 1)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Fixer");
             }
         }
         else if (spawn.room.controller.level == 3)
         {
             
         }
-        
-        if(spawn.spawning) 
-        {
-            var spawningCreep = Game.creeps[spawn.spawning.name];
-        }
     }
+    
+    return queue;
 }
 
 module.exports = HandleSpawning;

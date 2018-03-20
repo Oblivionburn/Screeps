@@ -15,7 +15,7 @@ function Transfer(creep, structure)
     else
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location);
+        GoTo(creep, location, creep.memory.task);
     }
 }
 
