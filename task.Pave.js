@@ -20,7 +20,7 @@ function Pave(creep)
     
     if (!blocked)
     {
-        sites = creep.room.find(FIND_MY_STRUCTURES);
+        sites = creep.room.find(FIND_STRUCTURES);
         for (i = 0; i < sites.length; i++)
         {
             if (sites[i].pos.x == creep.pos.x &&
