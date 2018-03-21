@@ -51,7 +51,7 @@ function HandleSpawning()
                 CleanMemory();
                 queue = Spawn(spawn, "Upgrader");
             }
-            else if (fixers.length < 1)
+            else if (fixers.length < 2)
             {
                 CleanMemory();
                 queue = Spawn(spawn, "Fixer");

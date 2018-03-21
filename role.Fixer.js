@@ -89,6 +89,19 @@ function Fixer(creep)
     
     if (okay)
     {
+        site = GetRepairs(creep, "Tower");
+        if (site != null)
+        {
+            if (creep.carry.energy > 0)
+            {
+                okay = false;
+                Repair(creep, site);
+            }
+        }
+    }
+    
+    if (okay)
+    {
         site = GetRepairs(creep, "Rampart");
         if (site != null)
         {
@@ -103,6 +116,19 @@ function Fixer(creep)
     if (okay)
     {
         site = GetRepairs(creep, "Road");
+        if (site != null)
+        {
+            if (creep.carry.energy > 0)
+            {
+                okay = false;
+                Repair(creep, site);
+            }
+        }
+    }
+    
+    if (okay)
+    {
+        site = GetRepairs(creep, "Wall");
         if (site != null)
         {
             if (creep.carry.energy > 0)

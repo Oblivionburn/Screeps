@@ -8,7 +8,7 @@ function Repair(creep, structure)
     creep.memory.task = "Repairing";
     creep.memory.target = structure.id;
     
-    var total = structure.hitsMax - structure.hits - (GetWork(creep) * 5);
+    var total = structure.hitsMax - structure.hits - (GetWork(creep) * 100);
     
     var result = creep.repair(structure);
     if (result == 0) 

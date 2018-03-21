@@ -1,11 +1,14 @@
-var Vector = require('Vector');
-var GetNearest = require('util.GetNearest');
 var Available = require('util.Available');
-var Occupied = require('util.Occupied');
 
+/*
+    Gets a particular structure type with the least amount of hits
+    that isn't already a target of another creep
+*/
 function GetRepairs(creep, structure)
 {
     var sites = [];
+    var site = null;
+    
     if (structure == "Spawn")
     {
         sites = creep.room.find(FIND_MY_STRUCTURES, 
@@ -42,7 +45,7 @@ function GetRepairs(creep, structure)
     }
     else if (structure == "Road")
     {
-        sites = creep.room.find(FIND_MY_STRUCTURES, 
+        sites = creep.room.find(FIND_STRUCTURES, 
         {
             filter: (structure) => 
             {
@@ -53,7 +56,7 @@ function GetRepairs(creep, structure)
     }
     else if (structure == "Wall")
     {
-        sites = creep.room.find(FIND_MY_STRUCTURES, 
+        sites = creep.room.find(FIND_STRUCTURES, 
         {
             filter: (structure) => 
             {
@@ -76,36 +79,32 @@ function GetRepairs(creep, structure)
 
     if (sites.length > 0) 
     {
-        var count = 0;
-        
-        var locations = [];
         for (i = 0; i < sites.length; i++)
         {
-            var location = new Vector(sites[i].pos.x, sites[i].pos.y);
-            
-            if (Available(creep, sites[i].id) &&
-                !Occupied(location))
+            if (Available(creep, sites[i].id))
             {
-                locations[count] = location;
-                count++;
+                site = sites[i];
+                break;
             }
         }
         
-        if (locations.length > 0)
+        if (site != null)
         {
-            var location = GetNearest(creep.pos.x, creep.pos.y, locations);
+            var hp = site.hits;
+            
             for (i = 0; i < sites.length; i++)
             {
-                if (sites[i].pos.x == location.X &&
-                    sites[i].pos.y == location.Y)
+                if (sites[i].hits < hp &&
+                    Available(creep, sites[i].id))
                 {
-                    return sites[i];
+                    hp = sites[i].hits;
+                    site = sites[i];
                 }
             }
         }
     }
     
-    return null;
+    return site;
 }
 
 module.exports = GetRepairs;
