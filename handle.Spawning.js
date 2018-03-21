@@ -59,7 +59,26 @@ function HandleSpawning()
         }
         else if (spawn.room.controller.level == 3)
         {
-            
+            if (harvesters.length < 4)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Harvester");
+            }
+            else if (builders.length < 1)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Builder");
+            }
+            else if (upgraders.length < 3)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Upgrader");
+            }
+            else if (fixers.length < 2)
+            {
+                CleanMemory();
+                queue = Spawn(spawn, "Fixer");
+            }
         }
     }
     
