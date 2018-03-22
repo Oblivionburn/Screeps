@@ -1,5 +1,4 @@
 var Vector = require('Vector');
-var GetWork = require('util.GetWork');
 var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 

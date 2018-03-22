@@ -1,5 +1,5 @@
 var Vector = require('Vector');
-var GetWork = require('util.GetWork');
+var GetBodyCount = require('util.GetBodyCount');
 var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 
@@ -8,7 +8,7 @@ function Build(creep, structure)
     creep.memory.task = "Building";
     creep.memory.target = structure.id;
     
-    var total = structure.progressTotal - structure.progress - (GetWork(creep) * 5);
+    var total = structure.progressTotal - structure.progress - (GetBodyCount(creep, "work") * 5);
     
     var result = creep.build(structure);
     if (result == 0) 

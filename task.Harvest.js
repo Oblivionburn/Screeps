@@ -1,5 +1,5 @@
 var Vector = require('Vector');
-var GetWork = require('util.GetWork');
+var GetBodyCount = require('util.GetBodyCount');
 var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 var Pave = require('task.Pave');
@@ -9,7 +9,7 @@ function Harvest(creep, structure)
     creep.memory.task = "Harvesting";
     creep.memory.target = structure.id;
     
-    var total = GetWork(creep) * 2;
+    var total = GetBodyCount(creep, "work") * 2;
     if (creep.carry.energy + total > creep.carryCapacity)
     {
         total = creep.carryCapacity;

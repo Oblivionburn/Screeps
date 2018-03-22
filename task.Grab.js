@@ -1,5 +1,5 @@
 var Vector = require('Vector');
-var GetWork = require('util.GetWork');
+var GetBodyCount = require('util.GetBodyCount');
 var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 
@@ -11,7 +11,7 @@ function Grab(creep, target)
     var result = creep.pickup(target);
     if (result == 0) 
     {
-        creep.say("Left: " + (target.amount - (GetWork(creep) * 2)), false);
+        creep.say("Left: " + (target.amount - (GetBodyCount(creep, "work") * 2)), false);
     }
     else if (result == -9)
     {

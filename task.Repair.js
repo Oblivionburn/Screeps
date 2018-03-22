@@ -1,5 +1,5 @@
 var Vector = require('Vector');
-var GetWork = require('util.GetWork');
+var GetBodyCount = require('util.GetBodyCount');
 var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 
@@ -8,7 +8,7 @@ function Repair(creep, structure)
     creep.memory.task = "Repairing";
     creep.memory.target = structure.id;
     
-    var total = structure.hitsMax - structure.hits - (GetWork(creep) * 100);
+    var total = structure.hitsMax - structure.hits - (GetBodyCount(creep, "work") * 100);
     
     var result = creep.repair(structure);
     if (result == 0) 
