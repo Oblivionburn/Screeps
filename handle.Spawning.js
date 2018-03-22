@@ -1,4 +1,3 @@
-var Vector = require('Vector');
 var CleanMemory = require('util.CleanMemory');
 var GetCreeps = require('util.GetCreeps');
 var Spawn = require('util.Spawn');

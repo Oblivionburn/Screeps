@@ -1,9 +1,7 @@
+var Vector = require('Vector');
 var Available = require('util.Available');
+var GetNearest = require('util.GetNearest');
 
-/*
-    Gets a particular structure type with the least amount of hits
-    that isn't already a target of another creep
-*/
 function GetRepairs(creep, structure)
 {
     var sites = [];
@@ -79,26 +77,65 @@ function GetRepairs(creep, structure)
 
     if (sites.length > 0) 
     {
-        for (i = 0; i < sites.length; i++)
+        if (structure == "Spawn" ||
+            structure == "Extension" ||
+            structure == "Wall" ||
+            structure == "Rampart")
         {
-            if (Available(creep, sites[i].id))
-            {
-                site = sites[i];
-                break;
-            }
-        }
-        
-        if (site != null)
-        {
-            var hp = site.hits;
+            //Get structure with lowest hits
             
             for (i = 0; i < sites.length; i++)
             {
-                if (sites[i].hits < hp &&
-                    Available(creep, sites[i].id))
+                if (Available(creep, sites[i].id))
                 {
-                    hp = sites[i].hits;
                     site = sites[i];
+                    break;
+                }
+            }
+            
+            if (site != null)
+            {
+                var hp = site.hits;
+                
+                for (i = 0; i < sites.length; i++)
+                {
+                    if (sites[i].hits < hp &&
+                        Available(creep, sites[i].id))
+                    {
+                        hp = sites[i].hits;
+                        site = sites[i];
+                    }
+                }
+            }
+        }
+        else
+        {
+            //Get nearest structure
+            
+            var count = 0;
+        
+            var locations = [];
+            for (i = 0; i < sites.length; i++)
+            {
+                var location = new Vector(sites[i].pos.x, sites[i].pos.y);
+                
+                if (Available(creep, sites[i].id))
+                {
+                    locations[count] = location;
+                    count++;
+                }
+            }
+            
+            if (locations.length > 0)
+            {
+                var location = GetNearest(creep.pos.x, creep.pos.y, locations);
+                for (i = 0; i < sites.length; i++)
+                {
+                    if (sites[i].pos.x == location.X &&
+                        sites[i].pos.y == location.Y)
+                    {
+                        return sites[i];
+                    }
                 }
             }
         }

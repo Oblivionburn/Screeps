@@ -102,7 +102,7 @@ function Fixer(creep)
     
     if (okay)
     {
-        site = GetRepairs(creep, "Rampart");
+        site = GetRepairs(creep, "Road");
         if (site != null)
         {
             if (creep.carry.energy > 0)
@@ -115,7 +115,7 @@ function Fixer(creep)
     
     if (okay)
     {
-        site = GetRepairs(creep, "Road");
+        site = GetRepairs(creep, "Rampart");
         if (site != null)
         {
             if (creep.carry.energy > 0)
