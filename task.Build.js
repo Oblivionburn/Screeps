@@ -9,6 +9,10 @@ function Build(creep, structure, debug)
     creep.memory.target = structure.id;
     
     var total = structure.progressTotal - structure.progress - (GetBodyCount(creep, "work") * 5);
+    if (total < 0)
+    {
+        total = 0;    
+    }
     
     var result = creep.build(structure);
     if (result == 0) 

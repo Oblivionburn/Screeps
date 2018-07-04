@@ -39,7 +39,7 @@ function HandleSpawning(debug)
             {
                 queue = Spawn(spawn, "Builder", debug);
             }
-            else if (upgraders.length < 2)
+            else if (upgraders.length < 1)
             {
                 queue = Spawn(spawn, "Upgrader", debug);
             }
@@ -50,7 +50,7 @@ function HandleSpawning(debug)
         }
         else if (spawn.room.controller.level == 3)
         {
-            if (harvesters.length < 4)
+            if (harvesters.length < 5)
             {
                 queue = Spawn(spawn, "Harvester", debug);
             }
@@ -58,11 +58,11 @@ function HandleSpawning(debug)
             {
                 queue = Spawn(spawn, "Builder", debug);
             }
-            else if (upgraders.length < 3)
+            else if (upgraders.length < 2)
             {
                 queue = Spawn(spawn, "Upgrader", debug);
             }
-            else if (fixers.length < 3)
+            else if (fixers.length < 2)
             {
                 queue = Spawn(spawn, "Fixer", debug);
             }

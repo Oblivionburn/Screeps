@@ -70,6 +70,23 @@ function Harvester(creep, debug)
         }
     }
     
+    if (okay &&
+        creep.carry.energy > 0)
+    {
+        for (var name in Game.creeps) 
+        {
+            var builder = Game.creeps[name];
+            if (builder.memory.role == 'Fixer' &&
+                builder.carry.energy < builder.carryCapacity &&
+                Available(creep, builder.id)) 
+            {
+                okay = false;
+                Transfer(creep, builder, debug);
+                break;
+            }
+        }
+    }
+    
     if (okay)
     {
         creep.memory.target = null;

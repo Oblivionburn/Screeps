@@ -33,6 +33,11 @@ function Spawn(spawn, role, debug)
         body = [ATTACK, WORK, CARRY, MOVE];
         cost = GetSpawnCost(body);
     }
+    else if (role == "Soldier")
+    {
+        body = [ATTACK, ATTACK, MOVE];
+        cost = GetSpawnCost(body);
+    }
     
     var energy_pool = 0;
     for (var structure in GetStructures(spawn.room, "Extension"))

@@ -7,14 +7,19 @@ function Transfer(creep, structure, debug)
     creep.memory.task = "Transfering";
     creep.memory.target = structure.id;
     
-    var before = creep.carry.energy;
+    var transfering = creep.carry.energy;
+    var canHold = structure.energyCapacity - structure.energy;
+    if (canHold < transfering)
+    {
+        transfering = canHold;
+    }
     
     var result = creep.transfer(structure, RESOURCE_ENERGY);
     if (result == 0) 
     {
         if (debug)
         {
-            creep.say("Give:" + before, false);
+            creep.say("Give:" + transfering, false);
         }
     }
     else if (result == -9)

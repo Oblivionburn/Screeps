@@ -1,5 +1,4 @@
 var GetDistance = require('util.GetDistance');
-var Travel = require('task.Travel');
 
 function GoTo(creep, location, reason, debug) 
 {

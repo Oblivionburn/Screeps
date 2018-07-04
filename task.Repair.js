@@ -9,6 +9,10 @@ function Repair(creep, structure, debug)
     creep.memory.target = structure.id;
     
     var total = structure.hitsMax - structure.hits - (GetBodyCount(creep, "work") * 100);
+    if (total < 0)
+    {
+        total = 0;
+    }
     
     var result = creep.repair(structure);
     if (result == 0) 

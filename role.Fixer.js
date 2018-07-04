@@ -7,6 +7,7 @@ var GetGrave = require('util.GetGrave');
 
 var Siphon = require('task.Siphon');
 var Repair = require('task.Repair');
+var Transfer = require('task.Transfer');
 var Grab = require('task.Grab');
 
 function Fixer(creep, debug) 
@@ -138,6 +139,34 @@ function Fixer(creep, debug)
                 okay = false;
                 Repair(creep, site, debug);
             }
+        }
+    }
+    
+    if (okay &&
+        creep.carry.energy > 0)
+    {
+        for (var name in Game.creeps) 
+        {
+            var builder = Game.creeps[name];
+            if (builder.memory.role == 'Builder' &&
+                builder.carry.energy < builder.carryCapacity &&
+                Available(creep, builder.id)) 
+            {
+                okay = false;
+                Transfer(creep, builder, debug);
+                break;
+            }
+        }
+    }
+    
+    if (okay &&
+        creep.carry.energy > 0)
+    {
+        site = GetStructure(creep, "Spawn", true);
+        if (site != null) 
+        {
+            okay = false;
+            Transfer(creep, site, debug);
         }
     }
     
