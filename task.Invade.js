@@ -21,9 +21,9 @@ function Invade(creep, debug)
             }
             else if (thisRoom.includes("S"))
             {
-                var n_index = thisRoom.indexOf("S") + 1;
-                var num = parseInt(thisRoom.substring(n_index, thisRoom.length)) - 1;
-                otherRoom = thisRoom.substring(0, n_index) + num;
+                var s_index = thisRoom.indexOf("S") + 1;
+                var num = parseInt(thisRoom.substring(s_index, thisRoom.length)) - 1;
+                otherRoom = thisRoom.substring(0, s_index) + num;
             }
         }
         else if (exit == RIGHT)
@@ -42,7 +42,7 @@ function Invade(creep, debug)
                 {
                     var s_index = thisRoom.indexOf("S");
                     var num = parseInt(thisRoom.substring(e_index, s_index)) + 1;
-                    otherRoom = thisRoom.substring(0, n_index) + num;
+                    otherRoom = "E" + num + thisRoom.substring(s_index, thisRoom.length);
                 }
             }
             else if (thisRoom.includes("W"))
@@ -52,14 +52,14 @@ function Invade(creep, debug)
                 if (thisRoom.includes("N"))
                 {
                     var n_index = thisRoom.indexOf("N");
-                    var num = parseInt(thisRoom.substring(w_index, n_index)) + 1;
-                    otherRoom = thisRoom.substring(0, n_index) + num;
+                    var num = parseInt(thisRoom.substring(w_index, n_index)) - 1;
+                    otherRoom = "W" + num + thisRoom.substring(n_index, thisRoom.length);
                 }
                 else if (thisRoom.includes("S"))
                 {
                     var s_index = thisRoom.indexOf("S");
-                    var num = parseInt(thisRoom.substring(w_index, s_index)) + 1;
-                    otherRoom = thisRoom.substring(0, n_index) + num;
+                    var num = parseInt(thisRoom.substring(w_index, s_index)) - 1;
+                    otherRoom = "W" + num + thisRoom.substring(s_index, thisRoom.length);
                 }
             }
         }
@@ -73,24 +73,46 @@ function Invade(creep, debug)
             }
             else if (thisRoom.includes("S"))
             {
-                var n_index = thisRoom.indexOf("S") + 1;
-                var num = parseInt(thisRoom.substring(n_index, thisRoom.length)) + 1;
-                otherRoom = thisRoom.substring(0, n_index) + num;
+                var s_index = thisRoom.indexOf("S") + 1;
+                var num = parseInt(thisRoom.substring(s_index, thisRoom.length)) + 1;
+                otherRoom = thisRoom.substring(0, s_index) + num;
             }
         }
         else if (exit == LEFT)
         {
             if (thisRoom.includes("E"))
             {
-                var n_index = thisRoom.indexOf("E") + 1;
-                var num = parseInt(thisRoom.substring(n_index, thisRoom.length)) - 1;
-                otherRoom = thisRoom.substring(0, n_index) + num;
+                var e_index = thisRoom.indexOf("E") + 1;
+                
+                if (thisRoom.includes("N"))
+                {
+                    var n_index = thisRoom.indexOf("N");
+                    var num = parseInt(thisRoom.substring(e_index, n_index)) - 1;
+                    otherRoom = "E" + num + thisRoom.substring(n_index, thisRoom.length);
+                }
+                else if (thisRoom.includes("S"))
+                {
+                    var s_index = thisRoom.indexOf("S");
+                    var num = parseInt(thisRoom.substring(e_index, s_index)) - 1;
+                    otherRoom = "E" + num + thisRoom.substring(s_index, thisRoom.length);
+                }
             }
             else if (thisRoom.includes("W"))
             {
-                var n_index = thisRoom.indexOf("W") + 1;
-                var num = parseInt(thisRoom.substring(n_index, thisRoom.length)) + 1;
-                otherRoom = thisRoom.substring(0, n_index) + num;
+                var w_index = thisRoom.indexOf("W") + 1;
+                
+                if (thisRoom.includes("N"))
+                {
+                    var n_index = thisRoom.indexOf("N");
+                    var num = parseInt(thisRoom.substring(w_index, n_index)) + 1;
+                    otherRoom = "W" + num + thisRoom.substring(n_index, thisRoom.length);
+                }
+                else if (thisRoom.includes("S"))
+                {
+                    var s_index = thisRoom.indexOf("S");
+                    var num = parseInt(thisRoom.substring(w_index, s_index)) + 1;
+                    otherRoom = "W" + num + thisRoom.substring(s_index, thisRoom.length);
+                }
             }
         }
         
