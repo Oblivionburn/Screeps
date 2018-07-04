@@ -33,10 +33,15 @@ function GoTo(creep, location, reason, debug)
         {
             color = "#9933FF";
         }
+        else if (reason == "Attacking" ||
+                 reason == "Invading")
+        {
+            color = "#FF0000";
+        }
         
         if (debug)
         {
-            creep.say(reason);
+            creep.say(reason, false);
         }
         
         creep.moveTo(location.X, location.Y, {reusePath: 3, visualizePathStyle: {stroke: color}});

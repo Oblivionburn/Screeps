@@ -29,7 +29,7 @@ function Build(creep, structure, debug)
     }
     else if (debug)
     {
-        creep.say("Error: " + GetError(result));
+        creep.say("Error: " + GetError(result), false);
     }
 }
 

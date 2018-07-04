@@ -39,6 +39,10 @@ function GetStructures(room, structure)
     {
         sites = room.find(FIND_MY_CONSTRUCTION_SITES);
     }
+    else if (structure == "Flag")
+    {
+        sites = room.find(FIND_FLAGS);
+    }
 
     if (sites.length > 0) 
     {

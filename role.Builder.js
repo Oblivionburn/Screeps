@@ -1,17 +1,26 @@
 var GetStructure = require('util.GetStructure');
 var GetRepairs = require('util.GetRepairs');
 var Available = require('util.Available');
+var GetHostile = require('util.GetHostile');
 
 var Build = require('task.Build');
 var Siphon = require('task.Siphon');
 var Repair = require('task.Repair');
+var HandleEnemy = require('task.HandleEnemy');
 
 function Builder(creep, debug) 
 {
     var site = null;
     var okay = true;
     
-    if (creep.carry.energy < creep.carryCapacity &&
+    var hostile = GetHostile(creep);
+    if (hostile != null)
+    {
+        okay = !HandleEnemy(creep, hostile, debug);
+    }
+    
+    if (okay &&
+        creep.carry.energy < creep.carryCapacity &&
         creep.memory.task == "Siphoning")
     {
         site = GetStructure(creep, "Extension", false);

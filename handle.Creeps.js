@@ -2,6 +2,7 @@ var Harvester = require('role.Harvester');
 var Builder = require('role.Builder');
 var Upgrader = require('role.Upgrader');
 var Fixer = require('role.Fixer');
+var Soldier = require('role.Soldier');
 
 function HandleCreeps(debug) 
 {
@@ -35,6 +36,10 @@ function HandleCreeps(debug)
         else if (creep.memory.role == 'Fixer') 
         {
             Fixer(creep, debug);
+        }
+        else if (creep.memory.role == 'Soldier') 
+        {
+            Soldier(creep, debug);
         }
         
         if (debug)

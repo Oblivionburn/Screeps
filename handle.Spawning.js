@@ -13,6 +13,8 @@ function HandleSpawning(debug)
         var builders = GetCreeps(spawn.room, "Builder");
         var upgraders = GetCreeps(spawn.room, "Upgrader");
         var fixers = GetCreeps(spawn.room, "Fixer");
+        var soldiers = GetCreeps(spawn.room, "Soldier");
+        var claimers = GetCreeps(spawn.room, "Claimer");
 
         if (spawn.room.controller.level == 1)
         {
@@ -43,26 +45,30 @@ function HandleSpawning(debug)
             {
                 queue = Spawn(spawn, "Upgrader", debug);
             }
-            else if (fixers.length < 2)
+            else if (fixers.length < 1)
             {
                 queue = Spawn(spawn, "Fixer", debug);
             }
         }
         else if (spawn.room.controller.level == 3)
         {
-            if (harvesters.length < 5)
+            if (harvesters.length < 4)
             {
                 queue = Spawn(spawn, "Harvester", debug);
+            }
+            else if (soldiers.length < 1)
+            {
+                queue = Spawn(spawn, "Soldier", debug);
             }
             else if (builders.length < 1)
             {
                 queue = Spawn(spawn, "Builder", debug);
             }
-            else if (upgraders.length < 2)
+            else if (upgraders.length < 1)
             {
                 queue = Spawn(spawn, "Upgrader", debug);
             }
-            else if (fixers.length < 2)
+            else if (fixers.length < 1)
             {
                 queue = Spawn(spawn, "Fixer", debug);
             }

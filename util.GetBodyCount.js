@@ -4,7 +4,8 @@ function GetBodyCount(creep, type)
     
     for (i = 0; i < creep.body.length; i++)
     {
-        if (creep.body[i].type == type)
+        if (creep.body[i].type == type &&
+            creep.body[i].hits > 0)
         {
             result++;
         }

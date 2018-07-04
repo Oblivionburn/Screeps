@@ -8,6 +8,7 @@ var Upgrade = require('task.Upgrade');
 var Grab = require('task.Grab');
 var Siphon = require('task.Siphon');
 var Transfer = require('task.Transfer');
+var HandleEnemy = require('task.HandleEnemy');
 
 function Upgrader(creep, debug) 
 {
@@ -17,15 +18,7 @@ function Upgrader(creep, debug)
     var hostile = GetHostile(creep);
     if (hostile != null)
     {
-        creep.say("Intruder!");
-        
-        var distance = GetDistance(creep.pos.x, creep.pos.y, hostile.pos.x, hostile.pos.y);
-        if (distance < 2)
-        {
-            okay = false;
-            creep.say("Die!");
-            creep.attack(hostile);
-        }
+        okay = !HandleEnemy(creep, hostile, debug);
     }
 
     if (okay &&

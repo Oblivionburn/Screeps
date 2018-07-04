@@ -1,15 +1,24 @@
 var GetStructure = require('util.GetStructure');
 var Available = require('util.Available');
+var GetHostile = require('util.GetHostile');
 
 var Harvest = require('task.Harvest');
 var Transfer = require('task.Transfer');
+var HandleEnemy = require('task.HandleEnemy');
 
 function Harvester(creep, debug) 
 {
     var site = null;
     var okay = true;
     
-    if (creep.carry.energy < creep.carryCapacity &&
+    var hostile = GetHostile(creep);
+    if (hostile != null)
+    {
+        okay = !HandleEnemy(creep, hostile, debug);
+    }
+    
+    if (okay &&
+        creep.carry.energy < creep.carryCapacity &&
         creep.memory.task == "Harvesting") 
     {
         site = GetStructure(creep, "Source");

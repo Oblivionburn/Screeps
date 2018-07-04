@@ -25,17 +25,22 @@ function Spawn(spawn, role, debug)
     }
     else if (role == "Upgrader")
     {
-        body = [ATTACK, WORK, CARRY, MOVE];
+        body = [WORK, CARRY, MOVE, ATTACK];
         cost = GetSpawnCost(body);
     }
     else if (role == "Fixer")
     {
-        body = [ATTACK, WORK, CARRY, MOVE];
+        body = [WORK, CARRY, MOVE, ATTACK];
         cost = GetSpawnCost(body);
     }
     else if (role == "Soldier")
     {
-        body = [ATTACK, ATTACK, MOVE];
+        body = [ATTACK, MOVE, ATTACK];
+        cost = GetSpawnCost(body);
+    }
+    else if (role == "Claimer")
+    {
+        body = [CLAIM, MOVE];
         cost = GetSpawnCost(body);
     }
     

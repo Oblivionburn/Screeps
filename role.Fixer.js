@@ -9,6 +9,7 @@ var Siphon = require('task.Siphon');
 var Repair = require('task.Repair');
 var Transfer = require('task.Transfer');
 var Grab = require('task.Grab');
+var HandleEnemy = require('task.HandleEnemy');
 
 function Fixer(creep, debug) 
 {
@@ -18,15 +19,7 @@ function Fixer(creep, debug)
     var hostile = GetHostile(creep);
     if (hostile != null)
     {
-        creep.say("Intruder!");
-        
-        var distance = GetDistance(creep.pos.x, creep.pos.y, hostile.pos.x, hostile.pos.y);
-        if (distance < 2)
-        {
-            okay = false;
-            creep.say("Die!");
-            creep.attack(hostile);
-        }
+        okay = !HandleEnemy(creep, hostile, debug);
     }
     
     if (okay)
@@ -53,7 +46,8 @@ function Fixer(creep, debug)
         }
     }
     
-    if (creep.carry.energy < creep.carryCapacity &&
+    if (okay &&
+        creep.carry.energy < creep.carryCapacity &&
         creep.memory.task == "Siphoning")
     {
         site = GetStructure(creep, "Extension", false);
