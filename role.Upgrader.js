@@ -17,6 +17,8 @@ function Upgrader(creep, debug)
     var hostile = GetHostile(creep);
     if (hostile != null)
     {
+        creep.say("Intruder!");
+        
         var distance = GetDistance(creep.pos.x, creep.pos.y, hostile.pos.x, hostile.pos.y);
         if (distance < 2)
         {

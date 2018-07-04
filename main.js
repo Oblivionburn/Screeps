@@ -10,7 +10,7 @@ module.exports.loop = function ()
     if (elder != null &&
         debug)
     {
-        console.log(elder.name + " will die in: " + elder.ticksToLive + " ticks.");
+        console.log(elder.name + " in room " + elder.room.name + " will die in: " + elder.ticksToLive + " ticks.");
     }
     
     if (queue != "")

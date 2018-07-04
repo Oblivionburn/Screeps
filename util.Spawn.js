@@ -3,6 +3,7 @@ var GetCreeps = require('util.GetCreeps');
 var GetName = require('util.GetName');
 var GetSpawnCost = require('util.GetSpawnCost');
 var GetError = require('util.GetError');
+var GetStructures = require('util.GetStructures');
 
 function Spawn(spawn, role, debug) 
 {
@@ -33,9 +34,15 @@ function Spawn(spawn, role, debug)
         cost = GetSpawnCost(body);
     }
     
+    var energy_pool = 0;
+    for (var structure in GetStructures(spawn.room, "Extension"))
+    {
+        energy_pool += structure.energy;
+    }
+    
     if (debug)
     {
-        if (cost <= spawn.energy &&
+        if (cost <= (spawn.energy + energy_pool) &&
             spawn.spawning == null)
         {
             CleanMemory();
@@ -44,7 +51,7 @@ function Spawn(spawn, role, debug)
     }
     else
     {
-        if (spawn.energy >= cost  &&
+        if ((spawn.energy + energy_pool) >= cost &&
             spawn.spawning == null)
         {
             CleanMemory();
@@ -58,7 +65,7 @@ function Spawn(spawn, role, debug)
     }
     else if (debug)
     {
-        queue = "Spawn queue: " + role + " for " + cost + " energy.";
+        queue = spawn.name + " queue: " + role + " for " + cost + " energy.";
     }
 
     return queue;
