@@ -1,8 +1,7 @@
-var CleanMemory = require('util.CleanMemory');
 var GetCreeps = require('util.GetCreeps');
 var Spawn = require('util.Spawn');
 
-function HandleSpawning() 
+function HandleSpawning(debug) 
 {
     var queue = "";
     
@@ -19,64 +18,53 @@ function HandleSpawning()
         {
             if (harvesters.length < 2)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Harvester");
+                queue = Spawn(spawn, "Harvester", debug);
             }
             else if (builders.length < 1)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Builder");
+                queue = Spawn(spawn, "Builder", debug);
             }
             else if (upgraders.length < 1)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Upgrader");
+                queue = Spawn(spawn, "Upgrader", debug);
             }
         }
         else if (spawn.room.controller.level == 2)
         {
             if (harvesters.length < 3)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Harvester");
+                queue = Spawn(spawn, "Harvester", debug);
             }
             else if (builders.length < 1)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Builder");
+                queue = Spawn(spawn, "Builder", debug);
             }
             else if (upgraders.length < 2)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Upgrader");
+                queue = Spawn(spawn, "Upgrader", debug);
             }
             else if (fixers.length < 2)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Fixer");
+                queue = Spawn(spawn, "Fixer", debug);
             }
         }
         else if (spawn.room.controller.level == 3)
         {
             if (harvesters.length < 4)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Harvester");
+                queue = Spawn(spawn, "Harvester", debug);
             }
             else if (builders.length < 1)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Builder");
+                queue = Spawn(spawn, "Builder", debug);
             }
             else if (upgraders.length < 3)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Upgrader");
+                queue = Spawn(spawn, "Upgrader", debug);
             }
             else if (fixers.length < 3)
             {
-                CleanMemory();
-                queue = Spawn(spawn, "Fixer");
+                queue = Spawn(spawn, "Fixer", debug);
             }
         }
     }

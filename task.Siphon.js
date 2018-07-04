@@ -3,7 +3,7 @@ var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 var Pave = require('task.Pave');
 
-function Siphon(creep, structure) 
+function Siphon(creep, structure, debug) 
 {
     creep.memory.task = "Siphoning";
     creep.memory.target = structure.id;
@@ -17,14 +17,17 @@ function Siphon(creep, structure)
     var result = creep.withdraw(structure, RESOURCE_ENERGY);
     if (result == 0) 
     {
-        creep.say(total + "/" + creep.carryCapacity, false);
+        if (debug)
+        {
+            creep.say(total + "/" + creep.carryCapacity, false);
+        }
     }
     else if (result == -9)
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location, creep.memory.task);
+        GoTo(creep, location, creep.memory.task, debug);
     }
-    else
+    else if (debug)
     {
         creep.say("Error: " + GetError(result));
     }

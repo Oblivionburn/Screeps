@@ -1,7 +1,7 @@
 var GetDistance = require('util.GetDistance');
 var Travel = require('task.Travel');
 
-function GoTo(creep, location, reason) 
+function GoTo(creep, location, reason, debug) 
 {
     var distance = GetDistance(creep.pos.x, creep.pos.y, location.X, location.Y);
     if (distance > 1)
@@ -33,6 +33,11 @@ function GoTo(creep, location, reason)
         else if (reason == "Repairing")
         {
             color = "#9933FF";
+        }
+        
+        if (debug)
+        {
+            creep.say(reason);
         }
         
         creep.moveTo(location.X, location.Y, {reusePath: 3, visualizePathStyle: {stroke: color}});

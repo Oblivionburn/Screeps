@@ -6,7 +6,7 @@ var Build = require('task.Build');
 var Siphon = require('task.Siphon');
 var Repair = require('task.Repair');
 
-function Builder(creep) 
+function Builder(creep, debug) 
 {
     var site = null;
     var okay = true;
@@ -18,7 +18,7 @@ function Builder(creep)
         if (site != null)
         {
             okay = false;
-            Siphon(creep, site);
+            Siphon(creep, site, debug);
         }
     }
     
@@ -30,7 +30,7 @@ function Builder(creep)
             if (creep.carry.energy > 0)
             {
                 okay = false;
-                Build(creep, site);
+                Build(creep, site, debug);
             }
         }
     }

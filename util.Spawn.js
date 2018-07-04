@@ -1,9 +1,10 @@
+var CleanMemory = require('util.CleanMemory');
 var GetCreeps = require('util.GetCreeps');
 var GetName = require('util.GetName');
 var GetSpawnCost = require('util.GetSpawnCost');
 var GetError = require('util.GetError');
 
-function Spawn(spawn, role) 
+function Spawn(spawn, role, debug) 
 {
     var queue = "";
     
@@ -32,17 +33,30 @@ function Spawn(spawn, role)
         cost = GetSpawnCost(body);
     }
     
-    if (cost <= spawn.energy &&
-        spawn.spawning == null)
+    if (debug)
     {
-        result = spawn.spawnCreep(body, GetName(role), {memory: {role: role}});
+        if (cost <= spawn.energy &&
+            spawn.spawning == null)
+        {
+            CleanMemory();
+            result = spawn.spawnCreep(body, GetName(role), {memory: {role: role}});
+        }
+    }
+    else
+    {
+        if (spawn.energy >= cost  &&
+            spawn.spawning == null)
+        {
+            CleanMemory();
+            result = spawn.spawnCreep(body, GetName(role), {memory: {role: role}});
+        }
     }
     
     if (result != 0)
     {
         console.log("Error for " + spawn.name + ": " + GetError(result));
     }
-    else
+    else if (debug)
     {
         queue = "Spawn queue: " + role + " for " + cost + " energy.";
     }

@@ -3,10 +3,12 @@ var HandleSpawning = require('handle.Spawning');
 
 module.exports.loop = function () 
 {
-    var queue = HandleSpawning();
-    var elder = HandleCreeps();
+    var debug = true;
+    var queue = HandleSpawning(debug);
+    var elder = HandleCreeps(debug);
 
-    if (elder != null)
+    if (elder != null &&
+        debug)
     {
         console.log(elder.name + " will die in: " + elder.ticksToLive + " ticks.");
     }

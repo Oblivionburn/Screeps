@@ -3,7 +3,7 @@ var GetBodyCount = require('util.GetBodyCount');
 var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 
-function Repair(creep, structure) 
+function Repair(creep, structure, debug) 
 {
     creep.memory.task = "Repairing";
     creep.memory.target = structure.id;
@@ -13,14 +13,17 @@ function Repair(creep, structure)
     var result = creep.repair(structure);
     if (result == 0) 
     {
-        creep.say(total, false);
+        if (debug)
+        {
+            creep.say(total, false);
+        }
     }
     else if (result == -9)
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location, creep.memory.task);
+        GoTo(creep, location, creep.memory.task, debug);
     }
-    else
+    else if (debug)
     {
         creep.say("Error: " + GetError(result));
     }

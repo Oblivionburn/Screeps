@@ -9,7 +9,7 @@ var Siphon = require('task.Siphon');
 var Repair = require('task.Repair');
 var Grab = require('task.Grab');
 
-function Fixer(creep) 
+function Fixer(creep, debug) 
 {
     var site = null;
     var okay = true;
@@ -34,7 +34,7 @@ function Fixer(creep)
             Available(creep, site.id))
         {
             okay = false;
-            Siphon(creep, site);
+            Siphon(creep, site, debug);
         }
     }
     
@@ -46,7 +46,7 @@ function Fixer(creep)
             Available(creep, site.id))
         {
             okay = false;
-            Grab(creep, site);
+            Grab(creep, site, debug);
         }
     }
     
@@ -57,7 +57,7 @@ function Fixer(creep)
         if (site != null)
         {
             okay = false;
-            Siphon(creep, site);
+            Siphon(creep, site, debug);
         }
     }
     
@@ -69,7 +69,7 @@ function Fixer(creep)
             if (creep.carry.energy > 0)
             {
                 okay = false;
-                Repair(creep, site);
+                Repair(creep, site, debug);
             }
         }
     }
@@ -82,7 +82,7 @@ function Fixer(creep)
             if (creep.carry.energy > 0)
             {
                 okay = false;
-                Repair(creep, site);
+                Repair(creep, site, debug);
             }
         }
     }
@@ -95,7 +95,7 @@ function Fixer(creep)
             if (creep.carry.energy > 0)
             {
                 okay = false;
-                Repair(creep, site);
+                Repair(creep, site, debug);
             }
         }
     }
@@ -108,7 +108,7 @@ function Fixer(creep)
             if (creep.carry.energy > 0)
             {
                 okay = false;
-                Repair(creep, site);
+                Repair(creep, site, debug);
             }
         }
     }
@@ -121,7 +121,7 @@ function Fixer(creep)
             if (creep.carry.energy > 0)
             {
                 okay = false;
-                Repair(creep, site);
+                Repair(creep, site, debug);
             }
         }
     }
@@ -134,7 +134,7 @@ function Fixer(creep)
             if (creep.carry.energy > 0)
             {
                 okay = false;
-                Repair(creep, site);
+                Repair(creep, site, debug);
             }
         }
     }

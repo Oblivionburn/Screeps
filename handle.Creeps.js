@@ -3,46 +3,50 @@ var Builder = require('role.Builder');
 var Upgrader = require('role.Upgrader');
 var Fixer = require('role.Fixer');
 
-function HandleCreeps() 
+function HandleCreeps(debug) 
 {
     var elder = null;
-    for (var name in Game.creeps)
+    
+    if (debug)
     {
-        elder = Game.creeps[name];
-        break;
+        for (var name in Game.creeps)
+        {
+            elder = Game.creeps[name];
+            break;
+        }
     }
-
-    for (var name in Game.creeps) 
+    
+    for (var name in Game.creeps)
     {
         var creep = Game.creeps[name];
         
         if (creep.memory.role == 'Harvester') 
         {
-            Harvester(creep);
+            Harvester(creep, debug);
         }
         else if (creep.memory.role == 'Builder') 
         {
-            Builder(creep);
+            Builder(creep, debug);
         }
         else if (creep.memory.role == 'Upgrader') 
         {
-            Upgrader(creep);
+            Upgrader(creep, debug);
         }
         else if (creep.memory.role == 'Fixer') 
         {
-            Fixer(creep);
+            Fixer(creep, debug);
         }
         
-        if (creep.ticksToLive < elder.ticksToLive)
+        if (debug)
         {
-            elder = creep;
+            if (creep.ticksToLive < elder.ticksToLive)
+            {
+                elder = creep;
+            }
         }
     }
     
-    if (elder != null)
-    {
-        return elder;
-    }
+    return elder;
 }
 
 module.exports = HandleCreeps;

@@ -4,7 +4,7 @@ var Available = require('util.Available');
 var Harvest = require('task.Harvest');
 var Transfer = require('task.Transfer');
 
-function Harvester(creep) 
+function Harvester(creep, debug) 
 {
     var site = null;
     var okay = true;
@@ -16,7 +16,7 @@ function Harvester(creep)
         if (site != null)
         {
             okay = false;
-            Harvest(creep, site);
+            Harvest(creep, site, debug);
         }
     }
     
@@ -27,7 +27,7 @@ function Harvester(creep)
         if (site != null) 
         {
             okay = false;
-            Transfer(creep, site);
+            Transfer(creep, site, debug);
         }
     }
     
@@ -38,7 +38,7 @@ function Harvester(creep)
         if (site != null)
         {
             okay = false;
-            Transfer(creep, site);
+            Transfer(creep, site, debug);
         }
     }
     
@@ -49,7 +49,7 @@ function Harvester(creep)
         if (site != null) 
         {
             okay = false;
-            Transfer(creep, site);
+            Transfer(creep, site, debug);
         }
     }
     
@@ -64,7 +64,7 @@ function Harvester(creep)
                 Available(creep, builder.id)) 
             {
                 okay = false;
-                Transfer(creep, builder);
+                Transfer(creep, builder, debug);
                 break;
             }
         }

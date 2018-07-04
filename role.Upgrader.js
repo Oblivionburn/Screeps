@@ -9,7 +9,7 @@ var Grab = require('task.Grab');
 var Siphon = require('task.Siphon');
 var Transfer = require('task.Transfer');
 
-function Upgrader(creep) 
+function Upgrader(creep, debug) 
 {
     var site = null;
     var okay = true;
@@ -34,7 +34,7 @@ function Upgrader(creep)
         if (site != null)
         {
             okay = false;
-            Harvest(creep, site);
+            Harvest(creep, site, debug);
         }
     }
     
@@ -43,7 +43,7 @@ function Upgrader(creep)
         creep.room.controller.progress < creep.room.controller.progressTotal)
     {
         okay = false;
-        Upgrade(creep, creep.room.controller);
+        Upgrade(creep, creep.room.controller, debug);
     }
     
     if (okay)

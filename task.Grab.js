@@ -3,7 +3,7 @@ var GetBodyCount = require('util.GetBodyCount');
 var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 
-function Grab(creep, target) 
+function Grab(creep, target, debug) 
 {
     creep.memory.task = "Grabbing";
     creep.memory.target = target.id;
@@ -11,14 +11,17 @@ function Grab(creep, target)
     var result = creep.pickup(target);
     if (result == 0) 
     {
-        creep.say("Left: " + (target.amount - (GetBodyCount(creep, "work") * 2)), false);
+        if (debug)
+        {
+            creep.say("Left: " + (target.amount - (GetBodyCount(creep, "work") * 2)), false);
+        }
     }
     else if (result == -9)
     {
         var location = new Vector(target.pos.x, target.pos.y);
-        GoTo(creep, location, creep.memory.task);
+        GoTo(creep, location, creep.memory.task, debug);
     }
-    else
+    else if (debug)
     {
         creep.say("Error: " + GetError(result));
     }
