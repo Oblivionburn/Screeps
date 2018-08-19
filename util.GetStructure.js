@@ -2,6 +2,7 @@ var Vector = require('Vector');
 var GetNearest = require('util.GetNearest');
 var Available = require('util.Available');
 var Occupied = require('util.Occupied');
+var NextTo = require('util.NextTo');
 
 function GetStructure(creep, structure, transfer)
 {
@@ -76,7 +77,7 @@ function GetStructure(creep, structure, transfer)
             if (structure != "Source")
             {
                 if (Available(creep, sites[i].id) &&
-                    !Occupied(location))
+                    !Occupied(creep, location))
                 {
                     locations[count] = location;
                     count++;
@@ -84,8 +85,35 @@ function GetStructure(creep, structure, transfer)
             }
             else
             {
-                locations[count] = location;
-                count++;
+                var path = creep.room.findPath(creep.pos, sites[i].pos, {ignoreCreeps: 1});
+
+                var target = null;
+                for (p = 0; p < path.length; p++)
+                {
+                    if (path[p] != null)
+                    {
+                        var current = new Vector(path[p].x, path[p].y);
+                        if (NextTo(current, location))
+                        {
+                            target = current;
+                            break;
+                        }
+                        else if (current.X == location.X &&
+                                 current.Y == location.Y)
+                        {
+                            target = new Vector(creep.pos.x, creep.pos.y);
+                        }
+                    }
+                }
+                
+                if (target != null)
+                {
+                    if (!Occupied(creep, target))
+                    {
+                        locations[count] = location;
+                        count++;
+                    }
+                }
             }
         }
         

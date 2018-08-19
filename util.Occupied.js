@@ -1,10 +1,11 @@
-function Occupied(location) 
+function Occupied(creep, location) 
 {
     for (var name in Game.creeps) 
     {
-        var creep = Game.creeps[name];
-        if (creep.pos.x == location.X &&
-            creep.pos.y == location.Y) 
+        var other_creep = Game.creeps[name];
+        if (other_creep.pos.x == location.X &&
+            other_creep.pos.y == location.Y &&
+            creep.name != other_creep.name) 
         {
             return true;
         }

@@ -18,6 +18,8 @@ function Soldier(creep, debug)
     if (okay &&
         creep.memory.task == "Invading")
     {
+        Wander(creep);
+        /*
         if (!Invade(creep, debug))
         {
             Wander(creep);
@@ -26,6 +28,7 @@ function Soldier(creep, debug)
         {
             okay = false;
         }
+        */
     }
     
     if (okay)

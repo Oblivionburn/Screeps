@@ -19,7 +19,7 @@ function Transfer(creep, structure, debug)
     {
         if (debug)
         {
-            creep.say("Give:" + transfering, false);
+            creep.say("Gave:" + transfering, false);
         }
     }
     else if (result == -9)

@@ -14,6 +14,7 @@ function GoTo(creep, location, reason, debug)
         }
         else if (reason == "Transfering")
         {
+            reason = "Giving";
             color = "#00FF00";
         }
         else if (reason == "Building")
