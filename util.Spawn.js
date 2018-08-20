@@ -44,32 +44,24 @@ function Spawn(spawn, role, debug)
         cost = GetSpawnCost(body);
     }
     
-    var energy_pool = 0;
-    for (var structure in GetStructures(spawn.room, "Extension"))
+    var energy_pool = spawn.energy;
+    var extensions = GetStructures(spawn.room, "Extension");
+    if (extensions != null)
     {
-        energy_pool += structure.energy;
-    }
-    
-    if (debug)
-    {
-        if (cost <= (spawn.energy + energy_pool) &&
-            spawn.spawning == null)
+        for (e = 0; e < extensions.length; e++)
         {
-            CleanMemory();
-            result = spawn.spawnCreep(body, GetName(role), {memory: {role: role}});
-        }
-    }
-    else
-    {
-        if ((spawn.energy + energy_pool) >= cost &&
-            spawn.spawning == null)
-        {
-            CleanMemory();
-            result = spawn.spawnCreep(body, GetName(role), {memory: {role: role}});
+            energy_pool += extensions[e].energy;
         }
     }
     
-    if (result != 0)
+    if (cost <= energy_pool &&
+        spawn.spawning == null)
+    {
+        CleanMemory();
+        result = spawn.spawnCreep(body, GetName(role), {memory: {role: role}});
+    }
+    
+    if (result < 0)
     {
         console.log("Error for " + spawn.name + ": " + GetError(result));
     }
