@@ -1,4 +1,4 @@
-function GetStructures(room, structure)
+function GetStructures(room, structure, checkEnergy)
 {
     var sites = [];
     if (structure == "Source")
@@ -11,7 +11,14 @@ function GetStructures(room, structure)
         {
             filter: (structure) => 
             {
-                return (structure.structureType == STRUCTURE_SPAWN) && structure.energy > 0;
+                if (checkEnergy)
+                {
+                    return (structure.structureType == STRUCTURE_SPAWN) && structure.energy > 0;
+                }
+                else
+                {
+                    return structure.structureType == STRUCTURE_SPAWN;
+                }
             }
         });
     }
@@ -21,7 +28,14 @@ function GetStructures(room, structure)
         {
             filter: (structure) => 
             {
-                return (structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
+                if (checkEnergy)
+                {
+                    return (structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
+                }
+                else
+                {
+                    return structure.structureType == STRUCTURE_EXTENSION;
+                }
             }
         });
     }
@@ -31,7 +45,14 @@ function GetStructures(room, structure)
         {
             filter: (structure) => 
             {
-                return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+                if (checkEnergy)
+                {
+                    return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+                }
+                else
+                {
+                    return structure.structureType == STRUCTURE_TOWER;
+                }
             }
         });
     }

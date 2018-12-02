@@ -73,7 +73,7 @@ function GetStructure(creep, structure, transfer)
             var count = 0;
         
             var locations = [];
-            for (i = 0; i < sites.length; i++)
+            for (let i = 0; i < sites.length; i++)
             {
                 var location = new Vector(sites[i].pos.x, sites[i].pos.y);
                 
@@ -88,7 +88,7 @@ function GetStructure(creep, structure, transfer)
             if (locations.length > 0)
             {
                 var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-                for (i = 0; i < sites.length; i++)
+                for (let i = 0; i < sites.length; i++)
                 {
                     if (location.X == sites[i].pos.x &&
                         location.Y == sites[i].pos.y)
@@ -101,7 +101,7 @@ function GetStructure(creep, structure, transfer)
         else
         {
             var current = new Vector(creep.pos.x, creep.pos.y);
-            for (i = 0; i < sites.length; i++)
+            for (let i = 0; i < sites.length; i++)
             {
                 var site = new Vector(sites[i].pos.x, sites[i].pos.y);
                 if (NextTo(current, site))
@@ -113,7 +113,7 @@ function GetStructure(creep, structure, transfer)
             var harvest_spots = GetHarvestSpots_ForCreep(creep);
             var location = GetNearest(creep.pos.x, creep.pos.y, harvest_spots);
         
-            for (i = 0; i < sites.length; i++)
+            for (let i = 0; i < sites.length; i++)
             {
                 var site = new Vector(sites[i].pos.x, sites[i].pos.y);
                 if (NextTo(location, site))

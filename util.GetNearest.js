@@ -5,7 +5,7 @@ function GetNearest(x, y, locations)
     var location = locations[0];
     var distance = GetDistance(x, y, location.X, location.Y);
     
-    for (i = 0; i < locations.length; i++)
+    for (let i = 0; i < locations.length; i++)
     {
         var new_distance = GetDistance(x, y, locations[i].X, locations[i].Y);
         

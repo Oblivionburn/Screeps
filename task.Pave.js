@@ -11,7 +11,7 @@ function Pave(creep)
     
     if (!blocked)
     {
-        for (i = 0; i < sites.length; i++)
+        for (let i = 0; i < sites.length; i++)
         {
             if (sites[i].pos.x == creep.pos.x &&
                 sites[i].pos.y == creep.pos.y)
@@ -25,7 +25,7 @@ function Pave(creep)
     if (!blocked)
     {
         sites = creep.room.find(FIND_STRUCTURES);
-        for (i = 0; i < sites.length; i++)
+        for (let i = 0; i < sites.length; i++)
         {
             if (sites[i].pos.x == creep.pos.x &&
                 sites[i].pos.y == creep.pos.y)

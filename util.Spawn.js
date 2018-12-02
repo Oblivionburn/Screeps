@@ -12,65 +12,64 @@ function Spawn(spawn, role, debug)
     var cost = 0;
     var result = 0;
     
-    if (role == "Harvester")
+    if (spawn.spawning == null)
     {
-        template = [WORK, CARRY, MOVE, MOVE];
-    }
-    else if (role == "Builder")
-    {
-        template = [WORK, WORK, CARRY, MOVE];
-    }
-    else if (role == "Upgrader")
-    {
-        template = [WORK, CARRY, MOVE, ATTACK];
-    }
-    else if (role == "Fixer")
-    {
-        template = [WORK, CARRY, MOVE, ATTACK];
-    }
-    else if (role == "Soldier")
-    {
-        template = [ATTACK, MOVE, ATTACK];
-    }
-    else if (role == "Claimer")
-    {
-        template = [CLAIM, MOVE];
-    }
-    
-    var available = Math.floor(spawn.room.energyAvailable / GetSpawnCost(template));
-    for (i = 0; i < available; i++)
-    {
-        for (t = 0; t < template.length; t++)
+        if (role == "Harvester")
         {
-            body.push(template[t]);
+            template = [WORK, CARRY, MOVE, MOVE];
         }
-    }
-    
-    if (body.length > 0)
-    {
-        cost = GetSpawnCost(body);
-        
-        if (cost <= spawn.room.energyAvailable &&
-            spawn.spawning == null)
+        else if (role == "Builder")
         {
-            CleanMemory();
-            result = spawn.spawnCreep(body, GetName(role), 
+            template = [WORK, WORK, CARRY, MOVE];
+        }
+        else if (role == "Upgrader" ||
+                 role == "Fixer")
+        {
+            template = [ATTACK, WORK, CARRY, MOVE];
+        }
+        else if (role == "Soldier")
+        {
+            template = [ATTACK, ATTACK, MOVE];
+        }
+        else if (role == "Claimer")
+        {
+            template = [CLAIM, MOVE];
+        }
+        
+        var available = Math.floor(spawn.room.energyAvailable / GetSpawnCost(template));
+        for (let i = 0; i < available; i++)
+        {
+            for (t = 0; t < template.length; t++)
             {
-                memory: 
-                {
-                    role: role, 
-                    home: spawn.room.name
-                }
-            });
+                body.push(template[t]);
+            }
         }
         
-        if (result < 0)
+        if (body.length > 0)
         {
-            console.log("Error for " + spawn.name + ": " + GetError(result));
-        }
-        else if (debug)
-        {
-            queue = spawn.name + " queue: " + role + " for " + cost + " energy.";
+            cost = GetSpawnCost(body);
+            
+            if (cost <= spawn.room.energyAvailable)
+            {
+                CleanMemory();
+                result = spawn.spawnCreep(body, GetName(role), 
+                {
+                    memory: 
+                    {
+                        role: role, 
+                        home: spawn.room.name
+                    }
+                });
+            }
+            
+            if (result < 0)
+            {
+                console.log("Error for " + spawn.name + ": " + GetError(result));
+            }
+            else if (debug)
+            {
+                queue = spawn.name + " spawning: " + role + " for " + cost + " energy.";
+            }
         }
     }
     

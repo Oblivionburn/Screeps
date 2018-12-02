@@ -2,7 +2,7 @@ function GetSpawnCost(body)
 {
     var result = 0;
     
-    for (i = 0; i < body.length; i++)
+    for (let i = 0; i < body.length; i++)
     {
         if (body[i] == "move")
         {

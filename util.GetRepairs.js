@@ -84,7 +84,7 @@ function GetRepairs(creep, structure)
         {
             //Get structure with lowest hits
             
-            for (i = 0; i < sites.length; i++)
+            for (let i = 0; i < sites.length; i++)
             {
                 if (Available(creep, sites[i].id))
                 {
@@ -97,7 +97,7 @@ function GetRepairs(creep, structure)
             {
                 var hp = site.hits;
                 
-                for (i = 0; i < sites.length; i++)
+                for (let i = 0; i < sites.length; i++)
                 {
                     if (sites[i].hits < hp &&
                         Available(creep, sites[i].id))
@@ -115,7 +115,7 @@ function GetRepairs(creep, structure)
             var count = 0;
         
             var locations = [];
-            for (i = 0; i < sites.length; i++)
+            for (let i = 0; i < sites.length; i++)
             {
                 var location = new Vector(sites[i].pos.x, sites[i].pos.y);
                 
@@ -129,7 +129,7 @@ function GetRepairs(creep, structure)
             if (locations.length > 0)
             {
                 var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-                for (i = 0; i < sites.length; i++)
+                for (let i = 0; i < sites.length; i++)
                 {
                     if (sites[i].pos.x == location.X &&
                         sites[i].pos.y == location.Y)
