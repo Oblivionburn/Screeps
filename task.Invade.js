@@ -121,7 +121,6 @@ function Invade(creep, debug)
         if (exit != null &&
             Game.map.isRoomAvailable(otherRoom))
         {
-            
             var location = new Vector(exit.x, exit.y);
             GoTo(creep, location, creep.memory.task, debug);
             return true;

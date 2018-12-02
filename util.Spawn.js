@@ -46,22 +46,34 @@ function Spawn(spawn, role, debug)
         }
     }
     
-    if (GetSpawnCost(body) <= spawn.room.energyAvailable &&
-        spawn.spawning == null)
+    if (body.length > 0)
     {
-        CleanMemory();
-        result = spawn.spawnCreep(body, GetName(role), {memory: {role: role, home: spawn.room.name}});
+        cost = GetSpawnCost(body);
+        
+        if (cost <= spawn.room.energyAvailable &&
+            spawn.spawning == null)
+        {
+            CleanMemory();
+            result = spawn.spawnCreep(body, GetName(role), 
+            {
+                memory: 
+                {
+                    role: role, 
+                    home: spawn.room.name
+                }
+            });
+        }
+        
+        if (result < 0)
+        {
+            console.log("Error for " + spawn.name + ": " + GetError(result));
+        }
+        else if (debug)
+        {
+            queue = spawn.name + " queue: " + role + " for " + cost + " energy.";
+        }
     }
     
-    if (result < 0)
-    {
-        console.log("Error for " + spawn.name + ": " + GetError(result));
-    }
-    else if (debug)
-    {
-        queue = spawn.name + " queue: " + role + " for " + cost + " energy.";
-    }
-
     return queue;
 }
 

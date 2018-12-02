@@ -10,6 +10,7 @@ var Repair = require('task.Repair');
 var Transfer = require('task.Transfer');
 var Grab = require('task.Grab');
 var HandleEnemy = require('task.HandleEnemy');
+var Wander = require('task.Wander');
 
 function Fixer(creep, debug) 
 {
@@ -55,6 +56,10 @@ function Fixer(creep, debug)
         {
             okay = false;
             Siphon(creep, site, debug);
+        }
+        else
+        {
+            Wander(creep);
         }
     }
     

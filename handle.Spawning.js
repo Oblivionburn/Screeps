@@ -19,65 +19,26 @@ function HandleSpawning(debug)
 
         var harvestSpots = GetHarvestSpots_ForRoom(spawn.room);
         
-        if (spawn.room.controller.level == 1)
+        if (harvesters.length < spawn.room.controller.level + 1 &&
+            harvesters.length < harvestSpots.length)
         {
-            if (harvesters.length < 2 &&
-                harvesters.length < harvestSpots.length)
-            {
-                queue = Spawn(spawn, "Harvester", debug);
-            }
-            else if (builders.length < 1)
-            {
-                queue = Spawn(spawn, "Builder", debug);
-            }
-            else if (upgraders.length < 1)
-            {
-                queue = Spawn(spawn, "Upgrader", debug);
-            }
+            queue = Spawn(spawn, "Harvester", debug); 
         }
-        else if (spawn.room.controller.level == 2)
+        else if (upgraders.length < spawn.room.controller.level + 1)
         {
-            if (harvesters.length < 3 &&
-                harvesters.length < harvestSpots.length)
-            {
-                queue = Spawn(spawn, "Harvester", debug);
-            }
-            else if (builders.length < 1)
-            {
-                queue = Spawn(spawn, "Builder", debug);
-            }
-            else if (upgraders.length < 1)
-            {
-                queue = Spawn(spawn, "Upgrader", debug);
-            }
-            else if (fixers.length < 1)
-            {
-                queue = Spawn(spawn, "Fixer", debug);
-            }
+            queue = Spawn(spawn, "Upgrader", debug);
         }
-        else if (spawn.room.controller.level == 3)
+        else if (soldiers.length < spawn.room.controller.level - 1)
         {
-            if (harvesters.length < 4 &&
-                harvesters.length < harvestSpots.length)
-            {
-                queue = Spawn(spawn, "Harvester", debug); 
-            }
-            else if (soldiers.length < 1)
-            {
-                queue = Spawn(spawn, "Soldier", debug);
-            }
-            else if (builders.length < 1)
-            {
-                queue = Spawn(spawn, "Builder", debug);
-            }
-            else if (upgraders.length < 1)
-            {
-                queue = Spawn(spawn, "Upgrader", debug);
-            }
-            else if (fixers.length < 1)
-            {
-                queue = Spawn(spawn, "Fixer", debug);
-            }
+            queue = Spawn(spawn, "Soldier", debug);
+        }
+        else if (builders.length < 1)
+        {
+            queue = Spawn(spawn, "Builder", debug);
+        }
+        else if (fixers.length < spawn.room.controller.level - 1)
+        {
+            queue = Spawn(spawn, "Fixer", debug);
         }
     }
     

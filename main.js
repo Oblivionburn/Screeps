@@ -18,7 +18,7 @@ function loop()
     
     if (queue != "")
     {
-        //console.log(queue);
+        console.log(queue);
     }
 }
 

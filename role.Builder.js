@@ -7,6 +7,7 @@ var Build = require('task.Build');
 var Siphon = require('task.Siphon');
 var Repair = require('task.Repair');
 var HandleEnemy = require('task.HandleEnemy');
+var Wander = require('task.Wander');
 
 function Builder(creep, debug) 
 {
@@ -28,6 +29,10 @@ function Builder(creep, debug)
         {
             okay = false;
             Siphon(creep, site, debug);
+        }
+        else
+        {
+            Wander(creep);
         }
     }
     
