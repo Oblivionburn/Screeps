@@ -3,6 +3,7 @@ var GetNearest = require('util.GetNearest');
 var Available = require('util.Available');
 var Occupied = require('util.Occupied');
 var NextTo = require('util.NextTo');
+var GetHarvestSpots_ForCreep = require('util.GetHarvestSpots_ForCreep');
 
 function GetStructure(creep, structure, transfer)
 {
@@ -67,15 +68,15 @@ function GetStructure(creep, structure, transfer)
 
     if (sites.length > 0) 
     {
-        var count = 0;
-        
-        var locations = [];
-        for (i = 0; i < sites.length; i++)
+        if (structure != "Source")
         {
-            var location = new Vector(sites[i].pos.x, sites[i].pos.y);
-            
-            if (structure != "Source")
+            var count = 0;
+        
+            var locations = [];
+            for (i = 0; i < sites.length; i++)
             {
+                var location = new Vector(sites[i].pos.x, sites[i].pos.y);
+                
                 if (Available(creep, sites[i].id) &&
                     !Occupied(creep, location))
                 {
@@ -83,47 +84,39 @@ function GetStructure(creep, structure, transfer)
                     count++;
                 }
             }
-            else
+            
+            if (locations.length > 0)
             {
-                var path = creep.room.findPath(creep.pos, sites[i].pos, {ignoreCreeps: 1});
-
-                var target = null;
-                for (p = 0; p < path.length; p++)
+                var location = GetNearest(creep.pos.x, creep.pos.y, locations);
+                for (i = 0; i < sites.length; i++)
                 {
-                    if (path[p] != null)
+                    if (location.X == sites[i].pos.x &&
+                        location.Y == sites[i].pos.y)
                     {
-                        var current = new Vector(path[p].x, path[p].y);
-                        if (NextTo(current, location))
-                        {
-                            target = current;
-                            break;
-                        }
-                        else if (current.X == location.X &&
-                                 current.Y == location.Y)
-                        {
-                            target = new Vector(creep.pos.x, creep.pos.y);
-                        }
-                    }
-                }
-                
-                if (target != null)
-                {
-                    if (!Occupied(creep, target))
-                    {
-                        locations[count] = location;
-                        count++;
+                        return sites[i];
                     }
                 }
             }
         }
-        
-        if (locations.length > 0)
+        else
         {
-            var location = GetNearest(creep.pos.x, creep.pos.y, locations);
+            var current = new Vector(creep.pos.x, creep.pos.y);
             for (i = 0; i < sites.length; i++)
             {
-                if (sites[i].pos.x == location.X &&
-                    sites[i].pos.y == location.Y)
+                var site = new Vector(sites[i].pos.x, sites[i].pos.y);
+                if (NextTo(current, site))
+                {
+                    return sites[i];
+                }
+            }
+            
+            var harvest_spots = GetHarvestSpots_ForCreep(creep);
+            var location = GetNearest(creep.pos.x, creep.pos.y, harvest_spots);
+        
+            for (i = 0; i < sites.length; i++)
+            {
+                var site = new Vector(sites[i].pos.x, sites[i].pos.y);
+                if (NextTo(location, site))
                 {
                     return sites[i];
                 }

@@ -1,7 +1,7 @@
 var HandleCreeps = require('handle.Creeps');
 var HandleSpawning = require('handle.Spawning');
 
-module.exports.loop = function () 
+function loop()
 {
     var debug = true;
     var queue = HandleSpawning(debug);
@@ -18,6 +18,8 @@ module.exports.loop = function ()
     
     if (queue != "")
     {
-        console.log(queue);
+        //console.log(queue);
     }
 }
+
+module.exports = {loop}

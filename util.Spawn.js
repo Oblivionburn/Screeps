@@ -1,64 +1,56 @@
 var CleanMemory = require('util.CleanMemory');
-var GetCreeps = require('util.GetCreeps');
 var GetName = require('util.GetName');
 var GetSpawnCost = require('util.GetSpawnCost');
 var GetError = require('util.GetError');
-var GetStructures = require('util.GetStructures');
 
 function Spawn(spawn, role, debug) 
 {
     var queue = "";
     
+    var template = [];
     var body = [];
     var cost = 0;
     var result = 0;
     
     if (role == "Harvester")
     {
-        body = [WORK, CARRY, MOVE, MOVE];
-        cost = GetSpawnCost(body);
+        template = [WORK, CARRY, MOVE, MOVE];
     }
     else if (role == "Builder")
     {
-        body = [WORK, WORK, CARRY, MOVE];
-        cost = GetSpawnCost(body);
+        template = [WORK, WORK, CARRY, MOVE];
     }
     else if (role == "Upgrader")
     {
-        body = [WORK, CARRY, MOVE, ATTACK];
-        cost = GetSpawnCost(body);
+        template = [WORK, CARRY, MOVE, ATTACK];
     }
     else if (role == "Fixer")
     {
-        body = [WORK, CARRY, MOVE, ATTACK];
-        cost = GetSpawnCost(body);
+        template = [WORK, CARRY, MOVE, ATTACK];
     }
     else if (role == "Soldier")
     {
-        body = [ATTACK, MOVE, ATTACK];
-        cost = GetSpawnCost(body);
+        template = [ATTACK, MOVE, ATTACK];
     }
     else if (role == "Claimer")
     {
-        body = [CLAIM, MOVE];
-        cost = GetSpawnCost(body);
+        template = [CLAIM, MOVE];
     }
     
-    var energy_pool = spawn.energy;
-    var extensions = GetStructures(spawn.room, "Extension");
-    if (extensions != null)
+    var available = Math.floor(spawn.room.energyAvailable / GetSpawnCost(template));
+    for (i = 0; i < available; i++)
     {
-        for (e = 0; e < extensions.length; e++)
+        for (t = 0; t < template.length; t++)
         {
-            energy_pool += extensions[e].energy;
+            body.push(template[t]);
         }
     }
     
-    if (cost <= energy_pool &&
+    if (GetSpawnCost(body) <= spawn.room.energyAvailable &&
         spawn.spawning == null)
     {
         CleanMemory();
-        result = spawn.spawnCreep(body, GetName(role), {memory: {role: role}});
+        result = spawn.spawnCreep(body, GetName(role), {memory: {role: role, home: spawn.room.name}});
     }
     
     if (result < 0)

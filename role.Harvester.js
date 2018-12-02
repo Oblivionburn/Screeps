@@ -69,12 +69,15 @@ function Harvester(creep, debug)
         {
             var builder = Game.creeps[name];
             if (builder.memory.role == 'Builder' &&
-                builder.carry.energy < builder.carryCapacity &&
-                Available(creep, builder.id)) 
+                builder.carry.energy < builder.carryCapacity) 
             {
-                okay = false;
-                Transfer(creep, builder, debug);
-                break;
+                if (creep.memory.target == builder.id ||
+                    (Available(creep, builder.id) && creep.memory.target == null))
+                {
+                    okay = false;
+                    Transfer(creep, builder, debug);
+                    break;
+                }
             }
         }
     }
@@ -84,14 +87,17 @@ function Harvester(creep, debug)
     {
         for (var name in Game.creeps) 
         {
-            var builder = Game.creeps[name];
-            if (builder.memory.role == 'Fixer' &&
-                builder.carry.energy < builder.carryCapacity &&
-                Available(creep, builder.id)) 
+            var fixer = Game.creeps[name];
+            if (fixer.memory.role == 'Fixer' &&
+                fixer.carry.energy < fixer.carryCapacity) 
             {
-                okay = false;
-                Transfer(creep, builder, debug);
-                break;
+                if (creep.memory.target == fixer.id ||
+                    (Available(creep, fixer.id) && creep.memory.target == null))
+                {
+                    okay = false;
+                    Transfer(creep, fixer, debug);
+                    break;
+                }
             }
         }
     }

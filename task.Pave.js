@@ -1,20 +1,24 @@
-var Vector = require('Vector');
-var GetError = require('util.GetError');
-var GoTo = require('task.GoTo');
-
 function Pave(creep) 
 {
     var blocked = false;
     var sites = [];
     
     sites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
-    for (i = 0; i < sites.length; i++)
+    if (sites.length == MAX_CONSTRUCTION_SITES)
     {
-        if (sites[i].pos.x == creep.pos.x &&
-            sites[i].pos.y == creep.pos.y)
+        blocked = true;
+    }
+    
+    if (!blocked)
+    {
+        for (i = 0; i < sites.length; i++)
         {
-            blocked = true;
-            break;
+            if (sites[i].pos.x == creep.pos.x &&
+                sites[i].pos.y == creep.pos.y)
+            {
+                blocked = true;
+                break;
+            }
         }
     }
     

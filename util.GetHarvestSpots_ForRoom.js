@@ -1,7 +1,8 @@
 var Vector = require('Vector');
 var GetStructures = require('util.GetStructures');
+var Occupied = require('util.Occupied');
 
-function GetHarvestSpots(room)
+function GetHarvestSpots_ForRoom(room)
 {
     var spots = [];
     
@@ -24,7 +25,8 @@ function GetHarvestSpots(room)
                             if (target[t].type == "terrain" &&
                                 target[t].terrain != "wall")
                             {
-                                spots[count] = target;
+                                var spot = new Vector(x, y);
+                                spots[count] = spot;
                                 count++;
                                 break;
                             }
@@ -38,4 +40,4 @@ function GetHarvestSpots(room)
     return spots;
 }
 
-module.exports = GetHarvestSpots;
+module.exports = GetHarvestSpots_ForRoom;

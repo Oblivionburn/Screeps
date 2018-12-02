@@ -7,6 +7,8 @@ function Upgrade(creep, structure, debug)
     creep.memory.task = "Upgrading";
     creep.memory.target = structure.id;
     
+     Pave(creep);
+    
     var total = structure.progressTotal - structure.progress - 1;
     
     var result = creep.upgradeController(structure);
@@ -17,7 +19,7 @@ function Upgrade(creep, structure, debug)
             creep.say(total, false);
         }
     }
-    else if (result == -9)
+    else if (result == ERR_NOT_IN_RANGE)
     {
         var location = new Vector(structure.pos.x, structure.pos.y);
         GoTo(creep, location, creep.memory.task, debug);

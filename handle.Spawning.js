@@ -1,5 +1,5 @@
 var GetCreeps = require('util.GetCreeps');
-var GetHarvestSpots = require('util.GetHarvestSpots');
+var GetHarvestSpots_ForRoom = require('util.GetHarvestSpots_ForRoom');
 var Spawn = require('util.Spawn');
 
 function HandleSpawning(debug) 
@@ -9,7 +9,6 @@ function HandleSpawning(debug)
     for (var name in Game.spawns)
     {
         var spawn = Game.spawns[name];
-        var harvestSpots = GetHarvestSpots(spawn.room);
         
         var harvesters = GetCreeps(spawn.room, "Harvester");
         var builders = GetCreeps(spawn.room, "Builder");
@@ -18,6 +17,8 @@ function HandleSpawning(debug)
         var soldiers = GetCreeps(spawn.room, "Soldier");
         var claimers = GetCreeps(spawn.room, "Claimer");
 
+        var harvestSpots = GetHarvestSpots_ForRoom(spawn.room);
+        
         if (spawn.room.controller.level == 1)
         {
             if (harvesters.length < 2 &&
@@ -59,7 +60,7 @@ function HandleSpawning(debug)
             if (harvesters.length < 4 &&
                 harvesters.length < harvestSpots.length)
             {
-                queue = Spawn(spawn, "Harvester", debug);
+                queue = Spawn(spawn, "Harvester", debug); 
             }
             else if (soldiers.length < 1)
             {

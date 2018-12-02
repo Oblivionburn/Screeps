@@ -3,12 +3,12 @@ var GetError = require('util.GetError');
 var GoTo = require('task.GoTo');
 var Pave = require('task.Pave');
 
-function Assault(creep, structure, debug) 
+function Assault(creep, thing, debug) 
 {
     creep.memory.task = "Attacking";
-    creep.memory.target = structure.id;
+    creep.memory.target = thing.id;
     
-    var location = new Vector(structure.pos.x, structure.pos.y);
+    var location = new Vector(thing.pos.x, thing.pos.y);
     GoTo(creep, location, creep.memory.task, debug);
 }
 

@@ -16,7 +16,7 @@ function Grab(creep, target, debug)
             creep.say("Left: " + (target.amount - (GetBodyCount(creep, "work") * 2)), false);
         }
     }
-    else if (result == -9)
+    else if (result == ERR_NOT_IN_RANGE)
     {
         var location = new Vector(target.pos.x, target.pos.y);
         GoTo(creep, location, creep.memory.task, debug);
