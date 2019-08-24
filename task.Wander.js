@@ -1,8 +1,9 @@
 var Vector = require('Vector');
+var GoTo = require('task.GoTo');
 
-function Wander(creep) 
+function Wander(creep, debug) 
 {
-    creep.memory.task = "Wandering";
+    creep.memory.task = "Patrolling";
     
     var choice = Math.floor(Math.random() * 8);
     choice++;
@@ -46,7 +47,7 @@ function Wander(creep)
         location.Y != 0 &&
         location.Y != 49)
     {
-        creep.move(choice);
+        GoTo(creep, location, creep.memory.task, debug);
     }
 }
 

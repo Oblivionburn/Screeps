@@ -42,7 +42,7 @@ function GoTo(creep, location, reason, debug)
         
         if (debug)
         {
-            creep.say(reason, false);
+            creep.say(reason, true);
         }
         
         creep.moveTo(location.X, location.Y, {reusePath: 3, visualizePathStyle: {stroke: color}});

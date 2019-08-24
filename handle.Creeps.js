@@ -4,7 +4,7 @@ var Upgrader = require('role.Upgrader');
 var Fixer = require('role.Fixer');
 var Soldier = require('role.Soldier');
 
-function HandleCreeps(debug) 
+function HandleCreeps(invasion, debug) 
 {
     for (var name in Game.creeps)
     {
@@ -28,12 +28,16 @@ function HandleCreeps(debug)
         }
         else if (creep.memory.role == 'Soldier') 
         {
-            Soldier(creep, debug);
+            Soldier(creep, invasion, debug);
+        }
+        else if (creep.memory.role == 'Claimer') 
+        {
+            Claimer(creep, invasion, debug);
         }
         
         if (creep.ticksToLive <= 60 && debug)
         {
-            new RoomVisual(creep.room.name).text(creep.ticksToLive + " ticks to live", creep.pos.x, creep.pos.y + 1, {color: "red", font: "bold 0.7 Calibri"});
+            new RoomVisual(creep.room.name).text("dead in " + creep.ticksToLive + "...", creep.pos.x, creep.pos.y + 1, {color: "red", font: "bold 0.7 Calibri"});
         }
     }
 }

@@ -29,7 +29,7 @@ function Transfer(creep, thing, debug)
     {
         if (debug)
         {
-            creep.say("Gave:" + transfering, false);
+            creep.say("Gave:" + transfering, true);
             creep.memory.task = "";
             creep.memory.target = "";
         }
@@ -41,7 +41,7 @@ function Transfer(creep, thing, debug)
     }
     else if (debug)
     {
-        creep.say("Error: " + GetError(result), false);
+        creep.say("Error: " + GetError(result), true);
     }
 }
 

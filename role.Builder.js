@@ -34,16 +34,12 @@ function Builder(creep, debug)
             needTask = false;
             Siphon(creep, site, debug);
         }
-        else
+        else if (creep.carry.energy == 0)
         {
             site = GetStructure(creep, "Site", false);
             if (site != null)
             {
                 WaitNear(creep, site, debug);
-            }
-            else
-            {
-                Wander(creep);
             }
         }
     }

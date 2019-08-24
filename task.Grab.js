@@ -13,7 +13,17 @@ function Grab(creep, target, debug)
     {
         if (debug)
         {
-            creep.say("Left: " + (target.amount - (GetBodyCount(creep, "work") * 2)), false);
+            var total = target.amount;
+            if (creep.carry.energy + total > creep.carryCapacity)
+            {
+                total = creep.carryCapacity;
+            }
+            else
+            {
+                total += creep.carry.energy;
+            }
+            
+            creep.say(total + "/" + creep.carryCapacity, true);
         }
     }
     else if (result == ERR_NOT_IN_RANGE)
@@ -23,7 +33,7 @@ function Grab(creep, target, debug)
     }
     else if (debug)
     {
-        creep.say("Error: " + GetError(result), false);
+        creep.say("Error: " + GetError(result), true);
     }
 }
     

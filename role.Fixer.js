@@ -27,7 +27,7 @@ function Fixer(creep, debug)
     {
         site = GetGrave(creep);
         if (site != null &&
-            creep.carry.energy < creep.carryCapacity &&
+            creep.carry.energy == 0 &&
             Available(creep, site.id))
         {
             needTask = false;
@@ -39,7 +39,7 @@ function Fixer(creep, debug)
     {
         site = GetDropped(creep);
         if (site != null &&
-            creep.carry.energy < creep.carryCapacity &&
+            creep.carry.energy == 0 &&
             Available(creep, site.id))
         {
             needTask = false;
@@ -48,7 +48,7 @@ function Fixer(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy < creep.carryCapacity &&
+        creep.carry.energy == 0 &&
         creep.memory.task == "Siphoning")
     {
         site = GetStructure(creep, "Extension", false);
@@ -59,116 +59,99 @@ function Fixer(creep, debug)
         }
         else
         {
-            Wander(creep);
+            Wander(creep, debug);
         }
     }
     
     if (needTask)
     {
-        site = GetRepairs(creep, "Spawn");
-        if (site != null)
+        if (creep.carry.energy > 0)
         {
-            if (creep.carry.energy > 0)
+            site = GetRepairs(creep, "Spawn");
+            if (site != null)
             {
                 needTask = false;
                 Repair(creep, site, debug);
             }
-        }
-    }
-    
-    if (needTask)
-    {
-        site = GetRepairs(creep, "Extension");
-        if (site != null)
-        {
-            if (creep.carry.energy > 0)
+            
+            if (needTask)
             {
-                needTask = false;
-                Repair(creep, site, debug);
+                site = GetRepairs(creep, "Extension");
+                if (site != null)
+                {
+                    needTask = false;
+                    Repair(creep, site, debug);
+                }
+            }
+            
+            if (needTask)
+            {
+                site = GetRepairs(creep, "Tower");
+                if (site != null)
+                {
+                    needTask = false;
+                    Repair(creep, site, debug);
+                }
+            }
+            
+            if (needTask)
+            {
+                site = GetRepairs(creep, "Road");
+                if (site != null)
+                {
+                    needTask = false;
+                    Repair(creep, site, debug);
+                }
+            }
+            
+            if (needTask)
+            {
+                site = GetRepairs(creep, "Rampart");
+                if (site != null)
+                {
+                    needTask = false;
+                    Repair(creep, site, debug);
+                }
+            }
+            
+            if (needTask)
+            {
+                site = GetRepairs(creep, "Wall");
+                if (site != null)
+                {
+                    needTask = false;
+                    Repair(creep, site, debug);
+                }
+            }
+            
+            if (needTask)
+            {
+                for (var name in Game.creeps) 
+                {
+                    var builder = Game.creeps[name];
+                    if (builder.memory.role == 'Builder' &&
+                        builder.carry.energy < builder.carryCapacity &&
+                        Available(creep, builder.id)) 
+                    {
+                        needTask = false;
+                        Transfer(creep, builder, debug);
+                        break;
+                    }
+                }
+            }
+            
+            if (needTask)
+            {
+                site = GetStructure(creep, "Spawn", true);
+                if (site != null) 
+                {
+                    needTask = false;
+                    Transfer(creep, site, debug);
+                }
             }
         }
     }
-    
-    if (needTask)
-    {
-        site = GetRepairs(creep, "Tower");
-        if (site != null)
-        {
-            if (creep.carry.energy > 0)
-            {
-                needTask = false;
-                Repair(creep, site, debug);
-            }
-        }
-    }
-    
-    if (needTask)
-    {
-        site = GetRepairs(creep, "Road");
-        if (site != null)
-        {
-            if (creep.carry.energy > 0)
-            {
-                needTask = false;
-                Repair(creep, site, debug);
-            }
-        }
-    }
-    
-    if (needTask)
-    {
-        site = GetRepairs(creep, "Rampart");
-        if (site != null)
-        {
-            if (creep.carry.energy > 0)
-            {
-                needTask = false;
-                Repair(creep, site, debug);
-            }
-        }
-    }
-    
-    if (needTask)
-    {
-        site = GetRepairs(creep, "Wall");
-        if (site != null)
-        {
-            if (creep.carry.energy > 0)
-            {
-                needTask = false;
-                Repair(creep, site, debug);
-            }
-        }
-    }
-    
-    if (needTask &&
-        creep.carry.energy > 0)
-    {
-        for (var name in Game.creeps) 
-        {
-            var builder = Game.creeps[name];
-            if (builder.memory.role == 'Builder' &&
-                builder.carry.energy < builder.carryCapacity &&
-                Available(creep, builder.id)) 
-            {
-                needTask = false;
-                Transfer(creep, builder, debug);
-                break;
-            }
-        }
-    }
-    
-    if (needTask &&
-        creep.carry.energy > 0)
-    {
-        site = GetStructure(creep, "Spawn", true);
-        if (site != null) 
-        {
-            needTask = false;
-            Transfer(creep, site, debug);
-        }
-    }
-    
+
     if (needTask)
     {
         creep.memory.target = null;

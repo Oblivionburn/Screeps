@@ -5,19 +5,25 @@ var HandleSpawning = require('handle.Spawning');
 function loop()
 {
     var debug = true;
-    var queue = HandleSpawning(debug);
-    HandleCreeps(debug);
-    var built = HandleBuilding(debug);
+    var automate_building = true;
+    var invasion = false;
     
+    var queue = HandleSpawning(debug);
     if (queue != "")
     {
         console.log(queue);
     }
-    
-    if (built != "")
+
+    if (automate_building)
     {
-        console.log(built);
+        var built = HandleBuilding(debug);
+        if (built != "")
+        {
+            console.log(built);
+        }
     }
+
+    HandleCreeps(invasion, debug);
 }
 
 module.exports = {loop}

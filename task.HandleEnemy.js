@@ -14,7 +14,7 @@ function HandleEnemy(creep, hostile, debug)
         result = true;
         if (distance <= 2)
         {
-            creep.say("Die!");
+            creep.say("Die!", true);
             creep.attack(hostile);
         }
         else
@@ -27,7 +27,7 @@ function HandleEnemy(creep, hostile, debug)
         result = true;
         if (distance <= 4)
         {
-            creep.say("Die!");
+            creep.say("Die!", true);
             creep.attack(hostile);
         }
         else

@@ -16,7 +16,7 @@ function Upgrade(creep, structure, debug)
     {
         if (debug)
         {
-            creep.say(total, false);
+            creep.say(total, true);
         }
     }
     else if (result == ERR_NOT_IN_RANGE)
@@ -26,7 +26,7 @@ function Upgrade(creep, structure, debug)
     }
     else if (debug)
     {
-        creep.say("Error: " + GetError(result), false);
+        creep.say("Error: " + GetError(result), true);
     }
 }
 

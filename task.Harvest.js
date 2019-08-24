@@ -26,7 +26,7 @@ function Harvest(creep, structure, debug)
     {
         if (debug)
         {
-            creep.say(total + "/" + creep.carryCapacity, false);
+            creep.say(total + "/" + creep.carryCapacity, true);
         }
     }
     else if (result == ERR_NOT_IN_RANGE)
@@ -36,7 +36,7 @@ function Harvest(creep, structure, debug)
     }
     else if (debug)
     {
-        creep.say("Error: " + GetError(result), false);
+        creep.say("Error: " + GetError(result), true);
     }
 }
     
