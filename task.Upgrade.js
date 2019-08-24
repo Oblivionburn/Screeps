@@ -7,7 +7,7 @@ function Upgrade(creep, structure, debug)
     creep.memory.task = "Upgrading";
     creep.memory.target = structure.id;
     
-     Pave(creep);
+    Pave(creep);
     
     var total = structure.progressTotal - structure.progress - 1;
     

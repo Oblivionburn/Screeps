@@ -1,4 +1,4 @@
-function Build(room, sites, location, type)
+function Build(room, location, type)
 {
     var exists = false;
     var sites = [];

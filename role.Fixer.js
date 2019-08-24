@@ -15,46 +15,46 @@ var Wander = require('task.Wander');
 function Fixer(creep, debug) 
 {
     var site = null;
-    var okay = true;
+    var needTask = true;
     
     var hostile = GetHostile(creep);
     if (hostile != null)
     {
-        okay = !HandleEnemy(creep, hostile, debug);
+        needTask = !HandleEnemy(creep, hostile, debug);
     }
     
-    if (okay)
+    if (needTask)
     {
         site = GetGrave(creep);
         if (site != null &&
             creep.carry.energy < creep.carryCapacity &&
             Available(creep, site.id))
         {
-            okay = false;
+            needTask = false;
             Siphon(creep, site, debug);
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         site = GetDropped(creep);
         if (site != null &&
             creep.carry.energy < creep.carryCapacity &&
             Available(creep, site.id))
         {
-            okay = false;
+            needTask = false;
             Grab(creep, site, debug);
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy < creep.carryCapacity &&
         creep.memory.task == "Siphoning")
     {
         site = GetStructure(creep, "Extension", false);
         if (site != null)
         {
-            okay = false;
+            needTask = false;
             Siphon(creep, site, debug);
         }
         else
@@ -63,85 +63,85 @@ function Fixer(creep, debug)
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         site = GetRepairs(creep, "Spawn");
         if (site != null)
         {
             if (creep.carry.energy > 0)
             {
-                okay = false;
+                needTask = false;
                 Repair(creep, site, debug);
             }
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         site = GetRepairs(creep, "Extension");
         if (site != null)
         {
             if (creep.carry.energy > 0)
             {
-                okay = false;
+                needTask = false;
                 Repair(creep, site, debug);
             }
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         site = GetRepairs(creep, "Tower");
         if (site != null)
         {
             if (creep.carry.energy > 0)
             {
-                okay = false;
+                needTask = false;
                 Repair(creep, site, debug);
             }
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         site = GetRepairs(creep, "Road");
         if (site != null)
         {
             if (creep.carry.energy > 0)
             {
-                okay = false;
+                needTask = false;
                 Repair(creep, site, debug);
             }
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         site = GetRepairs(creep, "Rampart");
         if (site != null)
         {
             if (creep.carry.energy > 0)
             {
-                okay = false;
+                needTask = false;
                 Repair(creep, site, debug);
             }
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         site = GetRepairs(creep, "Wall");
         if (site != null)
         {
             if (creep.carry.energy > 0)
             {
-                okay = false;
+                needTask = false;
                 Repair(creep, site, debug);
             }
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy > 0)
     {
         for (var name in Game.creeps) 
@@ -151,25 +151,25 @@ function Fixer(creep, debug)
                 builder.carry.energy < builder.carryCapacity &&
                 Available(creep, builder.id)) 
             {
-                okay = false;
+                needTask = false;
                 Transfer(creep, builder, debug);
                 break;
             }
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy > 0)
     {
         site = GetStructure(creep, "Spawn", true);
         if (site != null) 
         {
-            okay = false;
+            needTask = false;
             Transfer(creep, site, debug);
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         creep.memory.target = null;
         creep.memory.task = "Siphoning";

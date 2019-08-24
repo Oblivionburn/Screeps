@@ -37,9 +37,9 @@ function Spawn(spawn, role, debug)
         }
         
         var available = Math.floor(spawn.room.energyAvailable / GetSpawnCost(template));
-        for (let i = 0; i < available; i++)
+        for (t = 0; t < template.length; t++)
         {
-            for (t = 0; t < template.length; t++)
+            for (let i = 0; i < available; i++)
             {
                 body.push(template[t]);
             }

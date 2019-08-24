@@ -6,17 +6,6 @@ var Soldier = require('role.Soldier');
 
 function HandleCreeps(debug) 
 {
-    var elder = null;
-    
-    if (debug)
-    {
-        for (var name in Game.creeps)
-        {
-            elder = Game.creeps[name];
-            break;
-        }
-    }
-    
     for (var name in Game.creeps)
     {
         var creep = Game.creeps[name];
@@ -42,16 +31,11 @@ function HandleCreeps(debug)
             Soldier(creep, debug);
         }
         
-        if (debug)
+        if (creep.ticksToLive <= 60 && debug)
         {
-            if (creep.ticksToLive < elder.ticksToLive)
-            {
-                elder = creep;
-            }
+            new RoomVisual(creep.room.name).text(creep.ticksToLive + " ticks to live", creep.pos.x, creep.pos.y + 1, {color: "red", font: "bold 0.7 Calibri"});
         }
     }
-    
-    return elder;
 }
 
 module.exports = HandleCreeps;

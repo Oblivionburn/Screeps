@@ -87,14 +87,43 @@ function GetStructure(creep, structure, transfer)
             
             if (locations.length > 0)
             {
-                var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-                for (let i = 0; i < sites.length; i++)
+                if (structure != "Site")
                 {
-                    if (location.X == sites[i].pos.x &&
-                        location.Y == sites[i].pos.y)
+                    var location = GetNearest(creep.pos.x, creep.pos.y, locations);
+                    for (let i = 0; i < sites.length; i++)
                     {
-                        return sites[i];
+                        if (location.X == sites[i].pos.x &&
+                            location.Y == sites[i].pos.y)
+                        {
+                            return sites[i];
+                        }
                     }
+                }
+                else
+                {
+                    var site = sites[0];
+                    
+                    //Get biggest site to start with
+                    for (let i = 0; i < sites.length; i++)
+                    {
+                        if (sites[i].progressTotal > site.progressTotal)
+                        {
+                            site = sites[i];
+                            break;
+                        }
+                    }
+                    
+                    //Check for similar site that is closer to being built
+                    for (let i = 0; i < sites.length; i++)
+                    {
+                        if (sites[i].progress > site.progress &&
+                            sites[i].progressTotal == site.progressTotal)
+                        {
+                            site = sites[i];
+                        }
+                    }
+                    
+                    return site;
                 }
             }
         }

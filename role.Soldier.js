@@ -7,15 +7,15 @@ var Wander = require('task.Wander');
 function Soldier(creep, debug) 
 {
     var site = null;
-    var okay = true;
+    var needTask = true;
     
     var hostile = GetHostile(creep);
     if (hostile != null)
     {
-        okay = !HandleEnemy(creep, hostile, debug);
+        needTask = !HandleEnemy(creep, hostile, debug);
     }
 
-    if (okay &&
+    if (needTask &&
         creep.memory.task == "Invading")
     {
         Wander(creep);
@@ -26,12 +26,12 @@ function Soldier(creep, debug)
         }
         else
         {
-            okay = false;
+            needTask = false;
         }
         */
     }
     
-    if (okay)
+    if (needTask)
     {
         creep.memory.target = null;
         creep.memory.task = "Invading";

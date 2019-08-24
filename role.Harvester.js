@@ -9,60 +9,60 @@ var HandleEnemy = require('task.HandleEnemy');
 function Harvester(creep, debug) 
 {
     var site = null;
-    var okay = true;
+    var needTask = true;
     
     var hostile = GetHostile(creep);
     if (hostile != null)
     {
-        okay = !HandleEnemy(creep, hostile, debug);
+        needTask = !HandleEnemy(creep, hostile, debug);
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy < creep.carryCapacity &&
         creep.memory.task == "Harvesting") 
     {
         site = GetStructure(creep, "Source");
         if (site != null)
         {
-            okay = false;
+            needTask = false;
             Harvest(creep, site, debug);
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy > 0)
     {
         site = GetStructure(creep, "Spawn", true);
         if (site != null) 
         {
-            okay = false;
+            needTask = false;
             Transfer(creep, site, debug);
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy > 0)
     {
         site = GetStructure(creep, "Extension", true);
         if (site != null)
         {
-            okay = false;
+            needTask = false;
             Transfer(creep, site, debug);
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy > 0)
     {
         site = GetStructure(creep, "Tower", true);
         if (site != null) 
         {
-            okay = false;
+            needTask = false;
             Transfer(creep, site, debug);
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy > 0)
     {
         for (var name in Game.creeps) 
@@ -74,7 +74,7 @@ function Harvester(creep, debug)
                 if (creep.memory.target == builder.id ||
                     (Available(creep, builder.id) && creep.memory.target == null))
                 {
-                    okay = false;
+                    needTask = false;
                     Transfer(creep, builder, debug);
                     break;
                 }
@@ -82,7 +82,7 @@ function Harvester(creep, debug)
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy > 0)
     {
         for (var name in Game.creeps) 
@@ -94,7 +94,7 @@ function Harvester(creep, debug)
                 if (creep.memory.target == fixer.id ||
                     (Available(creep, fixer.id) && creep.memory.target == null))
                 {
-                    okay = false;
+                    needTask = false;
                     Transfer(creep, fixer, debug);
                     break;
                 }
@@ -102,7 +102,7 @@ function Harvester(creep, debug)
         }
     }
     
-    if (okay)
+    if (needTask)
     {
         creep.memory.target = null;
         creep.memory.task = "Harvesting";

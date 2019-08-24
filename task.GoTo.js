@@ -15,11 +15,11 @@ function GoTo(creep, location, reason, debug)
         else if (reason == "Transfering")
         {
             reason = "Giving";
-            color = "#00FF00";
+            color = "#33CC00";
         }
         else if (reason == "Building")
         {
-            color = "#000000";
+            color = "#0000FF";
         }
         else if (reason == "Upgrading")
         {
@@ -28,11 +28,11 @@ function GoTo(creep, location, reason, debug)
         else if (reason == "Grabbing" ||
                  reason == "Siphoning")
         {
-            color = "#CC9900";
+            color = "#FFBF00";
         }
         else if (reason == "Repairing")
         {
-            color = "#9933FF";
+            color = "#ff4d88";
         }
         else if (reason == "Attacking" ||
                  reason == "Invading")

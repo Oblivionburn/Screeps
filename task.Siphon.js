@@ -8,7 +8,16 @@ function Siphon(creep, structure, debug)
     creep.memory.task = "Siphoning";
     creep.memory.target = structure.id;
     
-    var total = structure.energy;
+    var total = 0;
+    if (structure.store != null)
+    {
+        total = structure.store.energy;
+    }
+    else if (structure.energy != null)
+    {
+        total = structure.energy;
+    }
+    
     if (creep.carry.energy + total > creep.carryCapacity)
     {
         total = creep.carryCapacity;

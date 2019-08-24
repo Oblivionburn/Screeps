@@ -22,7 +22,7 @@ function GetError(error)
     }
     else if (error == -6)
     {
-        return "Not enough energy/resources/extensions";
+        return "Not enough";
     }
     else if (error == -7)
     {
@@ -55,6 +55,10 @@ function GetError(error)
     else if (error == -15)
     {
         return "GCL not enough";
+    }
+    else
+    {
+        return error;
     }
 }
 

@@ -13,35 +13,35 @@ var HandleEnemy = require('task.HandleEnemy');
 function Upgrader(creep, debug) 
 {
     var site = null;
-    var okay = true;
+    var needTask = true;
     
     var hostile = GetHostile(creep);
     if (hostile != null)
     {
-        okay = !HandleEnemy(creep, hostile, debug);
+        needTask = !HandleEnemy(creep, hostile, debug);
     }
 
-    if (okay &&
+    if (needTask &&
         creep.carry.energy < creep.carryCapacity &&
         creep.memory.task == "Harvesting")
     {
         site = GetStructure(creep, "Source");
         if (site != null)
         {
-            okay = false;
+            needTask = false;
             Harvest(creep, site, debug);
         }
     }
     
-    if (okay &&
+    if (needTask &&
         creep.carry.energy > 0 &&
         creep.room.controller.progress < creep.room.controller.progressTotal)
     {
-        okay = false;
+        needTask = false;
         Upgrade(creep, creep.room.controller, debug);
     }
     
-    if (okay)
+    if (needTask)
     {
         creep.memory.target = null;
         creep.memory.task = "Harvesting";
