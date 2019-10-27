@@ -9,31 +9,17 @@ function GetHarvestSpots_ForCreep(creep)
     var sources = GetStructures(creep.room, "Source");
     if (sources.length > 0) 
     {
-        var count = 0;
-        
         for (let i = 0; i < sources.length; i++)
         {
             for (let y = sources[i].pos.y - 1; y < sources[i].pos.y + 2; y++)
             {
                 for (let x = sources[i].pos.x - 1; x < sources[i].pos.x + 2; x++)
                 {
-                    var target = creep.room.lookAt(x, y);
-                    if (target != null)
+                    var spot = new Vector(x, y);
+                    if (!Occupied(creep, spot))
                     {
-                        for (let t = 0; t < target.length; t++)
-                        {
-                            if (target[t].type == "terrain" &&
-                                target[t].terrain != "wall")
-                            {
-                                var spot = new Vector(x, y);
-                                if (!Occupied(creep, spot))
-                                {
-                                    spots[count] = spot;
-                                    count++;
-                                    break;
-                                }
-                            }
-                        }
+                        spots.push(spot);
+                        break;
                     }
                 }
             }

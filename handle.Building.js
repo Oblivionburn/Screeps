@@ -69,12 +69,20 @@ function HandleBuilding(debug)
             {
                 buildExtension = true;
             }
+            else if (totalTowers < 1)
+            {
+                buildTower = true;
+            }
         }
         else if (controller.level == 5)
         {
             if (totalExtensions < 30)
             {
                 buildExtension = true;
+            }
+            else if (totalTowers < 2)
+            {
+                buildTower = true;
             }
         }
         else if (controller.level == 6)
@@ -83,6 +91,10 @@ function HandleBuilding(debug)
             {
                 buildExtension = true;
             }
+            else if (totalTowers < 2)
+            {
+                buildTower = true;
+            }
         }
         else if (controller.level == 7)
         {
@@ -90,12 +102,20 @@ function HandleBuilding(debug)
             {
                 buildExtension = true;
             }
+            else if (totalTowers < 3)
+            {
+                buildTower = true;
+            }
         }
         else if (controller.level == 8)
         {
             if (totalExtensions < 60)
             {
                 buildExtension = true;
+            }
+            else if (totalTowers < 6)
+            {
+                buildTower = true;
             }
         }
         

@@ -8,14 +8,11 @@ function GetGrave(creep)
     var graves = creep.room.find(FIND_TOMBSTONES);
     if (graves.length > 0)
     {
-        var count = 0;
-        
         for (let i = 0; i < graves.length; i++)
         {
             if (graves[i].store.energy > 0)
             {
-                sites[count] = graves[i];
-                count++;
+                sites.push(graves[i]);
                 break;
             }
         }

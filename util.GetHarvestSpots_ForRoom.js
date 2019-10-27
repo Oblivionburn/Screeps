@@ -9,8 +9,6 @@ function GetHarvestSpots_ForRoom(room)
     var sources = GetStructures(room, "Source", false);
     if (sources.length > 0) 
     {
-        var count = 0;
-        
         for (let i = 0; i < sources.length; i++)
         {
             for (let y = sources[i].pos.y - 1; y < sources[i].pos.y + 2; y++)
@@ -26,8 +24,7 @@ function GetHarvestSpots_ForRoom(room)
                                 target[t].terrain != "wall")
                             {
                                 var spot = new Vector(x, y);
-                                spots[count] = spot;
-                                count++;
+                                spots.push(spot);
                                 break;
                             }
                         }

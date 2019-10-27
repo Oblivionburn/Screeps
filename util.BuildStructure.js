@@ -20,7 +20,6 @@ function BuildStructure(spawn, structure_type, debug)
                 
                 if (success)
                 {
-                    built = "Built " + structure_type + " in room " + spawn.room.name + " at " + location.X + "," + location.Y;
                     break;
                 }
             }

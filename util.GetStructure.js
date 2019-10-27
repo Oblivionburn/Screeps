@@ -1,7 +1,6 @@
 var Vector = require('Vector');
 var GetNearest = require('util.GetNearest');
 var Available = require('util.Available');
-var Occupied = require('util.Occupied');
 var NextTo = require('util.NextTo');
 var GetHarvestSpots_ForCreep = require('util.GetHarvestSpots_ForCreep');
 
@@ -121,18 +120,15 @@ function GetStructure(creep, structure, transfer)
             //If no similar sites started yet, get nearest
             if (site.progress == 0)
             {
-                var count = 0;
                 var locations = [];
                 for (let i = 0; i < sites.length; i++)
                 {
                     var location = new Vector(sites[i].pos.x, sites[i].pos.y);
                     
                     if (Available(creep, sites[i].id) &&
-                        !Occupied(creep, location) &&
                         sites[i].progressTotal == site.progressTotal)
                     {
-                        locations[count] = location;
-                        count++;
+                        locations.push(location);
                     }
                 }
                 
@@ -154,17 +150,14 @@ function GetStructure(creep, structure, transfer)
         }
         else
         {
-            var count = 0;
             var locations = [];
             for (let i = 0; i < sites.length; i++)
             {
                 var location = new Vector(sites[i].pos.x, sites[i].pos.y);
                 
-                if (Available(creep, sites[i].id) &&
-                    !Occupied(creep, location))
+                if (Available(creep, sites[i].id))
                 {
-                    locations[count] = location;
-                    count++;
+                    locations.push(location);
                 }
             }
             

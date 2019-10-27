@@ -111,9 +111,6 @@ function GetRepairs(creep, structure)
         else
         {
             //Get nearest structure
-            
-            var count = 0;
-        
             var locations = [];
             for (let i = 0; i < sites.length; i++)
             {
@@ -121,8 +118,7 @@ function GetRepairs(creep, structure)
                 
                 if (Available(creep, sites[i].id))
                 {
-                    locations[count] = location;
-                    count++;
+                    locations.push(location);
                 }
             }
             
