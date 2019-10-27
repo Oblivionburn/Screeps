@@ -49,6 +49,10 @@ function GetStructure(creep, structure, transfer)
             }
         });
     }
+    else if (structure == "Ruin")
+    {
+        sites = creep.room.find(FIND_RUINS);
+    }
     else if (structure == "Tower")
     {
         sites = creep.room.find(FIND_MY_STRUCTURES, 

@@ -1,16 +1,15 @@
 function GetPathMinLocationTarget(open) 
 {
     var current = open[0];
-    var currentNear = current.ToTarget;
+    var distance = current.ToTarget;
 
     for (let a = 0; a < open.length; a++)
     {
-        var newNear = open[a].ToTarget;
-
-        if (newNear < currentNear)
+        var newDistance = open[a].ToTarget;
+        if (newDistance < distance)
         {
             current = open[a];
-            currentNear = newNear;
+            distance = newDistance;
         }
     }
 

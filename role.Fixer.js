@@ -47,6 +47,22 @@ function Fixer(creep, debug)
         }
     }
     
+    if (needTask)
+    {
+        site = GetStructure(creep, "Ruin", false);
+        if (site != null &&
+            creep.carry.energy == 0 &&
+            Available(creep, site.id))
+        {
+            needTask = false;
+            Siphon(creep, site, debug);
+        }
+        else
+        {
+            Wander(creep, debug);
+        }
+    }
+    
     if (needTask &&
         creep.carry.energy == 0 &&
         creep.memory.task == "Siphoning")
@@ -62,7 +78,7 @@ function Fixer(creep, debug)
             Wander(creep, debug);
         }
     }
-    
+
     if (needTask)
     {
         if (creep.carry.energy > 0)
