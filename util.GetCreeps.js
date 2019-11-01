@@ -2,13 +2,26 @@ function GetCreeps(room, role)
 {
     var creeps = [];
     
-    creeps = room.find(FIND_MY_CREEPS, 
+    if (role == "Injured")
     {
-        filter: (creep) => 
+        creeps = room.find(FIND_MY_CREEPS, 
         {
-            return (creep.memory.role == role || role == "All");
-        }
-    });
+            filter: (creep) => 
+            {
+                return (creep.hits < creep.hitsMax);
+            }
+        });
+    }
+    else
+    {
+        creeps = room.find(FIND_MY_CREEPS, 
+        {
+            filter: (creep) => 
+            {
+                return (creep.memory.role == role || role == "All");
+            }
+        });
+    }
     
     return creeps;
 }
