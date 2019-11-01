@@ -9,7 +9,7 @@ function GoTo(creep, location, reason, debug)
     var distance = GetDistance(creep.pos.x, creep.pos.y, location.X, location.Y);
     if (distance > 1)
     {
-        creep.memory.task = "Travelling";
+        //creep.memory.task = "Travelling";
         
         var color = "";
         if (reason == "Harvesting")

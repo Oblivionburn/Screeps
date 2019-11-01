@@ -1,6 +1,7 @@
 var HandleBuilding = require('handle.Building');
 var HandleCreeps = require('handle.Creeps');
 var HandleSpawning = require('handle.Spawning');
+var HandleTowers = require('handle.Towers');
 
 function loop()
 {
@@ -23,6 +24,7 @@ function loop()
         }
     }
 
+    HandleTowers(debug);
     HandleCreeps(invasion, debug);
 }
 

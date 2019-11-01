@@ -23,22 +23,31 @@ function Siphon(creep, structure, debug)
         total = creep.carryCapacity;
     }
     
-    var result = creep.withdraw(structure, RESOURCE_ENERGY);
-    if (result == 0) 
+    if (total > 0)
     {
-        if (debug)
+        var result = creep.withdraw(structure, RESOURCE_ENERGY);
+        if (result == 0) 
         {
-            creep.say(total + "/" + creep.carryCapacity, true);
+            if (debug)
+            {
+                creep.say(total + "/" + creep.carryCapacity, true);
+            }
         }
+        else if (result == ERR_NOT_IN_RANGE)
+        {
+            var location = new Vector(structure.pos.x, structure.pos.y);
+            GoTo(creep, location, creep.memory.task, debug);
+        }
+        else if (debug)
+        {
+            creep.say("Error: " + GetError(result), true);
+        }
+        
+        return true;
     }
-    else if (result == ERR_NOT_IN_RANGE)
+    else
     {
-        var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location, creep.memory.task, debug);
-    }
-    else if (debug)
-    {
-        creep.say("Error: " + GetError(result), true);
+        return false;
     }
 }
 

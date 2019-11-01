@@ -30,8 +30,7 @@ function Fixer(creep, debug)
             creep.carry.energy == 0 &&
             Available(creep, site.id))
         {
-            needTask = false;
-            Siphon(creep, site, debug);
+            needTask = !Siphon(creep, site, debug);
         }
     }
     
@@ -47,22 +46,21 @@ function Fixer(creep, debug)
         }
     }
     
-    if (needTask)
+    if (needTask &&
+        creep.carry.energy == 0 &&
+        creep.memory.task == "Siphoning")
     {
         site = GetStructure(creep, "Ruin", false);
-        if (site != null &&
-            creep.carry.energy == 0 &&
-            Available(creep, site.id))
+        if (site != null)
         {
-            needTask = false;
-            Siphon(creep, site, debug);
+            needTask = !Siphon(creep, site, debug);
         }
         else
         {
             Wander(creep, debug);
         }
     }
-    
+
     if (needTask &&
         creep.carry.energy == 0 &&
         creep.memory.task == "Siphoning")
@@ -70,8 +68,7 @@ function Fixer(creep, debug)
         site = GetStructure(creep, "Extension", false);
         if (site != null)
         {
-            needTask = false;
-            Siphon(creep, site, debug);
+            needTask = !Siphon(creep, site, debug);
         }
         else
         {

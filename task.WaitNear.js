@@ -4,7 +4,7 @@ var GoTo = require('task.GoTo');
 
 function WaitNear(creep, thing, debug) 
 {
-    creep.memory.task = "Waiting";
+    //creep.memory.task = "Waiting";
     creep.memory.target = thing.id;
 
     var location = new Vector(creep.pos.x, creep.pos.y);
