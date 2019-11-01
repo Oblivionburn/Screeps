@@ -34,8 +34,7 @@ function Builder(creep, debug)
         {
             if (creep.carry.energy > 0)
             {
-                needTask = false;
-                Build(creep, site, debug);
+                needTask = !Build(creep, site, debug);
             }
             else
             {

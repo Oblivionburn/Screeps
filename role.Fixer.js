@@ -83,8 +83,7 @@ function Fixer(creep, debug)
             site = GetRepairs(creep, "Spawn");
             if (site != null)
             {
-                needTask = false;
-                Repair(creep, site, debug);
+                needTask = !Repair(creep, site, debug);
             }
             
             if (needTask)
@@ -92,8 +91,7 @@ function Fixer(creep, debug)
                 site = GetRepairs(creep, "Extension");
                 if (site != null)
                 {
-                    needTask = false;
-                    Repair(creep, site, debug);
+                    needTask = !Repair(creep, site, debug);
                 }
             }
             
@@ -102,8 +100,7 @@ function Fixer(creep, debug)
                 site = GetRepairs(creep, "Tower");
                 if (site != null)
                 {
-                    needTask = false;
-                    Repair(creep, site, debug);
+                    needTask = !Repair(creep, site, debug);
                 }
             }
             
@@ -112,8 +109,7 @@ function Fixer(creep, debug)
                 site = GetRepairs(creep, "Road");
                 if (site != null)
                 {
-                    needTask = false;
-                    Repair(creep, site, debug);
+                    needTask = !Repair(creep, site, debug);
                 }
             }
             
@@ -122,8 +118,7 @@ function Fixer(creep, debug)
                 site = GetRepairs(creep, "Rampart");
                 if (site != null)
                 {
-                    needTask = false;
-                    Repair(creep, site, debug);
+                    needTask = !Repair(creep, site, debug);
                 }
             }
             
@@ -132,8 +127,7 @@ function Fixer(creep, debug)
                 site = GetRepairs(creep, "Wall");
                 if (site != null)
                 {
-                    needTask = false;
-                    Repair(creep, site, debug);
+                    needTask = !Repair(creep, site, debug);
                 }
             }
             
@@ -146,8 +140,7 @@ function Fixer(creep, debug)
                         builder.carry.energy < builder.carryCapacity &&
                         Available(creep, builder.id)) 
                     {
-                        needTask = false;
-                        Transfer(creep, builder, debug);
+                        needTask = !Transfer(creep, builder, debug);
                         break;
                     }
                 }
@@ -158,8 +151,7 @@ function Fixer(creep, debug)
                 site = GetStructure(creep, "Spawn", true);
                 if (site != null) 
                 {
-                    needTask = false;
-                    Transfer(creep, site, debug);
+                    needTask = !Transfer(creep, site, debug);
                 }
             }
         }

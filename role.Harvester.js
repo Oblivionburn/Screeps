@@ -24,8 +24,7 @@ function Harvester(creep, debug)
         site = GetStructure(creep, "Source");
         if (site != null)
         {
-            needTask = false;
-            Harvest(creep, site, debug);
+            needTask = !Harvest(creep, site, debug);
         }
     }
     
@@ -35,8 +34,7 @@ function Harvester(creep, debug)
         site = GetStructure(creep, "Spawn", true);
         if (site != null) 
         {
-            needTask = false;
-            Transfer(creep, site, debug);
+            needTask = !Transfer(creep, site, debug);
         }
     }
     
@@ -46,8 +44,7 @@ function Harvester(creep, debug)
         site = GetStructure(creep, "Extension", true);
         if (site != null)
         {
-            needTask = false;
-            Transfer(creep, site, debug);
+            needTask = !Transfer(creep, site, debug);
         }
     }
     
@@ -57,8 +54,7 @@ function Harvester(creep, debug)
         site = GetStructure(creep, "Tower", true);
         if (site != null) 
         {
-            needTask = false;
-            Transfer(creep, site, debug);
+            needTask = !Transfer(creep, site, debug);
         }
     }
     
@@ -74,8 +70,7 @@ function Harvester(creep, debug)
                 if (creep.memory.target == builder.id ||
                     (Available(creep, builder.id) && creep.memory.target == null))
                 {
-                    needTask = false;
-                    Transfer(creep, builder, debug);
+                    needTask = !Transfer(creep, builder, debug);
                     break;
                 }
             }
@@ -94,8 +89,7 @@ function Harvester(creep, debug)
                 if (creep.memory.target == fixer.id ||
                     (Available(creep, fixer.id) && creep.memory.target == null))
                 {
-                    needTask = false;
-                    Transfer(creep, fixer, debug);
+                    needTask = !Transfer(creep, fixer, debug);
                     break;
                 }
             }

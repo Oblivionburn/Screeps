@@ -14,23 +14,30 @@ function Build(creep, structure, debug)
         total = 0;    
     }
     
-    var result = creep.build(structure);
-    if (result == 0) 
+    if (total > 0)
     {
-        if (debug)
+        var result = creep.build(structure);
+        if (result == 0) 
         {
-            creep.say(total, true);
+            if (debug)
+            {
+                creep.say(total, true);
+            }
         }
+        else if (result == ERR_NOT_IN_RANGE)
+        {
+            var location = new Vector(structure.pos.x, structure.pos.y);
+            GoTo(creep, location, creep.memory.task, debug);
+        }
+        else if (debug)
+        {
+            creep.say("Error: " + GetError(result), true);
+        }
+        
+        return true;
     }
-    else if (result == ERR_NOT_IN_RANGE)
-    {
-        var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location, creep.memory.task, debug);
-    }
-    else if (debug)
-    {
-        creep.say("Error: " + GetError(result), true);
-    }
+    
+    return false;
 }
 
 module.exports = Build;

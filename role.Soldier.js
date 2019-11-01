@@ -20,15 +20,13 @@ function Soldier(creep, invasion, debug)
     {
         if (invasion)
         {
-            if (!Invade(creep, debug))
-            {
-                Wander(creep);
-            }
+            needTask = !Invade(creep, debug);
         }
-        else
-        {
-            Wander(creep, debug);
-        }
+    }
+    
+    if (needTask)
+    {
+        Wander(creep, debug);
     }
     
     if (needTask)

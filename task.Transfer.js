@@ -24,25 +24,32 @@ function Transfer(creep, thing, debug)
         transfering = canHold;
     }
     
-    var result = creep.transfer(thing, RESOURCE_ENERGY);
-    if (result == 0) 
+    if (transfering > 0)
     {
-        if (debug)
+        var result = creep.transfer(thing, RESOURCE_ENERGY);
+        if (result == 0) 
         {
-            creep.say("Gave:" + transfering, true);
-            creep.memory.task = "";
-            creep.memory.target = "";
+            if (debug)
+            {
+                creep.say("Gave:" + transfering, true);
+                creep.memory.task = "";
+                creep.memory.target = "";
+            }
         }
+        else if (result == ERR_NOT_IN_RANGE)
+        {
+            var location = new Vector(thing.pos.x, thing.pos.y);
+            GoTo(creep, location, creep.memory.task, debug);
+        }
+        else if (debug)
+        {
+            creep.say("Error: " + GetError(result), true);
+        }
+        
+        return true;
     }
-    else if (result == ERR_NOT_IN_RANGE)
-    {
-        var location = new Vector(thing.pos.x, thing.pos.y);
-        GoTo(creep, location, creep.memory.task, debug);
-    }
-    else if (debug)
-    {
-        creep.say("Error: " + GetError(result), true);
-    }
+    
+    return false;
 }
 
 module.exports = Transfer;
