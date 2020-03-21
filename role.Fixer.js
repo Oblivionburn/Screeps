@@ -4,6 +4,7 @@ var Available = require('util.Available');
 var GetHostile = require('util.GetHostile');
 var GetDropped = require('util.GetDropped');
 var GetGrave = require('util.GetGrave');
+var GetCreeps = require('util.GetCreeps');
 
 var Siphon = require('task.Siphon');
 var Repair = require('task.Repair');
@@ -27,7 +28,7 @@ function Fixer(creep, debug)
     {
         site = GetGrave(creep);
         if (site != null &&
-            creep.carry.energy == 0 &&
+            creep.store[RESOURCE_ENERGY] == 0 &&
             Available(creep, site.id))
         {
             needTask = !Siphon(creep, site, debug);
@@ -38,7 +39,7 @@ function Fixer(creep, debug)
     {
         site = GetDropped(creep);
         if (site != null &&
-            creep.carry.energy == 0 &&
+            creep.store[RESOURCE_ENERGY] == 0 &&
             Available(creep, site.id))
         {
             needTask = false;
@@ -47,7 +48,7 @@ function Fixer(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy == 0 &&
+        creep.store[RESOURCE_ENERGY] == 0 &&
         creep.memory.task == "Siphoning")
     {
         site = GetStructure(creep, "Ruin", false);
@@ -55,14 +56,10 @@ function Fixer(creep, debug)
         {
             needTask = !Siphon(creep, site, debug);
         }
-        else
-        {
-            Wander(creep, debug);
-        }
     }
 
     if (needTask &&
-        creep.carry.energy == 0 &&
+        creep.store[RESOURCE_ENERGY] == 0 &&
         creep.memory.task == "Siphoning")
     {
         site = GetStructure(creep, "Extension", false);
@@ -70,15 +67,11 @@ function Fixer(creep, debug)
         {
             needTask = !Siphon(creep, site, debug);
         }
-        else
-        {
-            Wander(creep, debug);
-        }
     }
 
     if (needTask)
     {
-        if (creep.carry.energy > 0)
+        if (creep.store[RESOURCE_ENERGY] > 0)
         {
             site = GetRepairs(creep, "Spawn");
             if (site != null)
@@ -124,20 +117,29 @@ function Fixer(creep, debug)
             
             if (needTask)
             {
-                site = GetRepairs(creep, "Wall");
-                if (site != null)
+                site = GetStructure(creep, "Spawn", true);
+                if (site != null) 
                 {
-                    needTask = !Repair(creep, site, debug);
+                    needTask = !Transfer(creep, site, debug);
                 }
             }
             
             if (needTask)
             {
-                for (var name in Game.creeps) 
+                site = GetStructure(creep, "Extension", true);
+                if (site != null) 
                 {
-                    var builder = Game.creeps[name];
-                    if (builder.memory.role == 'Builder' &&
-                        builder.carry.energy < builder.carryCapacity &&
+                    needTask = !Transfer(creep, site, debug);
+                }
+            }
+            
+            if (needTask)
+            {
+                var builders = GetCreeps(creep.room, "Builder");
+                for (let i = 0; i < builders.length; i++)
+                {
+                    var builder = builders[i];
+                    if (builder.store[RESOURCE_ENERGY] < builder.store.getCapacity(RESOURCE_ENERGY) &&
                         Available(creep, builder.id)) 
                     {
                         needTask = !Transfer(creep, builder, debug);
@@ -148,10 +150,10 @@ function Fixer(creep, debug)
             
             if (needTask)
             {
-                site = GetStructure(creep, "Spawn", true);
-                if (site != null) 
+                site = GetRepairs(creep, "Wall");
+                if (site != null)
                 {
-                    needTask = !Transfer(creep, site, debug);
+                    needTask = !Repair(creep, site, debug);
                 }
             }
         }
@@ -161,6 +163,7 @@ function Fixer(creep, debug)
     {
         creep.memory.target = null;
         creep.memory.task = "Siphoning";
+        Wander(creep, debug);
     }
 }
 

@@ -14,16 +14,16 @@ function Grab(creep, target, debug)
         if (debug)
         {
             var total = target.amount;
-            if (creep.carry.energy + total > creep.carryCapacity)
+            if (creep.store[RESOURCE_ENERGY] + total > creep.store.getCapacity(RESOURCE_ENERGY))
             {
-                total = creep.carryCapacity;
+                total = creep.store.getCapacity();
             }
             else
             {
-                total += creep.carry.energy;
+                total += creep.store[RESOURCE_ENERGY];
             }
             
-            creep.say(total + "/" + creep.carryCapacity, true);
+            creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
         }
     }
     else if (result == ERR_NOT_IN_RANGE)

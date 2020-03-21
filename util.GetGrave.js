@@ -10,7 +10,7 @@ function GetGrave(creep)
     {
         for (let i = 0; i < graves.length; i++)
         {
-            if (graves[i].store.energy > 0)
+            if (graves[i].store[RESOURCE_ENERGY] > 0)
             {
                 sites.push(graves[i]);
                 break;

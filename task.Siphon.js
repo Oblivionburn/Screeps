@@ -11,16 +11,16 @@ function Siphon(creep, structure, debug)
     var total = 0;
     if (structure.store != null)
     {
-        total = structure.store.energy;
+        total = structure.store[RESOURCE_ENERGY];
     }
     else if (structure.energy != null)
     {
         total = structure.energy;
     }
     
-    if (creep.carry.energy + total > creep.carryCapacity)
+    if (creep.store[RESOURCE_ENERGY] + total > creep.store.getCapacity(RESOURCE_ENERGY))
     {
-        total = creep.carryCapacity;
+        total = creep.store.getCapacity(RESOURCE_ENERGY);
     }
     
     if (total > 0)
@@ -30,7 +30,7 @@ function Siphon(creep, structure, debug)
         {
             if (debug)
             {
-                creep.say(total + "/" + creep.carryCapacity, true);
+                creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
             }
         }
         else if (result == ERR_NOT_IN_RANGE)

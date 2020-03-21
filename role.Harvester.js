@@ -19,7 +19,7 @@ function Harvester(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy < creep.carryCapacity &&
+        creep.store[RESOURCE_ENERGY] < creep.store.getCapacity(RESOURCE_ENERGY) &&
         creep.memory.task == "Harvesting") 
     {
         site = GetStructure(creep, "Source");
@@ -30,7 +30,7 @@ function Harvester(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy > 0)
+        creep.store[RESOURCE_ENERGY] > 0)
     {
         site = GetStructure(creep, "Spawn", true);
         if (site != null) 
@@ -40,7 +40,7 @@ function Harvester(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy > 0)
+        creep.store[RESOURCE_ENERGY] > 0)
     {
         site = GetStructure(creep, "Extension", true);
         if (site != null)
@@ -50,7 +50,7 @@ function Harvester(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy > 0)
+        creep.store[RESOURCE_ENERGY] > 0)
     {
         site = GetStructure(creep, "Tower", true);
         if (site != null) 
@@ -60,13 +60,13 @@ function Harvester(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy > 0)
+        creep.store[RESOURCE_ENERGY] > 0)
     {
         var builders = GetCreeps(creep.room, "Builder");
-        for (let i = 0; i < builders.length; i++) 
+        for (let i = 0; i < builders.length; i++)
         {
             var builder = builders[i];
-            if (builder.carry.energy < builder.carryCapacity) 
+            if (builder.store[RESOURCE_ENERGY] < builder.store.getCapacity(RESOURCE_ENERGY)) 
             {
                 if (creep.memory.target == builder.id ||
                     (Available(creep, builder.id) && creep.memory.target == null))
@@ -79,13 +79,13 @@ function Harvester(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy > 0)
+        creep.store[RESOURCE_ENERGY] > 0)
     {
         var fixers = GetCreeps(creep.room, "Fixer");
         for (let i = 0; i < fixers.length; i++)
         {
             var fixer = fixers[i];
-            if (fixer.carry.energy < fixer.carryCapacity) 
+            if (fixer.store[RESOURCE_ENERGY] < fixer.store.getCapacity(RESOURCE_ENERGY)) 
             {
                 if (creep.memory.target == fixer.id ||
                     (Available(creep, fixer.id) && creep.memory.target == null))

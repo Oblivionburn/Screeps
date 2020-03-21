@@ -19,13 +19,29 @@ function GetStructure(creep, structure, transfer)
             {
                 if (transfer)
                 {
-                    return (structure.structureType == STRUCTURE_SPAWN) 
-                        && structure.energy < structure.energyCapacity;
+                    if (structure.store != null)
+                    {
+                        return (structure.structureType == STRUCTURE_SPAWN) 
+                            && structure.store[RESOURCE_ENERGY] < structure.store.getCapacity(RESOURCE_ENERGY);
+                    }
+                    else
+                    {
+                        return (structure.structureType == STRUCTURE_SPAWN) 
+                            && structure.energy < structure.energyCapacity;
+                    }
                 }
                 else
                 {
-                    return (structure.structureType == STRUCTURE_SPAWN) 
-                        && structure.energy > 0;
+                    if (structure.store != null)
+                    {
+                        return (structure.structureType == STRUCTURE_SPAWN) 
+                            && structure.store[RESOURCE_ENERGY] > 0;
+                    }
+                    else
+                    {
+                        return (structure.structureType == STRUCTURE_SPAWN) 
+                            && structure.energy > 0;
+                    }
                 }
             }
         });
@@ -38,20 +54,43 @@ function GetStructure(creep, structure, transfer)
             {
                 if (transfer)
                 {
-                    return (structure.structureType == STRUCTURE_EXTENSION) 
-                        && structure.energy < structure.energyCapacity;
+                    if (structure.store != null)
+                    {
+                        return (structure.structureType == STRUCTURE_EXTENSION) 
+                            && structure.store[RESOURCE_ENERGY] < structure.store.getCapacity(RESOURCE_ENERGY);
+                    }
+                    else
+                    {
+                        return (structure.structureType == STRUCTURE_EXTENSION) 
+                            && structure.energy < structure.energyCapacity;
+                    }
                 }
                 else
                 {
-                    return (structure.structureType == STRUCTURE_EXTENSION) 
-                        && structure.energy > 0;
+                    if (structure.store != null)
+                    {
+                        return (structure.structureType == STRUCTURE_EXTENSION) 
+                            && structure.store[RESOURCE_ENERGY] > 0;
+                    }
+                    else
+                    {
+                        return (structure.structureType == STRUCTURE_EXTENSION) 
+                            && structure.energy  > 0;
+                    }
+                    
                 }
             }
         });
     }
     else if (structure == "Ruin")
     {
-        sites = creep.room.find(FIND_RUINS);
+        sites = creep.room.find(FIND_RUINS,
+        {
+            filter: (structure) => 
+            {
+                return structure.store[RESOURCE_ENERGY] > 0;
+            }
+        });
     }
     else if (structure == "Tower")
     {
@@ -60,7 +99,7 @@ function GetStructure(creep, structure, transfer)
             filter: (structure) => 
             {
                 return (structure.structureType == STRUCTURE_TOWER) 
-                    && structure.energy < structure.energyCapacity;
+                    && structure.store[RESOURCE_ENERGY] < structure.store.getCapacity();
             }
         });
     }

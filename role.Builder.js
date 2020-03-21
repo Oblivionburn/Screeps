@@ -17,7 +17,7 @@ function Builder(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy == 0 &&
+        creep.store[RESOURCE_ENERGY] == 0 &&
         creep.memory.task == "Siphoning")
     {
         var site = GetStructure(creep, "Extension", false);
@@ -32,7 +32,7 @@ function Builder(creep, debug)
         var site = GetStructure(creep, "Site", false);
         if (site != null)
         {
-            if (creep.carry.energy > 0)
+            if (creep.store[RESOURCE_ENERGY] > 0)
             {
                 needTask = !Build(creep, site, debug);
             }

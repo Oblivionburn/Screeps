@@ -13,7 +13,16 @@ function GetStructures(room, structure, checkEnergy)
             {
                 if (checkEnergy)
                 {
-                    return (structure.structureType == STRUCTURE_SPAWN) && structure.energy > 0;
+                    if (structure.store != null)
+                    {
+                        return (structure.structureType == STRUCTURE_SPAWN) 
+                            && structure.store[RESOURCE_ENERGY] > 0;
+                    }
+                    else
+                    {
+                        return (structure.structureType == STRUCTURE_SPAWN) 
+                            && structure.energy > 0;
+                    }
                 }
                 else
                 {
@@ -30,7 +39,16 @@ function GetStructures(room, structure, checkEnergy)
             {
                 if (checkEnergy)
                 {
-                    return (structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
+                    if (structure.store != null)
+                    {
+                        return (structure.structureType == STRUCTURE_EXTENSION) 
+                            && structure.store[RESOURCE_ENERGY] > 0;
+                    }
+                    else
+                    {
+                        return (structure.structureType == STRUCTURE_EXTENSION) 
+                            && structure.energy > 0;
+                    }
                 }
                 else
                 {
@@ -47,7 +65,16 @@ function GetStructures(room, structure, checkEnergy)
             {
                 if (checkEnergy)
                 {
-                    return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+                    if (structure.store != null)
+                    {
+                        return (structure.structureType == STRUCTURE_TOWER) 
+                            && structure.store.getFreeCapacity(RESOURCE_ENERGY);
+                    }
+                    else
+                    {
+                        return (structure.structureType == STRUCTURE_TOWER) 
+                            && structure.energy < structure.energyCapacity;
+                    }
                 }
                 else
                 {

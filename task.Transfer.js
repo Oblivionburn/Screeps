@@ -7,12 +7,12 @@ function Transfer(creep, thing, debug)
     creep.memory.task = "Transfering";
     creep.memory.target = thing.id;
     
-    var transfering = creep.carry.energy;
+    var transfering = creep.store[RESOURCE_ENERGY];
     var canHold = 0;
     
-    if (thing.carry != null)
+    if (thing.store != null)
     {
-        canHold = thing.carryCapacity - thing.carry.energy;
+        canHold = thing.store.getFreeCapacity(RESOURCE_ENERGY);
     }
     else
     {

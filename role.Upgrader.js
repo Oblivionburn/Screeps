@@ -22,7 +22,7 @@ function Upgrader(creep, debug)
     }
 
     if (needTask &&
-        creep.carry.energy < creep.carryCapacity &&
+        creep.store[RESOURCE_ENERGY] < creep.store.getCapacity(RESOURCE_ENERGY) &&
         creep.memory.task == "Harvesting")
     {
         site = GetStructure(creep, "Source");
@@ -34,7 +34,7 @@ function Upgrader(creep, debug)
     }
     
     if (needTask &&
-        creep.carry.energy > 0 &&
+        creep.store[RESOURCE_ENERGY] > 0 &&
         creep.room.controller.progress < creep.room.controller.progressTotal)
     {
         needTask = false;
