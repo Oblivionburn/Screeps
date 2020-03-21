@@ -1,69 +1,56 @@
 var Vector = require('Vector');
 var Occupied = require('util.Occupied');
 
-function GetPathLocations(creep, closed, location) 
+function GetPathLocations(creep, location) 
 {
     var locations = [];
     
     var North = new Vector(location.X, location.Y - 1);
-    var East = new Vector(location.X + 1, location.Y);
-    var South = new Vector(location.X, location.Y + 1);
-    var West = new Vector(location.X - 1, location.Y);
-    
-    var NorthFound = false;
-    var EastFound = false;
-    var SouthFound = false;
-    var WestFound = false;
-            
-    for (let c = 0; c < closed.length; c++)
-    {
-        if (North.X == closed[c].X &&
-            North.Y == closed[c].Y)
-        {
-            NorthFound = true;
-        }
-        
-        if (East.X == closed[c].X &&
-            East.Y == closed[c].Y)
-        {
-            EastFound = true;
-        }
-        
-        if (South.X == closed[c].X &&
-            South.Y == closed[c].Y)
-        {
-            SouthFound = true;
-        }
-        
-        if (West.X == closed[c].X &&
-            West.Y == closed[c].Y)
-        {
-            WestFound = true;
-        }
-    }
-    
-    if (!Occupied(creep, North) &&
-        !NorthFound)
+    if (!Occupied(creep, North))
     {
         locations.push(North);
     }
     
-    if (!Occupied(creep, East) &&
-        !EastFound)
+    var East = new Vector(location.X + 1, location.Y);
+    if (!Occupied(creep, East))
     {
         locations.push(East);
     }
     
-    if (!Occupied(creep, South) &&
-        !SouthFound)
+    var South = new Vector(location.X, location.Y + 1);
+    if (!Occupied(creep, South))
     {
         locations.push(South);
     }
     
-    if (!Occupied(creep, West) &&
-        !WestFound)
+    var West = new Vector(location.X - 1, location.Y);
+    if (!Occupied(creep, West))
     {
         locations.push(West);
+    }
+    
+    var NorthEast = new Vector(location.X + 1, location.Y - 1);
+    if (!Occupied(creep, NorthEast))
+    {
+        locations.push(NorthEast);
+    }
+    
+    var NorthWest = new Vector(location.X - 1, location.Y - 1);
+    if (!Occupied(creep, NorthWest))
+    {
+        locations.push(NorthWest);
+    }
+    
+    var SouthEast = new Vector(location.X + 1, location.Y + 1);
+    if (!Occupied(creep, SouthEast))
+    {
+        locations.push(SouthEast);
+    }
+    
+    var SouthWest = new Vector(location.X - 1, location.Y + 1);
+    if (!Occupied(creep, SouthWest))
+    {
+        locations.push(SouthWest);
     }
     
     return locations;

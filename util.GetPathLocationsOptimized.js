@@ -1,96 +1,48 @@
-var Vector = require('Vector');
-var Occupied = require('util.Occupied');
-
-function GetPathLocationsOptimized(closed, possible, location) 
+function GetPathLocationsOptimized(possible, location) 
 {
     var locations = [];
-    
-    var North = new Vector(location.X, location.Y - 1);
-    var East = new Vector(location.X + 1, location.Y);
-    var South = new Vector(location.X, location.Y + 1);
-    var West = new Vector(location.X - 1, location.Y);
-    
-    var NorthFound = false;
-    var EastFound = false;
-    var SouthFound = false;
-    var WestFound = false;
-            
-    for (let c = 0; c < closed.length; c++)
+
+    for (let p = 0; p < possible.length; p++)
     {
-        if (North.X == closed[c].X &&
-            North.Y == closed[c].Y)
+        if (possible[p].X == location.X && possible[p].Y == location.Y - 1)
         {
-            NorthFound = true;
+            //North
+            locations.push(possible[p]);
         }
-        
-        if (East.X == closed[c].X &&
-            East.Y == closed[c].Y)
+        else if (possible[p].X == location.X + 1 && possible[p].Y == location.Y)
         {
-            EastFound = true;
+            //East
+            locations.push(possible[p]);
         }
-        
-        if (South.X == closed[c].X &&
-            South.Y == closed[c].Y)
+        else if (possible[p].X == location.X && possible[p].Y == location.Y + 1)
         {
-            SouthFound = true;
+            //South
+            locations.push(possible[p]);
         }
-        
-        if (West.X == closed[c].X &&
-            West.Y == closed[c].Y)
+        else if (possible[p].X == location.X - 1 && possible[p].Y == location.Y)
         {
-            WestFound = true;
+            //West
+            locations.push(possible[p]);
         }
-    }
-    
-    if (!NorthFound)
-    {
-        for (let p = 0; p < possible.length; p++)
+        else if (possible[p].X == location.X + 1 && possible[p].Y == location.Y - 1)
         {
-            if (North.X == possible[p].X &&
-                North.Y == possible[p].Y)
-            {
-                locations.push(North);
-                break;
-            }
+            //NorthEast
+            locations.push(possible[p]);
         }
-    }
-    
-    if (!EastFound)
-    {
-        for (let p = 0; p < possible.length; p++)
+        else if (possible[p].X == location.X - 1 && possible[p].Y == location.Y - 1)
         {
-            if (East.X == possible[p].X &&
-                East.Y == possible[p].Y)
-            {
-                locations.push(East);
-                break;
-            }
+            //NorthWest
+            locations.push(possible[p]);
         }
-    }
-    
-    if (!SouthFound)
-    {
-        for (let p = 0; p < possible.length; p++)
+        else if (possible[p].X == location.X + 1 && possible[p].Y == location.Y + 1)
         {
-            if (South.X == possible[p].X &&
-                South.Y == possible[p].Y)
-            {
-                locations.push(South);
-                break;
-            }
+            //SouthEast
+            locations.push(possible[p]);
         }
-    }
-    
-    if (!WestFound)
-    {
-        for (let p = 0; p < possible.length; p++)
+        else if (possible[p].X == location.X - 1 && possible[p].Y == location.Y + 1)
         {
-            if (West.X == possible[p].X &&
-                West.Y == possible[p].Y)
-            {
-                locations.push(West);
-                break;
-            }
+            //SouthWest
+            locations.push(possible[p]);
         }
     }
     

@@ -8,6 +8,7 @@ function BuildStructure(spawn, structure_type, debug)
     var success = false;
     var turn = false;
     
+    //Spiral out from spawn clockwise (starting with 1 step directly down) looking for locations to build the structure
     var location = new Vector(spawn.pos.x, spawn.pos.y);
     for (let i = 1; i < 20; i++)
     {

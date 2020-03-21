@@ -1,6 +1,7 @@
 var GetStructure = require('util.GetStructure');
 var Available = require('util.Available');
 var GetHostile = require('util.GetHostile');
+var GetCreeps = require('util.GetCreeps');
 
 var Harvest = require('task.Harvest');
 var Transfer = require('task.Transfer');
@@ -61,11 +62,11 @@ function Harvester(creep, debug)
     if (needTask &&
         creep.carry.energy > 0)
     {
-        for (var name in Game.creeps) 
+        var builders = GetCreeps(creep.room, "Builder");
+        for (let i = 0; i < builders.length; i++) 
         {
-            var builder = Game.creeps[name];
-            if (builder.memory.role == 'Builder' &&
-                builder.carry.energy < builder.carryCapacity) 
+            var builder = builders[i];
+            if (builder.carry.energy < builder.carryCapacity) 
             {
                 if (creep.memory.target == builder.id ||
                     (Available(creep, builder.id) && creep.memory.target == null))
@@ -80,11 +81,11 @@ function Harvester(creep, debug)
     if (needTask &&
         creep.carry.energy > 0)
     {
-        for (var name in Game.creeps) 
+        var fixers = GetCreeps(creep.room, "Fixer");
+        for (let i = 0; i < fixers.length; i++)
         {
-            var fixer = Game.creeps[name];
-            if (fixer.memory.role == 'Fixer' &&
-                fixer.carry.energy < fixer.carryCapacity) 
+            var fixer = fixers[i];
+            if (fixer.carry.energy < fixer.carryCapacity) 
             {
                 if (creep.memory.target == fixer.id ||
                     (Available(creep, fixer.id) && creep.memory.target == null))
