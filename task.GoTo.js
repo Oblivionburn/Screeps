@@ -46,7 +46,7 @@ function GoTo(creep, location, reason, debug)
             creep.say(reason, true);
         }
 
-        //UseNewPathFinding(creep, location, true);
+        //UseNewPathFinding(creep, location);
         creep.moveTo(location.X, location.Y, {reusePath: 3, visualizePathStyle: {stroke: color}});
     }
 }

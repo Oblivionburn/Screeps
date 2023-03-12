@@ -4,22 +4,25 @@ var GetCreeps = require('util.GetCreeps');
 
 function GetInjured(creep)
 {
-    var injured = GetCreeps(creep.room, "Injured");
-    if (injured.length > 0) 
+    var injuredCreeps = GetCreeps(creep.room, "Injured");
+    var count = injuredCreeps.length;
+    if (count > 0) 
     {
         var locations = [];
-        for (let i = 0; i < injured.length; i++)
+        for (let i = 0; i < count; i++)
         {
-            locations[i] = new Vector(injured[i].pos.x, injured[i].pos.y);
+            var injured = injuredCreeps[i];
+            locations[i] = new Vector(injured.pos.x, injured.pos.y);
         }
         
         var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-        for (let i = 0; i < injured.length; i++)
+        for (let i = 0; i < count; i++)
         {
-            if (injured[i].pos.x == location.X &&
-                injured[i].pos.y == location.Y)
+            var injured = injuredCreeps[i];
+            if (injured.pos.x == location.X &&
+                injured.pos.y == location.Y)
             {
-                return injured[i];
+                return injured;
             }
         }
     }

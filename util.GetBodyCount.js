@@ -2,10 +2,12 @@ function GetBodyCount(creep, type)
 {
     var result = 0;
     
-    for (let i = 0; i < creep.body.length; i++)
+    var count = creep.body.length;
+    for (let i = 0; i < count; i++)
     {
-        if (creep.body[i].type == type &&
-            creep.body[i].hits > 0)
+        var body = creep.body[i];
+        if (body.type == type &&
+            body.hits > 0)
         {
             result++;
         }

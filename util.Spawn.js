@@ -7,7 +7,7 @@ function Spawn(spawn, role, debug)
 {
     var queue = "";
     
-    var template = [];
+    var templates = [];
     var body = [];
     var cost = 0;
     var result = 0;
@@ -16,32 +16,34 @@ function Spawn(spawn, role, debug)
     {
         if (role == "Harvester")
         {
-            template = [WORK, CARRY, MOVE, MOVE];
+            templates = [WORK, CARRY, MOVE, MOVE];
         }
         else if (role == "Builder")
         {
-            template = [WORK, WORK, CARRY, MOVE];
+            templates = [WORK, WORK, CARRY, MOVE];
         }
         else if (role == "Upgrader" ||
                  role == "Fixer")
         {
-            template = [ATTACK, WORK, CARRY, MOVE];
+            templates = [ATTACK, WORK, CARRY, MOVE];
         }
         else if (role == "Soldier")
         {
-            template = [ATTACK, ATTACK, MOVE];
+            templates = [ATTACK, ATTACK, MOVE];
         }
         else if (role == "Claimer")
         {
-            template = [CLAIM, MOVE];
+            templates = [CLAIM, MOVE];
         }
         
-        var available = Math.floor(spawn.room.energyAvailable / GetSpawnCost(template));
-        for (t = 0; t < template.length; t++)
+        var available = Math.floor(spawn.room.energyAvailable / GetSpawnCost(templates));
+        var count = templates.length;
+        for (t = 0; t < count; t++)
         {
+            var template = templates[t];
             for (let i = 0; i < available; i++)
             {
-                body.push(template[t]);
+                body.push(template);
             }
         }
         

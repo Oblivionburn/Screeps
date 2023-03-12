@@ -15,18 +15,20 @@ function Occupied(creep, location)
         }
         
         var safe = [ "road", "rampart" ];
-        var target = creep.room.lookAt(location.X, location.Y);
-        if (target != null)
+        var targets = creep.room.lookAt(location.X, location.Y);
+        if (targets != null)
         {
-            for (let t = 0; t < target.length; t++)
+            var count = targets.length;
+            for (let t = 0; t < count; t++)
             {
-                if (target[t].type == "terrain" &&
-                    target[t].terrain == "wall")
+                var target = targets[t];
+                if (target.type == "terrain" &&
+                    target.terrain == "wall")
                 {
                     return true;
                 }
-                else if (target[t].type == "structure" &&
-                        !safe.includes(target[t].structure.structureType))
+                else if (target.type == "structure" &&
+                        !safe.includes(target.structure.structureType))
                 {
                     return true;
                 }

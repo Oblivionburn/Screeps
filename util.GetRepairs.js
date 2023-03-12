@@ -75,7 +75,8 @@ function GetRepairs(creep, structure)
         });
     }
 
-    if (sites.length > 0) 
+    var count = sites.length;
+    if (count > 0) 
     {
         if (structure == "Spawn" ||
             structure == "Extension" ||
@@ -84,11 +85,12 @@ function GetRepairs(creep, structure)
         {
             //Get structure with lowest hits
             
-            for (let i = 0; i < sites.length; i++)
+            for (let i = 0; i < count; i++)
             {
-                if (Available(creep, sites[i].id))
+                var current = sites[i];
+                if (Available(creep, current.id))
                 {
-                    site = sites[i];
+                    site = current;
                     break;
                 }
             }
@@ -97,13 +99,14 @@ function GetRepairs(creep, structure)
             {
                 var hp = site.hits;
                 
-                for (let i = 0; i < sites.length; i++)
+                for (let i = 0; i < count; i++)
                 {
-                    if (sites[i].hits < hp &&
-                        Available(creep, sites[i].id))
+                    var current = sites[i];
+                    if (current.hits < hp &&
+                        Available(creep, current.id))
                     {
-                        hp = sites[i].hits;
-                        site = sites[i];
+                        hp = current.hits;
+                        site = current;
                     }
                 }
             }
@@ -112,11 +115,12 @@ function GetRepairs(creep, structure)
         {
             //Get nearest structure
             var locations = [];
-            for (let i = 0; i < sites.length; i++)
+            for (let i = 0; i < count; i++)
             {
-                var location = new Vector(sites[i].pos.x, sites[i].pos.y);
+                var current = sites[i];
+                var location = new Vector(current.pos.x, current.pos.y);
                 
-                if (Available(creep, sites[i].id))
+                if (Available(creep, current.id))
                 {
                     locations.push(location);
                 }
@@ -125,12 +129,13 @@ function GetRepairs(creep, structure)
             if (locations.length > 0)
             {
                 var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-                for (let i = 0; i < sites.length; i++)
+                for (let i = 0; i < count; i++)
                 {
-                    if (sites[i].pos.x == location.X &&
-                        sites[i].pos.y == location.Y)
+                    var current = sites[i];
+                    if (current.pos.x == location.X &&
+                        current.pos.y == location.Y)
                     {
-                        return sites[i];
+                        return current;
                     }
                 }
             }

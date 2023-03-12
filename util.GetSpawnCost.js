@@ -2,37 +2,39 @@ function GetSpawnCost(body)
 {
     var result = 0;
     
-    for (let i = 0; i < body.length; i++)
+    var count = body.length;
+    for (let i = 0; i < count; i++)
     {
-        if (body[i] == "move")
+        var part = body[i];
+        if (part == "move")
         {
             result += 50;
         }
-        else if (body[i] == "work")
+        else if (part == "work")
         {
             result += 100;
         }
-        else if (body[i] == "carry")
+        else if (part == "carry")
         {
             result += 50;
         }
-        else if (body[i] == "attack")
+        else if (part == "attack")
         {
             result += 80;
         }
-        else if (body[i] == "ranged_attack")
+        else if (part == "ranged_attack")
         {
             result += 150;
         }
-        else if (body[i] == "heal")
+        else if (part == "heal")
         {
             result += 250;
         }
-        else if (body[i] == "claim")
+        else if (part == "claim")
         {
             result += 600;
         }
-        else if (body[i] == "tough")
+        else if (part == "tough")
         {
             result += 10;
         }

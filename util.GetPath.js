@@ -8,110 +8,66 @@ var GetPathLocations = require('util.GetPathLocations');
 var GetPathMinLocationTarget = require('util.GetPathMinLocationTarget');
 var GetPathReached = require('util.GetPathReached');
 
-function GetPath(creep, destination, debug) 
+function GetPath(creep, destination) 
 {
-    //Init starting point
-    var toTarget = GetDistance(creep.pos.x, creep.pos.y, destination.X, destination.Y);
-    var toStart = 0;
-    var terrainCost = 0;
-    
-    var start = new ALocation(creep.pos.x, creep.pos.y, toStart, toTarget, terrainCost);
-    
     var open = [];
     var path = [];
-    
-    //Add our starting point to the path
-    
-    if (debug)
-    {
-        console.log(creep.name + ': New path starting point is (' + start.X + ',' + start.Y + ')');
-    }
-    
+
+    var start = new ALocation(creep.pos.x, creep.pos.y);
+    start.ToTarget = GetDistance(creep.pos.x, creep.pos.y, destination.X, destination.Y);
     path.push(start);
     
-    //Get possible next steps towards the target
-    var locations = GetPathLocations(creep, start);
-    for (let l = 0; l < locations.length; l++)
-    {
-        toStart = GetDistance(locations[l].X, locations[l].Y, start.X, start.Y);
-        toTarget = GetDistance(locations[l].X, locations[l].Y, destination.X, destination.Y);
-        terrainCost = GetTerrainCost(creep.room, locations[l]);
-        
-        var location = new ALocation(locations[l].X, locations[l].Y, toStart, toTarget, terrainCost);
-        open.push(location);
-    }
+    var lastMin = start;
 
     var reached = false;
     for (let i = 0; i < 250; i++) //width * height of room = 250
     {
-        if (open.length > 0)
+        if (lastMin != null)
         {
-            if (debug)
+            var locations = GetPathLocations(creep, lastMin);
+            var count = locations.length;
+            for (let l = 0; l < count; l++)
             {
-                console.log(creep.name + ': path possibilities found...');
-            }
-            
-            //Get closest possibility towards the target
-            var min = GetPathMinLocationTarget(open);
-            
-            if (debug)
-            {
-                console.log(creep.name + ': Next step in path is (' + min.X + ',' + min.Y + ')');
-            }
-            
-            //Clear options being checked so we don't add duplicates next time around
-            open = [];
-            
-            //Add next step to our path
-            path.push(min);
-
-            //Check if we've reached our goal
-            if (GetPathReached(min, destination))
-            {
-                if (debug)
-                {
-                    console.log(creep.name + ': Reached destination');
-                }
+                var location = locations[l];
                 
-                reached = true;
-                break;
-            }
-
-            //Get possible next steps towards the target
-            var locations = GetPathLocations(creep, min);
-            for (let l = 0; l < locations.length; l++)
-            {
-                //Check that we're not trying to add anything already in our path
-                if (!HasPath(path, locations[l].X, locations[l].Y))
+                if (!HasPath(path, location))
                 {
-                    toStart = GetDistance(locations[l].X, locations[l].Y, start.X, start.Y);
-                    toTarget = GetDistance(locations[l].X, locations[l].Y, destination.X, destination.Y);
-                    terrainCost = GetTerrainCost(creep.room, locations[l]);
+                    location.ToStart = GetDistance(location.X, location.Y, start.X, start.Y);
+                    location.ToTarget = GetDistance(location.X, location.Y, destination.X, destination.Y);
+                    location.TerrainCost = GetTerrainCost(creep.room, locations[l]);
+                    location.Parent = lastMin;
                     
-                    var location = new ALocation(locations[l].X, locations[l].Y, toStart, toTarget, terrainCost);
                     open.push(location);
                 }
+            }
+            
+            if (open.length > 0)
+            {
+                var min = GetPathMinLocationTarget(open);
+                open = [];
+                path.push(min);
+                lastMin = min;
+                
+                if (GetPathReached(min, destination))
+                {
+                    reached = true;
+                    break;
+                }
+            }
+            else
+            {
+                lastMin = lastMin.Parent;
             }
         }
         else
         {
-            if (debug)
-            {
-                console.log(creep.name + ': ran out of path possibilities!');
-            }
-            
             break;
         }
     }
     
     if (reached)
     {
-        if (debug)
-        {
-            console.log(creep.name + ': Getting optimized path...');
-        }
-        
-        return GetPathOptimized(creep, path, start, debug);
+        return GetPathOptimized(creep, path, start);
     }
 
     return null;

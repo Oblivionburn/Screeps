@@ -5,8 +5,6 @@ var GetPath = require('util.GetPath');
 
 function UseNewPathFinding(creep, location) 
 {
-    var debug = false;
-    
     var okay = false;
     var needPath = false;
     
@@ -20,40 +18,14 @@ function UseNewPathFinding(creep, location)
                 var location = new Vector(next.X, next.Y);
                 if (!Occupied(creep, location))
                 {
-                    if (debug)
-                    {
-                        console.log(creep.name + ': Path Found');
-                    }
-                    
                     okay = true;
                 }
-                else if (debug)
-                {
-                    console.log(creep.name + ': Next step is occupied');
-                }
-            }
-            else if (debug)
-            {
-                console.log(creep.name + ': Next step not found');
             }
         }
-        else if (debug)
-        {
-            console.log(creep.name + ': Path is 0 length');
-        }
-    }
-    else if (debug)
-    {
-        console.log(creep.name + ': Path is null');
     }
     
     if (!okay)
     {
-        if (debug)
-        {
-            console.log(creep.name + ': Getting new path...');
-        }
-        
         //Get new path
         var new_path = GetPath(creep, location);
         if (new_path != null)
@@ -61,18 +33,8 @@ function UseNewPathFinding(creep, location)
             if (new_path.length > 1)
             {
                 creep.memory.path = new_path;
-                
-                if (debug)
-                {
-                    console.log(creep.name + ': New Path');
-                }
-                
                 okay = true;
             }
-        }
-        else if (debug)
-        {
-            console.log(creep.name + ': Path is still null');
         }
     }
     
@@ -83,11 +45,6 @@ function UseNewPathFinding(creep, location)
         {
             creep.memory.path.splice(1, 1);
             creep.memory.path[0] = next;
-            
-            if (debug)
-            {
-                console.log(creep.name + ': Next Step is (' + next.X + ',' + next.Y + ')');
-            }
             
             if (next.X > creep.pos.x)
             {

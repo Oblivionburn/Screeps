@@ -2,23 +2,26 @@ var Vector = require('Vector');
 
 function GetTerrainCost(room, location) 
 {
-    var target = room.lookAt(location.X, location.Y);
-    if (target != null)
+    var targets = room.lookAt(location.X, location.Y);
+    if (targets != null)
     {
-        for (let t = 0; t < target.length; t++)
+        var count = targets.length;
+        for (let t = 0; t < count; t++)
         {
-            if (target[t].type == "structure" &&
-                target[t].structure.structureType == "road")
+            var target = targets[t];
+            
+            if (target.type == "structure" &&
+                target.structure.structureType == "road")
             {
                 return 0;
             }
-            else if (target[t].type == "terrain")
+            else if (target.type == "terrain")
             {
-                if (target[t].terrain == "plain")
+                if (target.terrain == "plain")
                 {
                     return 1;
                 }
-                else if (target[t].terrain == "swamp")
+                else if (target.terrain == "swamp")
                 {
                     return 2;
                 }

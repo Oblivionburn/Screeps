@@ -136,7 +136,9 @@ function Fixer(creep, debug)
             if (needTask)
             {
                 var builders = GetCreeps(creep.room, "Builder");
-                for (let i = 0; i < builders.length; i++)
+                
+                var count = builders.length;
+                for (let i = 0; i < count; i++)
                 {
                     var builder = builders[i];
                     if (builder.store[RESOURCE_ENERGY] < builder.store.getCapacity(RESOURCE_ENERGY) &&

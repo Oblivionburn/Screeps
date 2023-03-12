@@ -4,6 +4,8 @@ function Pave(creep)
     var sites = [];
     
     sites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
+    var count = sites.length;
+    
     if (sites.length == MAX_CONSTRUCTION_SITES)
     {
         blocked = true;
@@ -11,10 +13,11 @@ function Pave(creep)
     
     if (!blocked)
     {
-        for (let i = 0; i < sites.length; i++)
+        for (let i = 0; i < count; i++)
         {
-            if (sites[i].pos.x == creep.pos.x &&
-                sites[i].pos.y == creep.pos.y)
+            var site = sites[i];
+            if (site.pos.x == creep.pos.x &&
+                site.pos.y == creep.pos.y)
             {
                 blocked = true;
                 break;
@@ -25,10 +28,11 @@ function Pave(creep)
     if (!blocked)
     {
         sites = creep.room.find(FIND_STRUCTURES);
-        for (let i = 0; i < sites.length; i++)
+        for (let i = 0; i < count; i++)
         {
-            if (sites[i].pos.x == creep.pos.x &&
-                sites[i].pos.y == creep.pos.y)
+            var site = sites[i];
+            if (site.pos.x == creep.pos.x &&
+                site.pos.y == creep.pos.y)
             {
                 blocked = true;
                 break;

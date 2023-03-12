@@ -32,13 +32,15 @@ function HandleBuilding(debug)
         
         if (sites != null)
         {
-            for (let i = 0; i < sites.length; i++)
+            var count = sites.length;
+            for (let i = 0; i < count; i++)
             {
-                if (sites[i].structureType == STRUCTURE_EXTENSION)
+                var site = sites[i];
+                if (site.structureType == STRUCTURE_EXTENSION)
                 {
                     totalExtensions++;
                 }
-                else if (sites[i].structureType == STRUCTURE_TOWER)
+                else if (site.structureType == STRUCTURE_TOWER)
                 {
                     totalTowers++;
                 }

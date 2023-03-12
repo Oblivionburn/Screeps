@@ -1,9 +1,11 @@
 function RemovePath(pathArray, x, y) 
 {
-    for (let i = 0; i < pathArray.length; i++)
+    var count = pathArray.length;
+    for (let i = 0; i < count; i++)
     {
-        if (pathArray[i].X == x &&
-            pathArray[i].Y == y)
+        var path = pathArray[i];
+        if (path.X == x &&
+            path.Y == y)
         {
             pathArray.splice(i, 1);
         }

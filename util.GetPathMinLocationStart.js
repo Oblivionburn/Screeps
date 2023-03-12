@@ -3,12 +3,15 @@ function GetPathMinLocationStart(open)
     var current = open[0];
     var distance = current.ToStart;
 
-    for (let a = 0; a < open.length; a++)
+    var count = open.length;
+    for (let a = 0; a < count; a++)
     {
-        var newDistance = open[a].ToStart;
+        var location = open[a];
+        
+        var newDistance = location.ToStart;
         if (newDistance < distance)
         {
-            current = open[a];
+            current = location;
             distance = newDistance;
         }
     }

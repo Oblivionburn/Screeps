@@ -108,31 +108,35 @@ function GetStructure(creep, structure, transfer)
         sites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
     }
 
-    if (sites.length > 0) 
+    var count = sites.length;
+    if (count > 0) 
     {
         if (structure == "Source")
         {
             var current = new Vector(creep.pos.x, creep.pos.y);
-            for (let i = 0; i < sites.length; i++)
+            for (let i = 0; i < count; i++)
             {
-                var site = new Vector(sites[i].pos.x, sites[i].pos.y);
-                if (NextTo(current, site))
+                var site = sites[i];
+                var siteLocation = new Vector(site.pos.x, site.pos.y);
+                if (NextTo(current, siteLocation))
                 {
-                    return sites[i];
+                    return site;
                 }
             }
             
             var harvest_spots = GetHarvestSpots_ForCreep(creep);
-            if (harvest_spots.length > 0)
+            var harvestCount = harvest_spots.length;
+            if (harvestCount > 0)
             {
                 var location = GetNearest(creep.pos.x, creep.pos.y, harvest_spots);
         
-                for (let i = 0; i < sites.length; i++)
+                for (let i = 0; i < count; i++)
                 {
-                    var site = new Vector(sites[i].pos.x, sites[i].pos.y);
-                    if (NextTo(location, site))
+                    var site = sites[i];
+                    var siteLocation = new Vector(site.pos.x, site.pos.y);
+                    if (NextTo(location, siteLocation))
                     {
-                        return sites[i];
+                        return site;
                     }
                 }
             }
@@ -142,21 +146,23 @@ function GetStructure(creep, structure, transfer)
             var site = sites[0];
             
             //Get biggest site to start with
-            for (let i = 0; i < sites.length; i++)
+            for (let i = 0; i < count; i++)
             {
-                if (sites[i].progressTotal > site.progressTotal)
+                var current = sites[i];
+                if (current.progressTotal > site.progressTotal)
                 {
-                    site = sites[i];
+                    site = current;
                 }
             }
             
             //Check for similar site that is closer to being built
-            for (let i = 0; i < sites.length; i++)
+            for (let i = 0; i < count; i++)
             {
-                if (sites[i].progress > site.progress &&
-                    sites[i].progressTotal == site.progressTotal)
+                var current = sites[i];
+                if (current.progress > site.progress &&
+                    current.progressTotal == site.progressTotal)
                 {
-                    site = sites[i];
+                    site = current;
                 }
             }
             
@@ -164,12 +170,13 @@ function GetStructure(creep, structure, transfer)
             if (site.progress == 0)
             {
                 var locations = [];
-                for (let i = 0; i < sites.length; i++)
+                for (let i = 0; i < count; i++)
                 {
+                    var current = sites[i];
                     var location = new Vector(sites[i].pos.x, sites[i].pos.y);
                     
-                    if (Available(creep, sites[i].id) &&
-                        sites[i].progressTotal == site.progressTotal)
+                    if (Available(creep, current.id) &&
+                        current.progressTotal == site.progressTotal)
                     {
                         locations.push(location);
                     }
@@ -178,12 +185,13 @@ function GetStructure(creep, structure, transfer)
                 if (locations.length > 0)
                 {
                     var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-                    for (let i = 0; i < sites.length; i++)
+                    for (let i = 0; i < count; i++)
                     {
-                        if (location.X == sites[i].pos.x &&
-                            location.Y == sites[i].pos.y)
+                        var current = sites[i];
+                        if (location.X == current.pos.x &&
+                            location.Y == current.pos.y)
                         {
-                            return sites[i];
+                            return current;
                         }
                     }
                 }
@@ -194,25 +202,26 @@ function GetStructure(creep, structure, transfer)
         else
         {
             var locations = [];
-            for (let i = 0; i < sites.length; i++)
+            for (let i = 0; i < count; i++)
             {
-                var location = new Vector(sites[i].pos.x, sites[i].pos.y);
-                
-                if (Available(creep, sites[i].id))
+                var site = sites[i];
+                var siteLocation = new Vector(site.pos.x, site.pos.y);
+                if (Available(creep, site.id))
                 {
-                    locations.push(location);
+                    locations.push(siteLocation);
                 }
             }
             
             if (locations.length > 0)
             {
                 var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-                for (let i = 0; i < sites.length; i++)
+                for (let i = 0; i < count; i++)
                 {
-                    if (location.X == sites[i].pos.x &&
-                        location.Y == sites[i].pos.y)
+                    var site = sites[i];
+                    if (location.X == site.pos.x &&
+                        location.Y == site.pos.y)
                     {
-                        return sites[i];
+                        return site;
                     }
                 }
             }

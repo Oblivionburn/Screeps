@@ -6,33 +6,38 @@ function GetGrave(creep)
     var sites = [];
     
     var graves = creep.room.find(FIND_TOMBSTONES);
-    if (graves.length > 0)
+    var gravesCount = graves.length;
+    if (gravesCount > 0)
     {
-        for (let i = 0; i < graves.length; i++)
+        for (let i = 0; i < gravesCount; i++)
         {
-            if (graves[i].store[RESOURCE_ENERGY] > 0)
+            var grave = graves[i];
+            if (grave.store[RESOURCE_ENERGY] > 0)
             {
-                sites.push(graves[i]);
+                sites.push(grave);
                 break;
             }
         }
     }
     
-    if (sites.length > 0) 
+    var sitesCount = sites.length;
+    if (sitesCount > 0) 
     {
         var locations = [];
-        for (let i = 0; i < sites.length; i++)
+        for (let i = 0; i < sitesCount; i++)
         {
-            locations[i] = new Vector(sites[i].pos.x, sites[i].pos.y);
+            var site = sites[i];
+            locations[i] = new Vector(site.pos.x, site.pos.y);
         }
         
         var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-        for (let i = 0; i < sites.length; i++)
+        for (let i = 0; i < sitesCount; i++)
         {
-            if (sites[i].pos.x == location.X &&
-                sites[i].pos.y == location.Y)
+            var site = sites[i];
+            if (site.pos.x == location.X &&
+                site.pos.y == location.Y)
             {
-                return sites[i];
+                return site;
             }
         }
     }

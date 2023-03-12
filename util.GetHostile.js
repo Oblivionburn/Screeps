@@ -4,21 +4,24 @@ var GetNearest = require('util.GetNearest');
 function GetHostile(creep)
 {
     var hostiles = creep.room.find(FIND_HOSTILE_CREEPS);
-    if (hostiles.length > 0) 
+    var count = hostiles.length;
+    if (count > 0) 
     {
         var locations = [];
-        for (let i = 0; i < hostiles.length; i++)
+        for (let i = 0; i < count; i++)
         {
-            locations[i] = new Vector(hostiles[i].pos.x, hostiles[i].pos.y);
+            var hostile = hostiles[i];
+            locations[i] = new Vector(hostile.pos.x, hostile.pos.y);
         }
         
         var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-        for (let i = 0; i < hostiles.length; i++)
+        for (let i = 0; i < count; i++)
         {
-            if (hostiles[i].pos.x == location.X &&
-                hostiles[i].pos.y == location.Y)
+            var hostile = hostiles[i];
+            if (hostile.pos.x == location.X &&
+                hostile.pos.y == location.Y)
             {
-                return hostiles[i];
+                return hostile;
             }
         }
     }

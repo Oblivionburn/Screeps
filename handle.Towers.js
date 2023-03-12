@@ -10,21 +10,24 @@ function HandleTowers(debug)
         var towers = GetStructures(spawn.room, "Tower", false);
         if (towers != null)
         {
-            if (towers.length > 0)
+            var count = towers.length;
+            if (count > 0)
             {
-                for (let i = 0; i < towers.length; i++)
+                for (let i = 0; i < count; i++)
                 {
-                    var injured = GetInjured(towers[i]);
+                    var tower = towers[i];
+                    
+                    var injured = GetInjured(tower);
                     if (injured != null)
                     {
-                        towers[i].heal(injured);
+                        tower.heal(injured);
                     }
                     else
                     {
-                        var hostile = GetHostile(towers[i]);
+                        var hostile = GetHostile(tower);
                         if (hostile != null)
                         {
-                            towers[i].attack(hostile);
+                            tower.attack(hostile);
                         }
                     }
                 }

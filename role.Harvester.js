@@ -63,7 +63,9 @@ function Harvester(creep, debug)
         creep.store[RESOURCE_ENERGY] > 0)
     {
         var builders = GetCreeps(creep.room, "Builder");
-        for (let i = 0; i < builders.length; i++)
+        
+        var count = builders.length;
+        for (let i = 0; i < count; i++)
         {
             var builder = builders[i];
             if (builder.store[RESOURCE_ENERGY] < builder.store.getCapacity(RESOURCE_ENERGY)) 
@@ -82,7 +84,9 @@ function Harvester(creep, debug)
         creep.store[RESOURCE_ENERGY] > 0)
     {
         var fixers = GetCreeps(creep.room, "Fixer");
-        for (let i = 0; i < fixers.length; i++)
+        
+        var count = fixers.length;
+        for (let i = 0; i < count; i++)
         {
             var fixer = fixers[i];
             if (fixer.store[RESOURCE_ENERGY] < fixer.store.getCapacity(RESOURCE_ENERGY)) 

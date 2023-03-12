@@ -1,10 +1,11 @@
-function ALocation(x, y, toStart, toTarget, terrainCost) 
+function ALocation(x, y) 
 {
     this.X = x;
     this.Y = y;
-    this.ToStart = toStart;
-    this.ToTarget = toTarget;
-    this.TerrainCost = terrainCost;
+    this.TerrainCost = 0;
+    this.ToStart = 0;
+    this.ToTarget = 0;
+    this.Parent = null;
 }
 
 module.exports = ALocation;

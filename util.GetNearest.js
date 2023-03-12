@@ -5,14 +5,16 @@ function GetNearest(x, y, locations)
     var location = locations[0];
     var distance = GetDistance(x, y, location.X, location.Y);
     
-    for (let i = 0; i < locations.length; i++)
+    var count = locations.length;
+    for (let i = 0; i < count; i++)
     {
-        var new_distance = GetDistance(x, y, locations[i].X, locations[i].Y);
+        var current = locations[i];
+        var new_distance = GetDistance(x, y, current.X, current.Y);
         
         if (new_distance < distance &&
             new_distance > 0)
         {
-            location = locations[i];
+            location = current;
             distance = new_distance;
         }
     }

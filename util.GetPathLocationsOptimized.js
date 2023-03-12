@@ -4,45 +4,55 @@ function GetPathLocationsOptimized(possible, location)
 
     for (let p = 0; p < possible.length; p++)
     {
-        if (possible[p].X == location.X && possible[p].Y == location.Y - 1)
+        var posLocation = possible[p];
+        
+        if (posLocation.X == location.X &&
+            posLocation.Y == location.Y - 1)
         {
             //North
-            locations.push(possible[p]);
+            locations.push(posLocation);
         }
-        else if (possible[p].X == location.X + 1 && possible[p].Y == location.Y)
+        else if (posLocation.X == location.X + 1 &&
+                 posLocation.Y == location.Y)
         {
             //East
-            locations.push(possible[p]);
+            locations.push(posLocation);
         }
-        else if (possible[p].X == location.X && possible[p].Y == location.Y + 1)
+        else if (posLocation.X == location.X &&
+                 posLocation.Y == location.Y + 1)
         {
             //South
-            locations.push(possible[p]);
+            locations.push(posLocation);
         }
-        else if (possible[p].X == location.X - 1 && possible[p].Y == location.Y)
+        else if (posLocation.X == location.X - 1 &&
+                 posLocation.Y == location.Y)
         {
             //West
-            locations.push(possible[p]);
+            locations.push(posLocation);
         }
-        else if (possible[p].X == location.X + 1 && possible[p].Y == location.Y - 1)
+        else if (posLocation.X == location.X + 1 &&
+                 posLocation.Y == location.Y - 1)
         {
             //NorthEast
-            locations.push(possible[p]);
+            locations.push(posLocation);
         }
-        else if (possible[p].X == location.X - 1 && possible[p].Y == location.Y - 1)
+        else if (posLocation.X == location.X - 1 &&
+                 posLocation.Y == location.Y - 1)
         {
             //NorthWest
-            locations.push(possible[p]);
+            locations.push(posLocation);
         }
-        else if (possible[p].X == location.X + 1 && possible[p].Y == location.Y + 1)
+        else if (posLocation.X == location.X + 1 &&
+                 posLocation.Y == location.Y + 1)
         {
             //SouthEast
-            locations.push(possible[p]);
+            locations.push(posLocation);
         }
-        else if (possible[p].X == location.X - 1 && possible[p].Y == location.Y + 1)
+        else if (posLocation.X == location.X - 1 &&
+                 posLocation.Y == location.Y + 1)
         {
             //SouthWest
-            locations.push(possible[p]);
+            locations.push(posLocation);
         }
     }
     

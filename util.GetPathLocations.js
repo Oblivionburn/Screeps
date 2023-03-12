@@ -1,53 +1,53 @@
-var Vector = require('Vector');
+var ALocation = require('ALocation');
 var Occupied = require('util.Occupied');
 
 function GetPathLocations(creep, location) 
 {
     var locations = [];
     
-    var North = new Vector(location.X, location.Y - 1);
+    var North = new ALocation(location.X, location.Y - 1);
     if (!Occupied(creep, North))
     {
         locations.push(North);
     }
     
-    var East = new Vector(location.X + 1, location.Y);
+    var East = new ALocation(location.X + 1, location.Y);
     if (!Occupied(creep, East))
     {
         locations.push(East);
     }
     
-    var South = new Vector(location.X, location.Y + 1);
+    var South = new ALocation(location.X, location.Y + 1);
     if (!Occupied(creep, South))
     {
         locations.push(South);
     }
     
-    var West = new Vector(location.X - 1, location.Y);
+    var West = new ALocation(location.X - 1, location.Y);
     if (!Occupied(creep, West))
     {
         locations.push(West);
     }
     
-    var NorthEast = new Vector(location.X + 1, location.Y - 1);
+    var NorthEast = new ALocation(location.X + 1, location.Y - 1);
     if (!Occupied(creep, NorthEast))
     {
         locations.push(NorthEast);
     }
     
-    var NorthWest = new Vector(location.X - 1, location.Y - 1);
+    var NorthWest = new ALocation(location.X - 1, location.Y - 1);
     if (!Occupied(creep, NorthWest))
     {
         locations.push(NorthWest);
     }
     
-    var SouthEast = new Vector(location.X + 1, location.Y + 1);
+    var SouthEast = new ALocation(location.X + 1, location.Y + 1);
     if (!Occupied(creep, SouthEast))
     {
         locations.push(SouthEast);
     }
     
-    var SouthWest = new Vector(location.X - 1, location.Y + 1);
+    var SouthWest = new ALocation(location.X - 1, location.Y + 1);
     if (!Occupied(creep, SouthWest))
     {
         locations.push(SouthWest);

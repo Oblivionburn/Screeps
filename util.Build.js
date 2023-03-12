@@ -3,9 +3,9 @@ function Build(room, location, type)
     if (location.X > 0 &&
         location.X < 49 &&
         location.Y > 0 &&
-        location.Y < 49 &&
-        sites.length < MAX_CONSTRUCTION_SITES)
+        location.Y < 49)
     {
+        var sites = [];
         var exists = false;
 
         //Check for terrain being anything other than plain
@@ -16,11 +16,14 @@ function Build(room, location, type)
         
         if (!exists)
         {
-            var sites = room.find(FIND_MY_CONSTRUCTION_SITES);
-            for (let i = 0; i < sites.length; i++)
+            sites = room.find(FIND_MY_CONSTRUCTION_SITES);
+            
+            var count = sites.length;
+            for (let i = 0; i < count; i++)
             {
-                if (sites[i].pos.x == location.X &&
-                    sites[i].pos.y == location.Y)
+                var site = sites[i];
+                if (site.pos.x == location.X &&
+                    site.pos.y == location.Y)
                 {
                     exists = true;
                     break;
@@ -31,10 +34,13 @@ function Build(room, location, type)
         if (!exists)
         {
             var structures = room.find(FIND_STRUCTURES);
-            for (let i = 0; i < structures.length; i++)
+            
+            var count = structures.length;
+            for (let i = 0; i < count; i++)
             {
-                if (structures[i].pos.x == location.X &&
-                    structures[i].pos.y == location.Y)
+                var structure = structures[i];
+                if (structure.pos.x == location.X &&
+                    structure.pos.y == location.Y)
                 {
                     exists = true;
                     break;
@@ -42,7 +48,8 @@ function Build(room, location, type)
             }
         }
         
-        if (!exists)
+        if (!exists &&
+            sites.length < MAX_CONSTRUCTION_SITES)
         {
             room.createConstructionSite(location.X, location.Y, type);
             return true;

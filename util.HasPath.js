@@ -1,9 +1,12 @@
-function HasPath(pathArray, x, y) 
+function HasPath(pathArray, location) 
 {
-    for (let i = 0; i < pathArray.length; i++)
+    var count = pathArray.length;
+    for (let i = 0; i < count; i++)
     {
-        if (pathArray[i].X == x &&
-            pathArray[i].Y == y)
+        var pathLocation = pathArray[i];
+        
+        if (location.X == pathLocation.X &&
+            location.Y == pathLocation.Y)
         {
             return true;
         }
