@@ -35,9 +35,11 @@ function HandleCreeps(invasion, debug)
             Claimer(creep, invasion, debug);
         }
         
-        if (creep.ticksToLive <= 60 && debug)
+        if (debug &&
+            creep.ticksToLive <= 61 && 
+            creep.ticksToLive > 1)
         {
-            new RoomVisual(creep.room.name).text("dead in " + creep.ticksToLive + "...", creep.pos.x, creep.pos.y + 1, {color: "red", font: "bold 0.7 Calibri"});
+            new RoomVisual(creep.room.name).text("dead in " +  (creep.ticksToLive - 1) + "...", creep.pos.x, creep.pos.y + 1, {color: "red", font: "bold 0.7 Calibri"});
         }
     }
 }

@@ -16,24 +16,24 @@ function Spawn(spawn, role, debug)
     {
         if (role == "Harvester")
         {
-            templates = [WORK, CARRY, MOVE, MOVE];
+            templates = [WORK, CARRY, MOVE, MOVE]; //250
         }
         else if (role == "Builder")
         {
-            templates = [WORK, WORK, CARRY, MOVE];
+            templates = [WORK, WORK, CARRY, MOVE]; //300
         }
         else if (role == "Upgrader" ||
                  role == "Fixer")
         {
-            templates = [ATTACK, WORK, CARRY, MOVE];
+            templates = [ATTACK, WORK, CARRY, MOVE]; //280
         }
         else if (role == "Soldier")
         {
-            templates = [ATTACK, ATTACK, MOVE];
+            templates = [ATTACK, MOVE, MOVE, MOVE, TOUGH, TOUGH]; //250
         }
         else if (role == "Claimer")
         {
-            templates = [CLAIM, MOVE];
+            templates = [CLAIM, MOVE]; //650
         }
         
         var available = Math.floor(spawn.room.energyAvailable / GetSpawnCost(templates));

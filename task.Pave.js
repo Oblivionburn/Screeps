@@ -28,6 +28,8 @@ function Pave(creep)
     if (!blocked)
     {
         sites = creep.room.find(FIND_STRUCTURES);
+        var count = sites.length;
+        
         for (let i = 0; i < count; i++)
         {
             var site = sites[i];
