@@ -35,7 +35,7 @@ function Siphon(creep, structure)
             const position = new Position(structure.pos.x, structure.pos.y);
             GoTo(creep, position, creep.memory.task);
         }
-        else if (debug)
+        else
         {
             //console.log(creep.name + " siphon Error: " + GetError(result));
         }
