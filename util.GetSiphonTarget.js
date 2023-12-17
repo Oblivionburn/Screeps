@@ -12,7 +12,6 @@ function GetSiphonTarget(creep)
     }
     
     const sites = [];
-    let sitesCount = 0;
     
     const allStructures = creep.room.find(FIND_MY_STRUCTURES);
     const structureCount = allStructures.length;
@@ -27,24 +26,21 @@ function GetSiphonTarget(creep)
             sites.push(structure);
         }
     }
-    sitesCount = sites.length;
     
-    if (sitesCount == 0)
+    const ruins = creep.room.find(FIND_RUINS);
+    const ruinsCount = ruins.length;
+    
+    for (let i = 0; i < ruinsCount; i++)
     {
-        const ruins = creep.room.find(FIND_RUINS);
-        const ruinsCount = ruins.length;
+        const ruin = ruins[i];
         
-        for (let i = 0; i < ruinsCount; i++)
+        if (ruin.store[RESOURCE_ENERGY] > 0)
         {
-            const ruin = ruins[i];
-            
-            if (ruin.store[RESOURCE_ENERGY] > 0)
-            {
-                sites.push(ruin);
-            }
+            sites.push(ruin);
         }
     }
-    sitesCount = sites.length;
+    
+    const sitesCount = sites.length;
     
     const positions = [];
     for (let i = 0; i < sitesCount; i++)
@@ -58,6 +54,7 @@ function GetSiphonTarget(creep)
             positions.push(position);
         }
     }
+    
     const positionsCount = positions.length;
     if (positionsCount > 0)
     {
