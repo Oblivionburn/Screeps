@@ -1,28 +1,34 @@
-var Vector = require('Vector');
-var GetNearest = require('util.GetNearest');
-var GetCreeps = require('util.GetCreeps');
+const Position = require("object.Position");
+const GetNearest = require("util.GetNearest");
+const GetCreeps = require("util.GetCreeps");
 
-function GetInjured(creep)
+function GetInjured(room, x, y)
 {
-    var injuredCreeps = GetCreeps(creep.room, "Injured");
-    var count = injuredCreeps.length;
-    if (count > 0) 
+    const injuredCreeps = GetCreeps(room, "Injured");
+    const injuredCount = injuredCreeps.length;
+    
+    if (injuredCount > 0) 
     {
-        var locations = [];
-        for (let i = 0; i < count; i++)
+        const positions = [];
+        
+        for (let i = 0; i < injuredCount; i++)
         {
-            var injured = injuredCreeps[i];
-            locations[i] = new Vector(injured.pos.x, injured.pos.y);
+            const injured = injuredCreeps[i];
+            positions.push(new Position(injured.pos.x, injured.pos.y));
         }
         
-        var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-        for (let i = 0; i < count; i++)
+        const nearest = GetNearest(x, y, positions);
+        if (nearest != null)
         {
-            var injured = injuredCreeps[i];
-            if (injured.pos.x == location.X &&
-                injured.pos.y == location.Y)
+            for (let i = 0; i < injuredCount; i++)
             {
-                return injured;
+                const injured = injuredCreeps[i];
+                
+                if (injured.pos.x == nearest.X &&
+                    injured.pos.y == nearest.Y)
+                {
+                    return injured;
+                }
             }
         }
     }

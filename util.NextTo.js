@@ -1,10 +1,10 @@
-function NextTo(location, target) 
+function NextTo(origin_x, origin_y, target_x, target_y) 
 {
-    if (location.X >= target.X - 1 && location.X <= target.X + 1 &&
-        location.Y >= target.Y - 1 && location.Y <= target.Y + 1)
+    if (origin_x >= target_x - 1 && origin_x <= target_x + 1 &&
+        origin_y >= target_y - 1 && origin_y <= target_y + 1)
     {
-        if (!(location.X == target.X &&
-              location.Y == target.Y))
+        if (!(origin_x == target_x &&
+              origin_y == target_y))
         {
             return true;
         }

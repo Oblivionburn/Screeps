@@ -1,35 +1,31 @@
-var GetStructures = require('util.GetStructures');
-var GetHostile = require('util.GetHostile');
-var GetInjured = require('util.GetInjured');
+const GetStructures = require("util.GetStructures");
+const GetHostile = require("util.GetHostile");
+const GetInjured = require("util.GetInjured");
 
-function HandleTowers(debug) 
+function HandleTowers() 
 {
-    for (var name in Game.spawns)
+    for (let spawnName in Game.spawns)
     {
-        var spawn = Game.spawns[name];
-        var towers = GetStructures(spawn.room, "Tower", false);
-        if (towers != null)
+        const spawn = Game.spawns[spawnName];
+        
+        const towers = GetStructures(spawn.room, "tower");
+        const towerCount = towers.length;
+        
+        for (let i = 0; i < towerCount; i++)
         {
-            var count = towers.length;
-            if (count > 0)
+            const tower = towers[i];
+            
+            const injured = GetInjured(tower.room, tower.pos.x, tower.pos.y);
+            if (injured != null)
             {
-                for (let i = 0; i < count; i++)
+                tower.heal(injured);
+            }
+            else
+            {
+                const hostile = GetHostile(tower.room, tower.pos.x, tower.pos.y);
+                if (hostile != null)
                 {
-                    var tower = towers[i];
-                    
-                    var injured = GetInjured(tower);
-                    if (injured != null)
-                    {
-                        tower.heal(injured);
-                    }
-                    else
-                    {
-                        var hostile = GetHostile(tower);
-                        if (hostile != null)
-                        {
-                            tower.attack(hostile);
-                        }
-                    }
+                    tower.attack(hostile);
                 }
             }
         }

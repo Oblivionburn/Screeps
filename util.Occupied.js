@@ -1,34 +1,34 @@
-var Vector = require('Vector');
-
-function Occupied(creep, location) 
+function Occupied(creep, x, y) 
 {
-    for (var name in Game.creeps) 
+    for (let creepName in Game.creeps) 
     {
-        var other_creep = Game.creeps[name];
-        if (creep.id != other_creep.id)
+        const otherCreep = Game.creeps[creepName];
+        if (otherCreep.id != creep.id)
         {
-            if (other_creep.pos.x == location.X &&
-                other_creep.pos.y == location.Y) 
+            if (otherCreep.pos.x == x &&
+                otherCreep.pos.y == y) 
             {
                 return true;
             }
         }
         
-        var safe = [ "road", "rampart" ];
-        var targets = creep.room.lookAt(location.X, location.Y);
-        if (targets != null)
+        const safe = ["road", "rampart"];
+        
+        const things = creep.room.lookAt(x, y);
+        if (things != null)
         {
-            var count = targets.length;
-            for (let t = 0; t < count; t++)
+            const thingCount = things.length;
+            for (let t = 0; t < thingCount; t++)
             {
-                var target = targets[t];
-                if (target.type == "terrain" &&
-                    target.terrain == "wall")
+                const thing = things[t];
+                
+                if (thing.type == "terrain" &&
+                    thing.terrain == "wall")
                 {
                     return true;
                 }
-                else if (target.type == "structure" &&
-                        !safe.includes(target.structure.structureType))
+                else if (thing.type == "structure" &&
+                         !safe.includes(thing.structure.structureType))
                 {
                     return true;
                 }

@@ -1,31 +1,14 @@
-var HandleBuilding = require('handle.Building');
-var HandleCreeps = require('handle.Creeps');
-var HandleSpawning = require('handle.Spawning');
-var HandleTowers = require('handle.Towers');
+const HandleSpawns = require("handle.Spawns");
+const HandleCreeps = require("handle.Creeps");
+const HandleBuilding = require("handle.Building");
+const HandleTowers = require("handle.Towers");
 
 function loop()
 {
-    var debug = true;
-    var automate_building = true;
-    var invasion = false;
-    
-    var queue = HandleSpawning(debug);
-    if (queue != "")
-    {
-        console.log(queue);
-    }
-
-    if (automate_building)
-    {
-        var built = HandleBuilding(debug);
-        if (built != "")
-        {
-            console.log(built);
-        }
-    }
-
-    HandleTowers(debug);
-    HandleCreeps(invasion, debug);
+    HandleSpawns();
+    HandleBuilding();
+    HandleTowers();
+    HandleCreeps();
 }
 
 module.exports = {loop}

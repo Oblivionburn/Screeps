@@ -1,14 +1,15 @@
-var Vector = require('Vector');
-var GetError = require('util.GetError');
-var GoTo = require('task.GoTo');
+const CanHoldMoreEnergy = require("util.CanHoldMoreEnergy");
+const Position = require("object.Position");
+const GetError = require("util.GetError");
+const GoTo = require("task.GoTo");
 
-function Transfer(creep, thing, debug) 
+function Transfer(creep, thing) 
 {
     creep.memory.task = "Transfering";
     creep.memory.target = thing.id;
     
-    var transfering = creep.store[RESOURCE_ENERGY];
-    var canHold = 0;
+    let transfering = creep.store[RESOURCE_ENERGY];
+    let canHold = 0;
     
     if (thing.store != null)
     {
@@ -29,27 +30,20 @@ function Transfer(creep, thing, debug)
         var result = creep.transfer(thing, RESOURCE_ENERGY);
         if (result == 0) 
         {
-            if (debug)
-            {
-                creep.say("Gave:" + transfering, true);
-                creep.memory.task = "";
-                creep.memory.target = "";
-            }
+            creep.say("Gave:" + transfering, true);
+            creep.memory.task = "";
+            creep.memory.target = "";
         }
         else if (result == ERR_NOT_IN_RANGE)
         {
-            var location = new Vector(thing.pos.x, thing.pos.y);
-            GoTo(creep, location, creep.memory.task, debug);
+            const position = new Position(thing.pos.x, thing.pos.y);
+            GoTo(creep, position, creep.memory.task);
         }
-        else if (debug)
+        else
         {
-            creep.say("Error: " + GetError(result), true);
+            //console.log(creep.name + " transfer Error: " + GetError(result));
         }
-        
-        return true;
     }
-    
-    return false;
 }
 
 module.exports = Transfer;

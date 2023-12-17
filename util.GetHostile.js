@@ -1,30 +1,37 @@
-var Vector = require('Vector');
-var GetNearest = require('util.GetNearest');
+const Position = require("object.Position");
+const GetNearest = require("util.GetNearest");
 
-function GetHostile(creep)
+function GetHostile(room, x, y)
 {
-    var hostiles = creep.room.find(FIND_HOSTILE_CREEPS);
-    var count = hostiles.length;
-    if (count > 0) 
+    const hostiles = room.find(FIND_HOSTILE_CREEPS);
+    const hostileCount = hostiles.length;
+    
+    if (hostileCount > 0) 
     {
-        var locations = [];
-        for (let i = 0; i < count; i++)
+        const positions = [];
+        
+        for (let i = 0; i < hostileCount; i++)
         {
-            var hostile = hostiles[i];
-            locations[i] = new Vector(hostile.pos.x, hostile.pos.y);
+            const hostile = hostiles[i];
+            
+            positions[i] = new Position(hostile.pos.x, hostile.pos.y);
         }
         
-        var location = GetNearest(creep.pos.x, creep.pos.y, locations);
-        for (let i = 0; i < count; i++)
+        const nearest = GetNearest(x, y, positions);
+        
+        for (let i = 0; i < hostileCount; i++)
         {
-            var hostile = hostiles[i];
-            if (hostile.pos.x == location.X &&
-                hostile.pos.y == location.Y)
+            const hostile = hostiles[i];
+            
+            if (hostile.pos.x == nearest.X &&
+                hostile.pos.y == nearest.Y)
             {
                 return hostile;
             }
         }
     }
+    
+    return null;
 }
 
 module.exports = GetHostile;

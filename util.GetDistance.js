@@ -1,7 +1,7 @@
 function GetDistance(x1, y1, x2, y2) 
 {
-    var x_diff = x1 - x2;
-    var y_diff = y1 - y2;
+    let x_diff = x1 - x2;
+    let y_diff = y1 - y2;
     
     if (x_diff < 0)
     {

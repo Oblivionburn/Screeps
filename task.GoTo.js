@@ -1,14 +1,11 @@
-var GetDistance = require('util.GetDistance');
-var UseNewPathFinding = require('task.UseNewPathFinding');
+const GetDistance = require("util.GetDistance");
 
-function GoTo(creep, location, reason, debug) 
+function GoTo(creep, position, reason) 
 {
-    var distance = GetDistance(creep.pos.x, creep.pos.y, location.X, location.Y);
+    const distance = GetDistance(creep.pos.x, creep.pos.y, position.X, position.Y);
     if (distance > 1)
     {
-        //creep.memory.task = "Travelling";
-        
-        var color = "";
+        let color = "";
         if (reason == "Harvesting")
         {
             color = "#FFFFFF";
@@ -41,13 +38,8 @@ function GoTo(creep, location, reason, debug)
             color = "#FF0000";
         }
         
-        if (debug)
-        {
-            creep.say(reason, true);
-        }
-
-        //UseNewPathFinding(creep, location);
-        creep.moveTo(location.X, location.Y, {reusePath: 3, visualizePathStyle: {stroke: color}});
+        creep.say(reason, true);
+        creep.moveTo(position.X, position.Y, {reusePath: 3, visualizePathStyle: {stroke: color}});
     }
 }
 

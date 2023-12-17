@@ -1,11 +1,10 @@
 function CleanMemory() 
 {
-    for (var name in Memory.creeps) 
+    for (let creepName in Memory.creeps) 
     {
-        if (!Game.creeps[name]) 
+        if (!Game.creeps[creepName]) 
         {
-            console.log(name + " has died.");
-            delete Memory.creeps[name];
+            delete Memory.creeps[creepName];
         }
     }
 }

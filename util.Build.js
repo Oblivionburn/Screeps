@@ -1,15 +1,15 @@
-function Build(room, location, type)
+function Build(room, position, type)
 {
-    if (location.X > 0 &&
-        location.X < 49 &&
-        location.Y > 0 &&
-        location.Y < 49)
+    if (position.X > 0 &&
+        position.X < 49 &&
+        position.Y > 0 &&
+        position.Y < 49)
     {
-        var sites = [];
-        var exists = false;
+        let sites = [];
+        let exists = false;
 
         //Check for terrain being anything other than plain
-        if (room.getTerrain().get(location.X, location.Y) != 0)
+        if (room.getTerrain().get(position.X, position.Y) != 0)
         {
             exists = true;
         }
@@ -18,12 +18,13 @@ function Build(room, location, type)
         {
             sites = room.find(FIND_MY_CONSTRUCTION_SITES);
             
-            var count = sites.length;
-            for (let i = 0; i < count; i++)
+            const siteCount = sites.length;
+            for (let i = 0; i < siteCount; i++)
             {
-                var site = sites[i];
-                if (site.pos.x == location.X &&
-                    site.pos.y == location.Y)
+                const site = sites[i];
+                
+                if (site.pos.x == position.X &&
+                    site.pos.y == position.Y)
                 {
                     exists = true;
                     break;
@@ -33,14 +34,15 @@ function Build(room, location, type)
         
         if (!exists)
         {
-            var structures = room.find(FIND_STRUCTURES);
+            const structures = room.find(FIND_STRUCTURES);
             
-            var count = structures.length;
-            for (let i = 0; i < count; i++)
+            const structureCount = structures.length;
+            for (let i = 0; i < structureCount; i++)
             {
-                var structure = structures[i];
-                if (structure.pos.x == location.X &&
-                    structure.pos.y == location.Y)
+                const structure = structures[i];
+                
+                if (structure.pos.x == position.X &&
+                    structure.pos.y == position.Y)
                 {
                     exists = true;
                     break;
@@ -51,7 +53,7 @@ function Build(room, location, type)
         if (!exists &&
             sites.length < MAX_CONSTRUCTION_SITES)
         {
-            room.createConstructionSite(location.X, location.Y, type);
+            room.createConstructionSite(position.X, position.Y, type);
             return true;
         }
     }

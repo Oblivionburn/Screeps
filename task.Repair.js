@@ -1,43 +1,34 @@
-var Vector = require('Vector');
-var GetBodyCount = require('util.GetBodyCount');
-var GetError = require('util.GetError');
-var GoTo = require('task.GoTo');
+const Position = require("object.Position");
+const GetBodyCount = require("util.GetBodyCount");
+const GetError = require("util.GetError");
+const GoTo = require("task.GoTo");
 
-function Repair(creep, structure, debug) 
+function Repair(creep, structure) 
 {
     creep.memory.task = "Repairing";
     creep.memory.target = structure.id;
     
-    var total = structure.hitsMax - structure.hits - (GetBodyCount(creep, "work") * 100);
-    if (total < 0)
-    {
-        total = 0;
-    }
+    const work = GetBodyCount(creep, "work") * 100;
+    const hitsMissing = structure.hitsMax - structure.hits;
     
-    if (total > 0)
+    const total = hitsMissing - work;
+    if (total >= 0)
     {
-        var result = creep.repair(structure);
+        const result = creep.repair(structure);
         if (result == 0) 
         {
-            if (debug)
-            {
-                creep.say(total, true);
-            }
+            creep.say(total, true);
         }
         else if (result == ERR_NOT_IN_RANGE)
         {
-            var location = new Vector(structure.pos.x, structure.pos.y);
-            GoTo(creep, location, creep.memory.task, debug);
+            var position = new Position(structure.pos.x, structure.pos.y);
+            GoTo(creep, position, creep.memory.task);
         }
-        else if (debug)
+        else
         {
-            creep.say("Error: " + GetError(result), true);
+            console.log(creep.name + " repair Error: " + GetError(result));
         }
-        
-        return true;
     }
-    
-    return false;
 }
 
 module.exports = Repair;

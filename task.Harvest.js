@@ -1,17 +1,17 @@
-var Vector = require('Vector');
-var GetBodyCount = require('util.GetBodyCount');
-var GetError = require('util.GetError');
-var GoTo = require('task.GoTo');
-var Pave = require('task.Pave');
+const Position = require("object.Position");
+const GetBodyCount = require("util.GetBodyCount");
+const GetError = require("util.GetError");
+const GoTo = require("task.GoTo");
+const Pave = require('task.Pave');
 
-function Harvest(creep, structure, debug) 
+function Harvest(creep, structure) 
 {
     creep.memory.task = "Harvesting";
     creep.memory.target = structure.id;
     
     Pave(creep);
     
-    var total = GetBodyCount(creep, "work") * 2;
+    let total = GetBodyCount(creep, "work") * 2;
     if (creep.store[RESOURCE_ENERGY] + total > creep.store.getCapacity(RESOURCE_ENERGY))
     {
         total = creep.store.getCapacity(RESOURCE_ENERGY);
@@ -23,28 +23,21 @@ function Harvest(creep, structure, debug)
 
     if (total > 0)
     {
-        var result = creep.harvest(structure);
+        const result = creep.harvest(structure);
         if (result == 0) 
         {
-            if (debug)
-            {
-                creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
-            }
+            creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
         }
         else if (result == ERR_NOT_IN_RANGE)
         {
-            var location = new Vector(structure.pos.x, structure.pos.y);
-            GoTo(creep, location, creep.memory.task, debug);
+            const position = new Position(structure.pos.x, structure.pos.y);
+            GoTo(creep, position, creep.memory.task);
         }
-        else if (debug)
+        else
         {
-            creep.say("Error: " + GetError(result), true);
+            //console.log(creep.name + " harvest Error: " + GetError(result));
         }
-        
-        return true;
     }
-    
-    return false;
 }
     
 module.exports = Harvest;

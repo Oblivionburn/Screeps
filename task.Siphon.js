@@ -1,14 +1,14 @@
-var Vector = require('Vector');
-var GetError = require('util.GetError');
-var GoTo = require('task.GoTo');
-var Pave = require('task.Pave');
+const Position = require("object.Position");
+const GetError = require("util.GetError");
+const GoTo = require("task.GoTo");
+const Pave = require("task.Pave");
 
-function Siphon(creep, structure, debug) 
+function Siphon(creep, structure) 
 {
     creep.memory.task = "Siphoning";
     creep.memory.target = structure.id;
     
-    var total = 0;
+    let total = 0;
     if (structure.store != null)
     {
         total = structure.store[RESOURCE_ENERGY];
@@ -25,29 +25,20 @@ function Siphon(creep, structure, debug)
     
     if (total > 0)
     {
-        var result = creep.withdraw(structure, RESOURCE_ENERGY);
+        const result = creep.withdraw(structure, RESOURCE_ENERGY);
         if (result == 0) 
         {
-            if (debug)
-            {
-                creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
-            }
+            creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
         }
         else if (result == ERR_NOT_IN_RANGE)
         {
-            var location = new Vector(structure.pos.x, structure.pos.y);
-            GoTo(creep, location, creep.memory.task, debug);
+            const position = new Position(structure.pos.x, structure.pos.y);
+            GoTo(creep, position, creep.memory.task);
         }
         else if (debug)
         {
-            creep.say("Error: " + GetError(result), true);
+            //console.log(creep.name + " siphon Error: " + GetError(result));
         }
-        
-        return true;
-    }
-    else
-    {
-        return false;
     }
 }
 

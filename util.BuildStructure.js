@@ -1,23 +1,22 @@
-var Vector = require('Vector');
-var Build = require('util.Build');
+const Position = require("object.Position");
+const Build = require("util.Build");
 
-function BuildStructure(spawn, structure_type, debug)
+function BuildStructure(spawn, structure_type)
 {
-    var built = "";
-    
-    var success = false;
-    var turn = false;
+    let success = false;
+    let turn = false;
     
     //Spiral out from spawn clockwise (starting with 1 step directly down) looking for locations to build the structure
-    var location = new Vector(spawn.pos.x, spawn.pos.y);
+    const position = new Position(spawn.pos.x, spawn.pos.y);
+    
     for (let i = 1; i < 20; i++)
     {
         if (turn)
         {
             for (let j = 0; j < i; j++)
             {
-                location.Y++;
-                success = Build(spawn.room, location, structure_type);
+                position.Y++;
+                success = Build(spawn.room, position, structure_type);
                 
                 if (success)
                 {
@@ -33,8 +32,8 @@ function BuildStructure(spawn, structure_type, debug)
             {
                 for (let j = 0; j < i; j++)
                 {
-                    location.X--;
-                    success = Build(spawn.room, location, structure_type);
+                    position.X--;
+                    success = Build(spawn.room, position, structure_type);
                     
                     if (success)
                     {
@@ -56,8 +55,8 @@ function BuildStructure(spawn, structure_type, debug)
         {
             for (let j = 0; j < i; j++)
             {
-                location.Y--;
-                success = Build(spawn.room, location, structure_type);
+                position.Y--;
+                success = Build(spawn.room, position, structure_type);
                 
                 if (success)
                 {
@@ -73,8 +72,8 @@ function BuildStructure(spawn, structure_type, debug)
             {
                 for (let j = 0; j < i; j++)
                 {
-                    location.X++;
-                    success = Build(spawn.room, location, structure_type);
+                    position.X++;
+                    success = Build(spawn.room, position, structure_type);
                     
                     if (success)
                     {
@@ -93,13 +92,6 @@ function BuildStructure(spawn, structure_type, debug)
             }
         }
     }
-    
-    if (success)
-    {
-        built = "Built " + structure_type + " in room " + spawn.room.name + " at " + location.X + "," + location.Y;
-    }
-    
-    return built;
 }
 
 module.exports = BuildStructure;

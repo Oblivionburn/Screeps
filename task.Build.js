@@ -1,41 +1,35 @@
-var Vector = require('Vector');
-var GetBodyCount = require('util.GetBodyCount');
-var GetError = require('util.GetError');
-var GoTo = require('task.GoTo');
+const Position = require('object.Position');
+const GetBodyCount = require('util.GetBodyCount');
+const GetError = require('util.GetError');
+const GoTo = require('task.GoTo');
 
 function Build(creep, structure, debug) 
 {
     creep.memory.task = "Building";
     creep.memory.target = structure.id;
     
-    var work = GetBodyCount(creep, "work") * 5;
-    var total = structure.progressTotal - structure.progress - work;
+    const work = GetBodyCount(creep, "work") * 5;
+    
+    let total = structure.progressTotal - structure.progress - work;
     if (total < 0)
     {
         total = 0;    
     }
     
-    var result = creep.build(structure);
+    const result = creep.build(structure);
     if (result == 0) 
     {
-        if (debug)
-        {
-            creep.say(total, true);
-            return true;
-        }
+        creep.say(total, true);
     }
     else if (result == ERR_NOT_IN_RANGE)
     {
-        var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location, creep.memory.task, debug);
-        return true;
+        var position = new Position(structure.pos.x, structure.pos.y);
+        GoTo(creep, position, creep.memory.task);
     }
-    else if (debug)
+    else
     {
-        creep.say("Error: " + GetError(result), true);
+        //console.log(creep.name + " build Error: " + GetError(result));
     }
-
-    return false;
 }
 
 module.exports = Build;

@@ -1,46 +1,50 @@
-function GetSpawnCost(body) 
+function GetSpawnCost(partList) 
 {
-    var result = 0;
+    let cost = 0;
     
-    var count = body.length;
-    for (let i = 0; i < count; i++)
+    if (partList != null)
     {
-        var part = body[i];
-        if (part == "move")
+        const partCount = partList.length;
+        for (let i = 0; i < partCount; i++)
         {
-            result += 50;
-        }
-        else if (part == "work")
-        {
-            result += 100;
-        }
-        else if (part == "carry")
-        {
-            result += 50;
-        }
-        else if (part == "attack")
-        {
-            result += 80;
-        }
-        else if (part == "ranged_attack")
-        {
-            result += 150;
-        }
-        else if (part == "heal")
-        {
-            result += 250;
-        }
-        else if (part == "claim")
-        {
-            result += 600;
-        }
-        else if (part == "tough")
-        {
-            result += 10;
+            const part = partList[i];
+            
+            if (part == "move")
+            {
+                cost += 50;
+            }
+            else if (part == "work")
+            {
+                cost += 100;
+            }
+            else if (part == "carry")
+            {
+                cost += 50;
+            }
+            else if (part == "attack")
+            {
+                cost += 80;
+            }
+            else if (part == "ranged_attack")
+            {
+                cost += 150;
+            }
+            else if (part == "heal")
+            {
+                cost += 250;
+            }
+            else if (part == "claim")
+            {
+                cost += 600;
+            }
+            else if (part == "tough")
+            {
+                cost += 10;
+            }
         }
     }
     
-    return result;
+    return cost;
 }
 
 module.exports = GetSpawnCost;

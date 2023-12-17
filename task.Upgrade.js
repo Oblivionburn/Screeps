@@ -1,8 +1,8 @@
-var Vector = require('Vector');
-var GoTo = require('task.GoTo');
-var Pave = require('task.Pave');
+var Position = require("object.Position");
+var GoTo = require("task.GoTo");
+const Pave = require("task.Pave");
 
-function Upgrade(creep, structure, debug) 
+function Upgrade(creep, structure) 
 {
     creep.memory.task = "Upgrading";
     creep.memory.target = structure.id;
@@ -14,19 +14,16 @@ function Upgrade(creep, structure, debug)
     var result = creep.upgradeController(structure);
     if (result == 0) 
     {
-        if (debug)
-        {
-            creep.say(total, true);
-        }
+        creep.say(total, true);
     }
     else if (result == ERR_NOT_IN_RANGE)
     {
-        var location = new Vector(structure.pos.x, structure.pos.y);
-        GoTo(creep, location, creep.memory.task, debug);
+        var position = new Position(structure.pos.x, structure.pos.y);
+        GoTo(creep, position, creep.memory.task);
     }
-    else if (debug)
+    else
     {
-        creep.say("Error: " + GetError(result), true);
+        console.log(creep.name + " upgrade Error: " + GetError(result));
     }
 }
 

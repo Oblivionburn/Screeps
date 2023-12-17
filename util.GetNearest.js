@@ -1,25 +1,33 @@
-var GetDistance = require('util.GetDistance');
+const GetDistance = require("util.GetDistance");
 
-function GetNearest(x, y, locations) 
+function GetNearest(x, y, positions) 
 {
-    var location = locations[0];
-    var distance = GetDistance(x, y, location.X, location.Y);
-    
-    var count = locations.length;
-    for (let i = 0; i < count; i++)
+    if (positions != null)
     {
-        var current = locations[i];
-        var new_distance = GetDistance(x, y, current.X, current.Y);
-        
-        if (new_distance < distance &&
-            new_distance > 0)
+        const positionCount = positions.length;
+        if (positionCount > 0)
         {
-            location = current;
-            distance = new_distance;
+            let position = positions[0];
+            let distance = GetDistance(x, y, position.X, position.Y);
+            
+            for (let i = 0; i < positionCount; i++)
+            {
+                const newPosition = positions[i];
+                const newDistance = GetDistance(x, y, newPosition.X, newPosition.Y);
+                
+                if (newDistance < distance &&
+                    newDistance > 0)
+                {
+                    position = newPosition;
+                    distance = newDistance;
+                }
+            }
+            
+            return position;
         }
     }
     
-    return location;
+    return null;
 }
 
 module.exports = GetNearest;

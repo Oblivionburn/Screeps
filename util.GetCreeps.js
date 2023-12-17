@@ -1,8 +1,8 @@
-function GetCreeps(room, role) 
+function GetCreeps(room, job) 
 {
-    var creeps = [];
+    let creeps = [];
     
-    if (role == "Injured")
+    if (job == "Injured")
     {
         creeps = room.find(FIND_MY_CREEPS, 
         {
@@ -18,7 +18,7 @@ function GetCreeps(room, role)
         {
             filter: (creep) => 
             {
-                return (creep.memory.role == role || role == "All");
+                return (creep.memory.job == job);
             }
         });
     }

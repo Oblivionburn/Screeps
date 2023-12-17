@@ -1,6 +1,6 @@
-function GetName(role) 
+function GetName(job) 
 {
-    var names = [];
+    let names = [];
     names.push("Aaron");
     names.push("Abel");
     names.push("Adam");
@@ -660,7 +660,7 @@ function GetName(role)
     names.push("Velma");
     names.push("Becky");
     
-    return names[Math.floor(Math.random() * names.length)] + " the " + role;
+    return names[Math.floor(Math.random() * names.length)] + " the " + job;
 }
 
 module.exports = GetName;
