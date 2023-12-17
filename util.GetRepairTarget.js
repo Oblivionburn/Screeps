@@ -2,14 +2,14 @@ const GetStructures_Damaged = require("util.GetStructures_Damaged");
 
 function GetRepairTarget(creep)
 {
-    const names = ["spawn", "extension", "tower", "road", "rampart", "wall"];
-    const count = names.length;
+    const types = [STRUCTURE_SPAWN, STRUCTURE_EXTENSION, STRUCTURE_TOWER, STRUCTURE_ROAD, STRUCTURE_RAMPART, STRUCTURE_WALL];
+    const typeCount = types.length;
     
-    for (let i = 0; i < count; i++)
+    for (let i = 0; i < typeCount; i++)
     {
-        const name = names[i];
+        const type = types[i];
         
-        const structure = GetStructures_Damaged(creep, name);
+        const structure = GetStructures_Damaged(creep, type);
         if (structure != null)
         {
             return structure;

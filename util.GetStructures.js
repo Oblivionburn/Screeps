@@ -8,33 +8,45 @@ function GetStructures(room, name)
     }
     else if (name == "spawn")
     {
-        structures = room.find(FIND_MY_STRUCTURES, 
+        const allStructures = room.find(FIND_MY_STRUCTURES);
+        const structureCount = allStructures.length;
+    
+        for (let i = 0; i < structureCount; i++)
         {
-            filter: (structure) => 
+            const structure = allStructures[i];
+            if (structure.structureType == STRUCTURE_SPAWN)
             {
-                return structure.structureType == STRUCTURE_SPAWN;
+                structures.push(structure);
             }
-        });
+        }
     }
     else if (name == "extension")
     {
-        structures = room.find(FIND_MY_STRUCTURES, 
+        const allStructures = room.find(FIND_MY_STRUCTURES);
+        const structureCount = allStructures.length;
+        
+        for (let i = 0; i < structureCount; i++)
         {
-            filter: (structure) => 
+            const structure = allStructures[i];
+            if (structure.structureType == STRUCTURE_EXTENSION)
             {
-                return structure.structureType == STRUCTURE_EXTENSION;
+                structures.push(structure);
             }
-        });
+        }
     }
     else if (name == "tower")
     {
-        structures = room.find(FIND_MY_STRUCTURES, 
+        const allStructures = room.find(FIND_MY_STRUCTURES);
+        const structureCount = allStructures.length;
+        
+        for (let i = 0; i < structureCount; i++)
         {
-            filter: (structure) => 
+            const structure = allStructures[i];
+            if (structure.structureType == STRUCTURE_TOWER)
             {
-                return structure.structureType == STRUCTURE_TOWER;
+                structures.push(structure);
             }
-        });
+        }
     }
     else if (name == "site")
     {

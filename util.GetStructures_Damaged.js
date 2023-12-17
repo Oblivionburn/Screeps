@@ -2,84 +2,41 @@ const Position = require("object.Position");
 const Targeted = require("util.Targeted");
 const GetNearest = require("util.GetNearest");
 
-function GetStructures_Damaged(creep, name)
+function GetStructures_Damaged(creep, type)
 {
-    let structures = [];
+    const structures = [];
     
-    if (name == "spawn")
+    let allStructures = [];
+    
+    if (type == STRUCTURE_ROAD ||
+        type == STRUCTURE_WALL)
     {
-        structures = creep.room.find(FIND_MY_STRUCTURES, 
-        {
-            filter: (structure) => 
-            {
-                return (structure.structureType == STRUCTURE_SPAWN) 
-                        && structure.hits < structure.hitsMax;
-                
-            }
-        });
+        allStructures = creep.room.find(FIND_STRUCTURES);
     }
-    else if (name == "extension")
+    else
     {
-        structures = creep.room.find(FIND_MY_STRUCTURES, 
-        {
-            filter: (structure) => 
-            {
-                return (structure.structureType == STRUCTURE_EXTENSION) 
-                        && structure.hits < structure.hitsMax;
-            }
-        });
+        allStructures = creep.room.find(FIND_MY_STRUCTURES);
     }
-    else if (name == "tower")
+    
+    const allStructureCount = allStructures.length;
+    
+    for (let i = 0; i < allStructureCount; i++)
     {
-        structures = creep.room.find(FIND_MY_STRUCTURES, 
+        const structure = allStructures[i];
+        
+        if (structure.hits < structure.hitsMax &&
+            structure.structureType == type)
         {
-            filter: (structure) => 
-            {
-                return (structure.structureType == STRUCTURE_TOWER) 
-                    && structure.hits < structure.hitsMax;
-            }
-        });
+            structures.push(structure);
+        }
     }
-    else if (name == "road")
-    {
-        structures = creep.room.find(FIND_STRUCTURES, 
-        {
-            filter: (structure) => 
-            {
-                return (structure.structureType == STRUCTURE_ROAD) 
-                    && structure.hits < structure.hitsMax;
-            }
-        });
-    }
-    else if (name == "wall")
-    {
-        structures = creep.room.find(FIND_STRUCTURES, 
-        {
-            filter: (structure) => 
-            {
-                return (structure.structureType == STRUCTURE_WALL) 
-                    && structure.hits < structure.hitsMax;
-            }
-        });
-    }
-    else if (name == "rampart")
-    {
-        structures = creep.room.find(FIND_MY_STRUCTURES, 
-        {
-            filter: (structure) => 
-            {
-                return (structure.structureType == STRUCTURE_RAMPART) 
-                    && structure.hits < structure.hitsMax;
-            }
-        });
-    }
-
+    
     const structureCount = structures.length;
     
-    if (name == "spawn" ||
-        name == "extension" ||
-        name == "wall" ||
-        name == "rampart")
+    if (type == STRUCTURE_SPAWN ||
+        type == STRUCTURE_EXTENSION ||
+        type == STRUCTURE_WALL ||
+        type == STRUCTURE_RAMPART)
     {
         let chosen = null;
         

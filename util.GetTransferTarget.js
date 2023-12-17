@@ -61,6 +61,17 @@ function GetTransferTarget(creep)
         }
     }
     
+    const upgraders = GetCreeps(creep.room, "Upgrader");
+    const upgraderCounts = upgraders.length;
+    for (let i = 0; i < upgraderCounts; i++)
+    {
+        const upgrader = upgraders[i];
+        if (CanHoldMoreEnergy(upgrader))
+        {
+            return upgrader;
+        }
+    }
+    
     return null;
 }
 

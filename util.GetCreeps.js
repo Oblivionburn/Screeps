@@ -1,26 +1,31 @@
 function GetCreeps(room, job) 
 {
-    let creeps = [];
+    const creeps = [];
+    
+    const allCreeps = room.find(FIND_MY_CREEPS);
+    const creepCounts = allCreeps.length;
     
     if (job == "Injured")
     {
-        creeps = room.find(FIND_MY_CREEPS, 
+        for (let i = 0; i < creepCounts; i++)
         {
-            filter: (creep) => 
+            const creep = allCreeps[i];
+            if (creep.hits < creep.hitsMax)
             {
-                return (creep.hits < creep.hitsMax);
+                creeps.push(creep);
             }
-        });
+        }
     }
     else
     {
-        creeps = room.find(FIND_MY_CREEPS, 
+        for (let i = 0; i < creepCounts; i++)
         {
-            filter: (creep) => 
+            const creep = allCreeps[i];
+            if (creep.memory.job == job)
             {
-                return (creep.memory.job == job);
+                creeps.push(creep);
             }
-        });
+        }
     }
     
     return creeps;

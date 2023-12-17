@@ -4,13 +4,21 @@ const GetNearest = require("util.GetNearest");
 
 function GetSiphonTarget(creep)
 {
-    const extensions = creep.room.find(FIND_MY_STRUCTURES, 
+    const extensions = [];
+    
+    const allStructures = creep.room.find(FIND_MY_STRUCTURES);
+    const structureCount = allStructures.length;
+
+    for (let i = 0; i < structureCount; i++)
     {
-        filter: (structure) => 
+        const structure = allStructures[i];
+        
+        if (structure.structureType == STRUCTURE_EXTENSION &&
+            structure.store[RESOURCE_ENERGY] > 0)
         {
-            return (structure.structureType == STRUCTURE_EXTENSION) && structure.store[RESOURCE_ENERGY] > 0;
+            extensions.push(structure);
         }
-    });
+    }
     
     const extensionCount = extensions.length;
     

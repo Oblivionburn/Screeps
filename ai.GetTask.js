@@ -139,16 +139,6 @@ function GetTask(creep)
                 task = new Task("Repair", target);
             }
         }
-        
-        if (task == null &&
-            creep.store[RESOURCE_ENERGY] > 0)
-        {
-            const target = GetTransferTarget(creep);
-            if (target != null)
-            {
-                task = new Task("Transfer", target);
-            }
-        }
     }
     else if (job == "Soldier")
     {

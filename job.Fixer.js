@@ -2,7 +2,6 @@ const GetTask = require("ai.GetTask");
 const Attack = require("task.Attack");
 const Siphon = require("task.Siphon");
 const Repair = require("task.Repair");
-const Transfer = require("task.Transfer");
 
 function Fixer(creep)
 {
@@ -20,10 +19,6 @@ function Fixer(creep)
         else if (task.Name == "Repair")
         {
             Repair(creep, task.Target);
-        }
-        else if (task.Name == "Transfer")
-        {
-            Transfer(creep, task.Target);
         }
     }
 }
