@@ -98,7 +98,7 @@ function GetStructures_Damaged(creep, name)
         
         if (chosen != null)
         {
-            let hp = site.hits;
+            let hp = chosen.hits;
             
             for (let i = 0; i < structureCount; i++)
             {

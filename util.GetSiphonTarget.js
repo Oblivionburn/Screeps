@@ -1,3 +1,4 @@
+const Position = require("object.Position");
 const Targeted = require("util.Targeted");
 const GetNearest = require("util.GetNearest");
 
@@ -18,8 +19,9 @@ function GetSiphonTarget(creep)
     {
         const extension = extensions[i];
         
-        const position = new Position(site.pos.x, site.pos.y);
-        if (!Targeted(creep, site.id))
+        const position = new Position(extension.pos.x, extension.pos.y);
+        
+        if (!Targeted(creep, extension.id))
         {
             positions.push(position);
         }
