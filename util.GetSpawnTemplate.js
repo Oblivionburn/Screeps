@@ -13,11 +13,11 @@ function GetSpawnTemplate(job)
     else if (job == "Upgrader" ||
              job == "Fixer")
     {
-        template = [ATTACK, WORK, CARRY, MOVE]; //280
+        template = [WORK, CARRY, ATTACK, MOVE]; //280
     }
     else if (job == "Soldier")
     {
-        template = [ATTACK, MOVE, MOVE, MOVE, TOUGH, TOUGH]; //250
+        template = [TOUGH, TOUGH, MOVE, MOVE, ATTACK, MOVE]; //250
     }
     else if (job == "Claimer")
     {
