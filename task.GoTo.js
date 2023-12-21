@@ -15,7 +15,8 @@ function GoTo(creep, position, reason)
             reason = "Giving";
             color = "#33CC00";
         }
-        else if (reason == "Building")
+        else if (reason == "Building" ||
+                 reason == "Waiting")
         {
             color = "#0000FF";
         }
@@ -26,6 +27,7 @@ function GoTo(creep, position, reason)
         else if (reason == "Grabbing" ||
                  reason == "Siphoning")
         {
+            reason = "Taking";
             color = "#FFBF00";
         }
         else if (reason == "Repairing")

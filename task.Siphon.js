@@ -8,19 +8,14 @@ function Siphon(creep, structure)
     creep.memory.task = "Siphoning";
     creep.memory.target = structure.id;
     
-    let total = 0;
-    if (structure.store != null)
-    {
-        total = structure.store[RESOURCE_ENERGY];
-    }
-    else if (structure.energy != null)
-    {
-        total = structure.energy;
-    }
+    const energy = creep.store[RESOURCE_ENERGY];
+    const maxEnergy = creep.store.getCapacity(RESOURCE_ENERGY);
     
-    if (creep.store[RESOURCE_ENERGY] + total > creep.store.getCapacity(RESOURCE_ENERGY))
+    let total = structure.store[RESOURCE_ENERGY];
+    
+    if (energy + total > maxEnergy)
     {
-        total = creep.store.getCapacity(RESOURCE_ENERGY);
+        total = maxEnergy - energy;
     }
     
     if (total > 0)
@@ -28,7 +23,9 @@ function Siphon(creep, structure)
         const result = creep.withdraw(structure, RESOURCE_ENERGY);
         if (result == 0) 
         {
-            creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
+            creep.say("Took:" + total, true);
+            creep.memory.task = "";
+            creep.memory.target = "";
         }
         else if (result == ERR_NOT_IN_RANGE)
         {

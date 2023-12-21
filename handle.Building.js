@@ -2,31 +2,42 @@ const Position = require("object.Position");
 const GetStructures = require("util.GetStructures");
 const BuildStructure = require("util.BuildStructure");
 
-function HandleBuilding(debug)
+function HandleBuilding()
 {
     for (let spawnName in Game.spawns)
     {
         const spawn = Game.spawns[spawnName];
         
-        let totalExtensions = 0;
-        let totalTowers = 0;
+        const allStructures = spawn.room.find(FIND_MY_STRUCTURES);
         
+        let totalExtensions = 0;
         let buildExtension = false;
+        
+        let totalTowers = 0;
         let buildTower = false;
         
-        const extensions = GetStructures(spawn.room, "extension");
+        let totalStorage = 0;
+        let buildStorage = false;
+        
+        const extensions = GetStructures(allStructures, "extension");
         if (extensions != null)
         {
             totalExtensions = extensions.length;
         }
         
-        const towers = GetStructures(spawn.room, "tower");
+        const towers = GetStructures(allStructures, "tower");
         if (towers != null)
         {
             totalTowers = towers.length;
         }
         
-        const sites = GetStructures(spawn.room, "site");
+        const storage = GetStructures(allStructures, "storage");
+        if (storage != null)
+        {
+            totalStorage = storage.length;
+        }
+        
+        const sites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
         if (sites != null)
         {
             const siteCount = sites.length;
@@ -41,6 +52,10 @@ function HandleBuilding(debug)
                 else if (site.structureType == STRUCTURE_TOWER)
                 {
                     totalTowers++;
+                }
+                else if (site.structureType == STRUCTURE_STORAGE)
+                {
+                    totalStorage++;
                 }
             }
         }
@@ -73,6 +88,10 @@ function HandleBuilding(debug)
             {
                 buildTower = true;
             }
+            else if (totalStorage < 1)
+            {
+                buildStorage = true;
+            }
         }
         else if (spawn.room.controller.level == 5)
         {
@@ -83,6 +102,10 @@ function HandleBuilding(debug)
             else if (totalTowers < 2)
             {
                 buildTower = true;
+            }
+            else if (totalStorage < 1)
+            {
+                buildStorage = true;
             }
         }
         else if (spawn.room.controller.level == 6)
@@ -95,6 +118,10 @@ function HandleBuilding(debug)
             {
                 buildTower = true;
             }
+            else if (totalStorage < 1)
+            {
+                buildStorage = true;
+            }
         }
         else if (spawn.room.controller.level == 7)
         {
@@ -105,6 +132,10 @@ function HandleBuilding(debug)
             else if (totalTowers < 3)
             {
                 buildTower = true;
+            }
+            else if (totalStorage < 1)
+            {
+                buildStorage = true;
             }
         }
         else if (spawn.room.controller.level == 8)
@@ -117,6 +148,10 @@ function HandleBuilding(debug)
             {
                 buildTower = true;
             }
+            else if (totalStorage < 1)
+            {
+                buildStorage = true;
+            }
         }
         
         if (buildExtension)
@@ -126,6 +161,10 @@ function HandleBuilding(debug)
         else if (buildTower)
         {
             BuildStructure(spawn, STRUCTURE_TOWER);
+        }
+        else if (buildStorage)
+        {
+            BuildStructure(spawn, STRUCTURE_STORAGE);
         }
     }
 }

@@ -13,12 +13,12 @@ function GetSiteToBuild(creep)
     {
         let chosen = sites[0];
     
-        //Get biggest site to start with
+        //Get smallest site to start with
         for (let i = 0; i < sitesCount; i++)
         {
             const site = sites[i];
             
-            if (site.progressTotal > chosen.progressTotal)
+            if (site.progressTotal < chosen.progressTotal)
             {
                 chosen = site;
             }
@@ -71,6 +71,11 @@ function GetSiteToBuild(creep)
                     }
                 }
             }
+        }
+        
+        if (chosen != null)
+        {
+            return chosen;
         }
     }
     

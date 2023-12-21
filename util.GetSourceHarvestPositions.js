@@ -6,7 +6,7 @@ function GetSourceHarvestPositions(room)
 {
     const positions = [];
     
-    const sources = GetStructures(room, "source");
+    const sources = room.find(FIND_SOURCES);
     const sourceCount = sources.length;
     
     for (let i = 0; i < sourceCount; i++)

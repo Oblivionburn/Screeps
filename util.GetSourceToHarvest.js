@@ -6,7 +6,7 @@ const GetNearest = require("util.GetNearest");
 
 function GetSourceToHarvest(creep)
 {
-    const sources = GetStructures(creep.room, "source");
+    const sources = creep.room.find(FIND_SOURCES);
     const sourceCount = sources.length;
     
     if (sourceCount > 0)

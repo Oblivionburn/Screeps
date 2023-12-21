@@ -6,7 +6,9 @@ function GetTransferTarget(creep)
 {
     let target = null;
     
-    const spawns = GetStructures(creep.room, "spawn");
+    const allStructures = creep.room.find(FIND_MY_STRUCTURES);
+    
+    const spawns = GetStructures(allStructures, "spawn");
     const spawnCounts = spawns.length;
     for (let i = 0; i < spawnCounts; i++)
     {
@@ -17,7 +19,7 @@ function GetTransferTarget(creep)
         }
     }
     
-    const extensions = GetStructures(creep.room, "extension");
+    const extensions = GetStructures(allStructures, "extension");
     const extensionCounts = extensions.length;
     for (let i = 0; i < extensionCounts; i++)
     {
@@ -28,7 +30,7 @@ function GetTransferTarget(creep)
         }
     }
     
-    const towers = GetStructures(creep.room, "tower");
+    const towers = GetStructures(allStructures, "tower");
     const towerCounts = towers.length;
     for (let i = 0; i < towerCounts; i++)
     {
