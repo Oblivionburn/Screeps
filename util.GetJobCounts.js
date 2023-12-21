@@ -1,3 +1,8 @@
+/*
+    Used by:
+        handle.Spawns
+*/
+
 function GetJobCounts(room, jobs)
 {
     const jobCounts = {};

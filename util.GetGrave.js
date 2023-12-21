@@ -1,3 +1,8 @@
+/*
+    Used by:
+        util.GetSiphonTarget
+*/
+
 const Position = require("object.Position");
 const GetNearest = require("util.GetNearest");
 

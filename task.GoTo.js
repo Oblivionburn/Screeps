@@ -1,3 +1,18 @@
+/*
+    Used by:
+        task.Assault
+        task.Build
+        task.Flee
+        task.Formation
+        task.Harvest
+        task.Repair
+        task.Siphon
+        task.Transfer
+        task.Upgrade
+        task.WaitNear
+        task.Wander
+*/
+
 const GetDistance = require("util.GetDistance");
 
 function GoTo(creep, position, reason) 

@@ -1,3 +1,8 @@
+/*
+    Used by:
+        main
+*/
+
 const Position = require("object.Position");
 const GetStructures = require("util.GetStructures");
 const BuildStructure = require("util.BuildStructure");

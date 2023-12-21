@@ -1,3 +1,8 @@
+/*
+    Used by:
+        util.SpawnCreep
+*/
+
 function GetName(job) 
 {
     let names = [];

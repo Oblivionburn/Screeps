@@ -1,3 +1,8 @@
+/*
+    Used by:
+        ai.GetTask
+*/
+
 const GetStructures = require("util.GetStructures");
 const GetCreeps = require("util.GetCreeps");
 const CanHoldMoreEnergy = require("util.CanHoldMoreEnergy");
@@ -41,7 +46,9 @@ function GetTransferTarget(creep)
         }
     }
     
-    const builders = GetCreeps(creep.room, "Builder");
+    const allCreeps = room.find(FIND_MY_CREEPS);
+    
+    const builders = GetCreeps(allCreeps, "Builder");
     const builderCounts = builders.length;
     for (let i = 0; i < builderCounts; i++)
     {
@@ -52,7 +59,7 @@ function GetTransferTarget(creep)
         }
     }
     
-    const fixers = GetCreeps(creep.room, "Fixer");
+    const fixers = GetCreeps(allCreeps, "Fixer");
     const fixerCounts = fixers.length;
     for (let i = 0; i < fixerCounts; i++)
     {
@@ -63,7 +70,7 @@ function GetTransferTarget(creep)
         }
     }
     
-    const upgraders = GetCreeps(creep.room, "Upgrader");
+    const upgraders = GetCreeps(allCreeps, "Upgrader");
     const upgraderCounts = upgraders.length;
     for (let i = 0; i < upgraderCounts; i++)
     {

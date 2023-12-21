@@ -1,8 +1,14 @@
-function GetCreeps(room, job) 
+/*
+    Used by:
+        util.GetTransferTarget
+        task.Formation
+        util.GetInjured
+*/
+
+function GetCreeps(allCreeps, job) 
 {
     const creeps = [];
     
-    const allCreeps = room.find(FIND_MY_CREEPS);
     const creepCounts = allCreeps.length;
     
     if (job == "Injured")

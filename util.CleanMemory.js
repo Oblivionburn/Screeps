@@ -1,3 +1,8 @@
+/*
+    Used by:
+        util.SpawnCreep
+*/
+
 function CleanMemory() 
 {
     for (let creepName in Memory.creeps) 

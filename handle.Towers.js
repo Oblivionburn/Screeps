@@ -1,3 +1,8 @@
+/*
+    Used by:
+        main
+*/
+
 const GetStructures = require("util.GetStructures");
 const GetHostile = require("util.GetHostile");
 const GetInjured = require("util.GetInjured");

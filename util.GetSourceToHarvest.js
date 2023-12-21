@@ -1,3 +1,8 @@
+/*
+    Used by:
+        ai.GetTask
+*/
+
 const GetStructures = require("util.GetStructures");
 const NextTo = require("util.NextTo");
 const GetSourceHarvestPositions = require("util.GetSourceHarvestPositions");

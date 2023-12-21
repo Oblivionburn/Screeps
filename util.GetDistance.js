@@ -1,3 +1,10 @@
+/*
+    Used by:
+        task.Attack
+        task.GoTo
+        util.GetNearest
+*/
+
 function GetDistance(x1, y1, x2, y2) 
 {
     let x_diff = x1 - x2;

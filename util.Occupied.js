@@ -1,3 +1,8 @@
+/*
+    Used by:
+        util.GetSourceToHarvest
+*/
+
 function Occupied(creep, x, y) 
 {
     for (let creepName in Game.creeps) 

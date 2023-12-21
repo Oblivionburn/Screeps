@@ -1,3 +1,8 @@
+/*
+    Used by:
+        task.Attack
+*/
+
 const Position = require("object.Position");
 const GoTo = require("task.GoTo");
 

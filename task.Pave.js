@@ -1,3 +1,9 @@
+/*
+    Used by:
+        task.Harvest
+        task.Upgrade
+*/
+
 function Pave(creep) 
 {
     let blocked = false;

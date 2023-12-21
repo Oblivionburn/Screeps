@@ -1,5 +1,10 @@
-var Position = require("object.Position");
-var GoTo = require("task.GoTo");
+/*
+    Used by:
+        job.Upgrader
+*/
+
+const Position = require("object.Position");
+const GoTo = require("task.GoTo");
 const Pave = require("task.Pave");
 
 function Upgrade(creep, structure) 

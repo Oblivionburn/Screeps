@@ -1,3 +1,8 @@
+/*
+    Used by:
+        ai.GetTask
+*/
+
 const GetStructures_Damaged = require("util.GetStructures_Damaged");
 
 function GetRepairTarget(creep)

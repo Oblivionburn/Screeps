@@ -1,3 +1,15 @@
+/*
+    Used by:
+        task.Formation
+        util.GetGrave
+        util.GetHostile
+        util.GetInjured
+        util.GetSiphonTarget
+        util.GetSiteToBuild
+        util.GetSourceToHarvest
+        util.GetStructures_Damaged
+*/
+
 const GetDistance = require("util.GetDistance");
 
 function GetNearest(x, y, positions) 

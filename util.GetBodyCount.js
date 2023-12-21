@@ -1,3 +1,11 @@
+/*
+    Used by:
+        task.Attack
+        task.Build
+        task.Harvest
+        task.Repair
+*/
+
 function GetBodyCount(creep, type)
 {
     let result = 0;

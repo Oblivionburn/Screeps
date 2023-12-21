@@ -1,3 +1,8 @@
+/*
+    Used by:
+        main
+*/
+
 const GetSourceHarvestPositions = require("util.GetSourceHarvestPositions");
 const SpawnCreep = require("util.SpawnCreep");
 const GetJobCounts = require("util.GetJobCounts");

@@ -1,3 +1,8 @@
+/*
+    Used by:
+        spawn.Creeps
+*/
+
 function GetSpawnTemplate(job)
 {
     let template = [];

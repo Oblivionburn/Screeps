@@ -1,3 +1,9 @@
+/*
+    Used by:
+        handle.Spawns
+        util.GetSourceToHarvest
+*/
+
 const Position = require("object.Position");
 const GetStructures = require("util.GetStructures");
 const GetTerrain = require("util.GetTerrain");

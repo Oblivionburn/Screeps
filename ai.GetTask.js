@@ -1,3 +1,12 @@
+/*
+    Used by:
+        job.Builder
+        job.Fixer
+        job.Harvester
+        job.Soldier
+        job.Upgrader
+*/
+
 const Task = require("object.Task");
 const CanHoldMoreEnergy = require("util.CanHoldMoreEnergy");
 const GetSourceToHarvest = require("util.GetSourceToHarvest");

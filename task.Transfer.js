@@ -1,3 +1,8 @@
+/*
+    Used by:
+        job.Harvester
+*/
+
 const CanHoldMoreEnergy = require("util.CanHoldMoreEnergy");
 const Position = require("object.Position");
 const GetError = require("util.GetError");

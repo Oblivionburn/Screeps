@@ -1,3 +1,8 @@
+/*
+    Used by:
+        ai.GetTask
+*/
+
 class Task
 {
     constructor(name, target)

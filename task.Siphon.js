@@ -1,7 +1,12 @@
+/*
+    Used by:
+        job.Builder
+        job.Fixer
+*/
+
 const Position = require("object.Position");
 const GetError = require("util.GetError");
 const GoTo = require("task.GoTo");
-const Pave = require("task.Pave");
 
 function Siphon(creep, structure) 
 {
