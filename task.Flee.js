@@ -1,8 +1,3 @@
-/*
-    Used by:
-        task.Attack
-*/
-
 const Position = require("object.Position");
 const GoTo = require("task.GoTo");
 
@@ -54,7 +49,7 @@ function Flee(creep, hostile)
         }
     }
     
-    GoTo(creep, position, creep.memory.task);
+    GoTo(creep, position, creep.room.name, creep.memory.task);
 }
 
 module.exports = Flee;

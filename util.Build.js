@@ -1,8 +1,3 @@
-/*
-    Used by:
-        util.BuildStructure
-*/
-
 function Build(room, position, type)
 {
     if (position.X > 0 &&

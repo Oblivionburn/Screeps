@@ -1,9 +1,3 @@
-/*
-    Used by:
-        handle.Spawns
-        util.GetSourceToHarvest
-*/
-
 const Position = require("object.Position");
 const GetStructures = require("util.GetStructures");
 const GetTerrain = require("util.GetTerrain");
@@ -12,7 +6,7 @@ function GetSourceHarvestPositions(room)
 {
     const positions = [];
     
-    const sources = room.find(FIND_SOURCES);
+    const sources = GetStructures(room, "source");
     const sourceCount = sources.length;
     
     for (let i = 0; i < sourceCount; i++)

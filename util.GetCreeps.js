@@ -1,37 +1,30 @@
-/*
-    Used by:
-        util.GetTransferTarget
-        task.Formation
-        util.GetInjured
-*/
-
-function GetCreeps(allCreeps, job) 
+function GetCreeps(room, job) 
 {
-    const creeps = [];
-    
-    const creepCounts = allCreeps.length;
+    let creeps = [];
     
     if (job == "Injured")
     {
-        for (let i = 0; i < creepCounts; i++)
+        creeps = room.find(FIND_MY_CREEPS, 
         {
-            const creep = allCreeps[i];
-            if (creep.hits < creep.hitsMax)
+            filter: (creep) => 
             {
-                creeps.push(creep);
+                return (creep.hits < creep.hitsMax);
             }
-        }
+        });
+    }
+    else if (job == "All")
+    {
+        creeps = room.find(FIND_MY_CREEPS);
     }
     else
     {
-        for (let i = 0; i < creepCounts; i++)
+        creeps = room.find(FIND_MY_CREEPS, 
         {
-            const creep = allCreeps[i];
-            if (creep.memory.job == job)
+            filter: (creep) => 
             {
-                creeps.push(creep);
+                return (creep.memory.job == job);
             }
-        }
+        });
     }
     
     return creeps;

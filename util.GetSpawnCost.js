@@ -1,8 +1,3 @@
-/*
-    Used by:
-        spawn.Creeps
-*/
-
 function GetSpawnCost(partList) 
 {
     let cost = 0;

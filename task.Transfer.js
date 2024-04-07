@@ -1,8 +1,3 @@
-/*
-    Used by:
-        job.Harvester
-*/
-
 const CanHoldMoreEnergy = require("util.CanHoldMoreEnergy");
 const Position = require("object.Position");
 const GetError = require("util.GetError");
@@ -42,7 +37,7 @@ function Transfer(creep, thing)
         else if (result == ERR_NOT_IN_RANGE)
         {
             const position = new Position(thing.pos.x, thing.pos.y);
-            GoTo(creep, position, creep.memory.task);
+            GoTo(creep, position, creep.room.name, creep.memory.task);
         }
         else
         {

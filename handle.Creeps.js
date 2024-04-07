@@ -1,13 +1,10 @@
-/*
-    Used by:
-        main
-*/
-
 const Harvester = require("job.Harvester");
 const Upgrader = require("job.Upgrader");
 const Builder = require("job.Builder");
 const Fixer = require("job.Fixer");
 const Soldier = require("job.Soldier");
+const Claimer = require("job.Claimer");
+const Invader = require("job.Invader");
 
 function HandleCreeps()
 {
@@ -35,6 +32,14 @@ function HandleCreeps()
         else if (job == "Soldier")
         {
             Soldier(creep);
+        }
+        else if (job == "Claimer")
+        {
+            Claimer(creep);
+        }
+        else if (job == "Invader")
+        {
+            Invader(creep);
         }
         
         if (creep.ticksToLive <= 61 && 

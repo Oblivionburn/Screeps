@@ -1,10 +1,3 @@
-/*
-    Used by:
-        ai.GetTask
-        task.Transfer
-        util.GetTransferTarget
-*/
-
 function CanHoldMoreEnergy(thing)
 {
     if (thing.store != null)

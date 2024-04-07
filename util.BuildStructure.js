@@ -1,19 +1,12 @@
-/*
-    Used by:
-        handle.Building
-*/
-
 const Position = require("object.Position");
 const Build = require("util.Build");
 
-function BuildStructure(spawn, structure_type)
+function BuildStructure(room, position, structure_type)
 {
     let success = false;
     let turn = false;
     
-    //Spiral out from spawn clockwise (starting with 1 step directly down) looking for locations to build the structure
-    const position = new Position(spawn.pos.x, spawn.pos.y);
-    
+    //Spiral out from position clockwise (starting with 1 step directly down) looking for locations to build the structure
     for (let i = 1; i < 20; i++)
     {
         if (turn)
@@ -21,7 +14,7 @@ function BuildStructure(spawn, structure_type)
             for (let j = 0; j < i; j++)
             {
                 position.Y++;
-                success = Build(spawn.room, position, structure_type);
+                success = Build(room, position, structure_type);
                 
                 if (success)
                 {
@@ -38,7 +31,7 @@ function BuildStructure(spawn, structure_type)
                 for (let j = 0; j < i; j++)
                 {
                     position.X--;
-                    success = Build(spawn.room, position, structure_type);
+                    success = Build(room, position, structure_type);
                     
                     if (success)
                     {
@@ -61,7 +54,7 @@ function BuildStructure(spawn, structure_type)
             for (let j = 0; j < i; j++)
             {
                 position.Y--;
-                success = Build(spawn.room, position, structure_type);
+                success = Build(room, position, structure_type);
                 
                 if (success)
                 {
@@ -78,7 +71,7 @@ function BuildStructure(spawn, structure_type)
                 for (let j = 0; j < i; j++)
                 {
                     position.X++;
-                    success = Build(spawn.room, position, structure_type);
+                    success = Build(room, position, structure_type);
                     
                     if (success)
                     {

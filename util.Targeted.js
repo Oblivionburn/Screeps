@@ -1,10 +1,3 @@
-/*
-    Used by:
-        util.GetSiphonTarget
-        util.GetSiteToBuild
-        util.GetStructures_Damaged
-*/
-
 function Targeted(creep, id)
 {
     for (let creepName in Game.creeps) 

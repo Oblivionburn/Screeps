@@ -1,10 +1,3 @@
-/*
-    Used by:
-        task.Formation
-        task.WaitNear
-        util.GetSourceToHarvest
-*/
-
 function NextTo(origin_x, origin_y, target_x, target_y) 
 {
     if (origin_x >= target_x - 1 && origin_x <= target_x + 1 &&

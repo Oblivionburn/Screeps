@@ -1,21 +1,6 @@
-/*
-    Used by:
-        task.Assault
-        task.Build
-        task.Flee
-        task.Formation
-        task.Harvest
-        task.Repair
-        task.Siphon
-        task.Transfer
-        task.Upgrade
-        task.WaitNear
-        task.Wander
-*/
-
 const GetDistance = require("util.GetDistance");
 
-function GoTo(creep, position, reason) 
+function GoTo(creep, position, roomName, reason) 
 {
     const distance = GetDistance(creep.pos.x, creep.pos.y, position.X, position.Y);
     if (distance > 1)
@@ -30,8 +15,7 @@ function GoTo(creep, position, reason)
             reason = "Giving";
             color = "#33CC00";
         }
-        else if (reason == "Building" ||
-                 reason == "Waiting")
+        else if (reason == "Building")
         {
             color = "#0000FF";
         }
@@ -42,7 +26,6 @@ function GoTo(creep, position, reason)
         else if (reason == "Grabbing" ||
                  reason == "Siphoning")
         {
-            reason = "Taking";
             color = "#FFBF00";
         }
         else if (reason == "Repairing")
@@ -50,13 +33,14 @@ function GoTo(creep, position, reason)
             color = "#ff4d88";
         }
         else if (reason == "Attacking" ||
+                 reason == "Claiming" ||
                  reason == "Invading")
         {
             color = "#FF0000";
         }
         
         creep.say(reason, true);
-        creep.moveTo(position.X, position.Y, {reusePath: 3, visualizePathStyle: {stroke: color}});
+        creep.moveTo(new RoomPosition(position.X, position.Y, roomName), {reusePath: 3, visualizePathStyle: {stroke: color}});
     }
 }
 

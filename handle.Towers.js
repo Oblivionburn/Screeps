@@ -1,21 +1,14 @@
-/*
-    Used by:
-        main
-*/
-
 const GetStructures = require("util.GetStructures");
 const GetHostile = require("util.GetHostile");
 const GetInjured = require("util.GetInjured");
 
-function HandleTowers() 
+function HandleTowers(spawns) 
 {
     for (let spawnName in Game.spawns)
     {
         const spawn = Game.spawns[spawnName];
         
-        const allStructures = spawn.room.find(FIND_MY_STRUCTURES);
-        
-        const towers = GetStructures(allStructures, "tower");
+        const towers = GetStructures(spawn.room, "tower");
         const towerCount = towers.length;
         
         for (let i = 0; i < towerCount; i++)

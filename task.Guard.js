@@ -1,10 +1,12 @@
 const Position = require("object.Position");
 const GoTo = require("task.GoTo");
+const GoToward = require("task.GoToward");
+const WithinBoundary = require("util.WithinBoundary");
 
-function Wander(creep) 
+function Guard(creep, target) 
 {
-    creep.memory.task = "Patrolling";
-    
+    creep.memory.task = "Guarding";
+
     let choice = Math.floor(Math.random() * 8);
     choice++;
     
@@ -42,13 +44,20 @@ function Wander(creep)
         position = new Position(creep.pos.x - 1, creep.pos.y - 1);
     }
     
-    if (position.X != 0 &&
-        position.X != 49 &&
-        position.Y != 0 &&
-        position.Y != 49)
+    //Stay near target
+    const min_x = target.pos.x - 5;
+    const max_x = target.pos.x + 5;
+    const min_y = target.pos.y - 5;
+    const max_y = target.pos.y + 5;
+    
+    if (WithinBoundary(position.X, position.Y, min_x, max_x, min_y, max_y))
     {
         GoTo(creep, position, creep.room.name, creep.memory.task);
     }
+    else
+    {
+        GoToward(creep, target);
+    }
 }
 
-module.exports = Wander;
+module.exports = Guard;

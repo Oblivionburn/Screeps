@@ -1,17 +1,10 @@
-/*
-    Used by:
-        handle.Towers
-*/
-
 const Position = require("object.Position");
 const GetNearest = require("util.GetNearest");
 const GetCreeps = require("util.GetCreeps");
 
 function GetInjured(room, x, y)
 {
-    const allCreeps = room.find(FIND_MY_CREEPS);
-    
-    const injuredCreeps = GetCreeps(allCreeps, "Injured");
+    const injuredCreeps = GetCreeps(room, "Injured");
     const injuredCount = injuredCreeps.length;
     
     if (injuredCount > 0) 

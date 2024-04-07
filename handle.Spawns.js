@@ -1,11 +1,7 @@
-/*
-    Used by:
-        main
-*/
-
 const GetSourceHarvestPositions = require("util.GetSourceHarvestPositions");
 const SpawnCreep = require("util.SpawnCreep");
 const GetJobCounts = require("util.GetJobCounts");
+const GetRoomToInvade = require("util.GetRoomToInvade");
 
 function HandleSpawns() 
 {
@@ -39,6 +35,23 @@ function HandleSpawns()
         else if (jobCounts["Fixer"] < spawn.room.controller.level - 1)
         {
             SpawnCreep(spawn, "Fixer");
+        }
+        
+        if (Game.spawns.length < Game.gcl.level)
+        {
+            const room = GetRoomToInvade(spawn.room);
+            if (room != null)
+            {
+                //Will continually spawn as creeps go to other room
+                if (jobCounts["Invader"] < 1)
+                {
+                    SpawnCreep(spawn, "Invader");
+                }
+                else if (jobCounts["Claimer"] < 1)
+                {
+                    SpawnCreep(spawn, "Claimer");
+                }
+            }
         }
     }
 }

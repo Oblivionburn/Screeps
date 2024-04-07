@@ -1,31 +1,48 @@
-/*
-    Used by:
-        handle.Building
-        handle.Towers
-        util.GetTransferTarget
-*/
-
-function GetStructures(allStructures, name)
+function GetStructures(room, name)
 {
     let structures = [];
     
-    const structureCount = allStructures.length;
-    
-    for (let i = 0; i < structureCount; i++)
+    if (name == "source")
     {
-        const structure = allStructures[i];
-        if ((name == "spawn" && structure.structureType == STRUCTURE_SPAWN) ||
-            (name == "extension" && structure.structureType == STRUCTURE_EXTENSION) ||
-            (name == "road" && structure.structureType == STRUCTURE_ROAD) ||
-            (name == "link" && structure.structureType == STRUCTURE_LINK) ||
-            (name == "storage" && structure.structureType == STRUCTURE_STORAGE) ||
-            (name == "tower" && structure.structureType == STRUCTURE_TOWER) ||
-            (name == "extractor" && structure.structureType == STRUCTURE_EXTRACTOR) ||
-            (name == "lab" && structure.structureType == STRUCTURE_LAB) ||
-            (name == "container" && structure.structureType == STRUCTURE_CONTAINER))
+        structures = room.find(FIND_SOURCES);
+    }
+    else if (name == "spawn")
+    {
+        structures = room.find(FIND_MY_STRUCTURES, 
         {
-            structures.push(structure);
-        }
+            filter: (structure) => 
+            {
+                return structure.structureType == STRUCTURE_SPAWN;
+            }
+        });
+    }
+    else if (name == "extension")
+    {
+        structures = room.find(FIND_MY_STRUCTURES, 
+        {
+            filter: (structure) => 
+            {
+                return structure.structureType == STRUCTURE_EXTENSION;
+            }
+        });
+    }
+    else if (name == "tower")
+    {
+        structures = room.find(FIND_MY_STRUCTURES, 
+        {
+            filter: (structure) => 
+            {
+                return structure.structureType == STRUCTURE_TOWER;
+            }
+        });
+    }
+    else if (name == "site")
+    {
+        structures = room.find(FIND_MY_CONSTRUCTION_SITES);
+    }
+    else if (name == "flag")
+    {
+        structures = room.find(FIND_FLAGS);
     }
 
     return structures;

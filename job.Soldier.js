@@ -1,11 +1,6 @@
-/*
-    Used by:
-        handle.Creeps
-*/
-
 const GetTask = require("ai.GetTask");
 const Attack = require("task.Attack");
-const Wander = require("task.Wander");
+const Guard = require("task.Guard");
 
 function Soldier(creep) 
 {
@@ -16,9 +11,9 @@ function Soldier(creep)
         {
             Attack(creep, task.Target);
         }
-        else if (task.Name == "Wander")
+        else if (task.Name == "Guard")
         {
-            Wander(creep);
+            Guard(creep, task.Target);
         }
     }
 }

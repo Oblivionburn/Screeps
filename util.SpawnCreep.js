@@ -1,8 +1,3 @@
-/*
-    Used by:
-        handle.Spawns
-*/
-
 const GetSpawnTemplate = require("util.GetSpawnTemplate");
 const GetSpawnCost = require("util.GetSpawnCost");
 const GetName = require("util.GetName");
@@ -21,11 +16,12 @@ function SpawnCreep(spawn, job)
         const templateCost = GetSpawnCost(template);
         const templateAmount = Math.floor(spawn.room.energyAvailable / templateCost);
         
-        for (let a = 0; a < templateAmount; a++)
+        for (let p = 0; p < templatePartCount; p++)
         {
-            for (let p = 0; p < templatePartCount; p++)
+            const part = template[p];
+            
+            for (let a = 0; a < templateAmount; a++)
             {
-                const part = template[p];
                 body.push(part);
             }
         }

@@ -1,10 +1,5 @@
-/*
-    Used by:
-        job.Upgrader
-*/
-
-const Position = require("object.Position");
-const GoTo = require("task.GoTo");
+var Position = require("object.Position");
+var GoTo = require("task.GoTo");
 const Pave = require("task.Pave");
 
 function Upgrade(creep, structure) 
@@ -24,7 +19,7 @@ function Upgrade(creep, structure)
     else if (result == ERR_NOT_IN_RANGE)
     {
         var position = new Position(structure.pos.x, structure.pos.y);
-        GoTo(creep, position, creep.memory.task);
+        GoTo(creep, position, creep.room.name, creep.memory.task);
     }
     else
     {

@@ -1,16 +1,7 @@
-/*
-    Used by:
-        job.Builder
-        job.Fixer
-        job.Soldier
-        job.Upgrader
-*/
-
 const GetDistance = require("util.GetDistance");
 const GetBodyCount = require("util.GetBodyCount");
 const Assault = require("task.Assault");
 const Flee = require("task.Flee");
-const Formation = require("task.Formation");
 
 function Attack(creep, hostile) 
 {
@@ -24,11 +15,7 @@ function Attack(creep, hostile)
         }
         else
         {
-            const inFormation = Formation(creep, hostile);
-            if (inFormation)
-            {
-                Assault(creep, hostile);
-            }
+            Assault(creep, hostile);
         }
     }
     else if (GetBodyCount(creep, "ranged_attack") > 0)
@@ -40,11 +27,7 @@ function Attack(creep, hostile)
         }
         else
         {
-            const inFormation = Formation(creep, hostile);
-            if (inFormation)
-            {
-                Assault(creep, hostile);
-            }
+            Assault(creep, hostile);
         }
     }
     else if (distance <= 6 &&

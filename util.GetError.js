@@ -1,12 +1,3 @@
-/*
-    Used by:
-        task.Build
-        task.Harvest
-        task.Repair
-        task.Siphon
-        task.Transfer
-*/
-
 function GetError(error) 
 {
     if (error == -1)

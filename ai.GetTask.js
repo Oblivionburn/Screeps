@@ -1,12 +1,3 @@
-/*
-    Used by:
-        job.Builder
-        job.Fixer
-        job.Harvester
-        job.Soldier
-        job.Upgrader
-*/
-
 const Task = require("object.Task");
 const CanHoldMoreEnergy = require("util.CanHoldMoreEnergy");
 const GetSourceToHarvest = require("util.GetSourceToHarvest");
@@ -15,6 +6,8 @@ const GetSiteToBuild = require("util.GetSiteToBuild");
 const GetSiphonTarget = require("util.GetSiphonTarget");
 const GetRepairTarget = require("util.GetRepairTarget");
 const GetHostile = require("util.GetHostile");
+const GetStructures = require("util.GetStructures");
+const GetRoomToInvade = require("util.GetRoomToInvade");
 
 function GetTask(creep)
 {
@@ -148,6 +141,16 @@ function GetTask(creep)
                 task = new Task("Repair", target);
             }
         }
+        
+        if (task == null &&
+            creep.store[RESOURCE_ENERGY] > 0)
+        {
+            const target = GetTransferTarget(creep);
+            if (target != null)
+            {
+                task = new Task("Transfer", target);
+            }
+        }
     }
     else if (job == "Soldier")
     {
@@ -159,7 +162,71 @@ function GetTask(creep)
         
         if (task == null)
         {
-            task = new Task("Wander", null);
+            const spawns = GetStructures(creep.room, "spawn");
+            if (spawns.length > 0)
+            {
+                const spawn = spawns[0];
+                task = new Task("Guard", spawn);
+            }
+            else
+            {
+                task = new Task("Wander", null);
+            }
+        }
+    }
+    else if (job == "Claimer")
+    {
+        const roomName = GetRoomToInvade(creep.room);
+        if (roomName != null)
+        {
+            task = new Task("Claim", roomName);
+        }
+    }
+    else if (job == "Invader")
+    {
+        if (creep.room.controller.my)
+        {
+            const roomName = GetRoomToInvade(creep.room);
+            task = new Task("Invade", roomName);
+        }
+        else
+        {
+            const target = GetHostile(creep.room, creep.pos.x, creep.pos.y);
+            if (target != null)
+            {
+                task = new Task("Attack", target);
+            }
+            
+            if (task == null)
+            {
+                if (currentTask != "Harvesting" &&
+                    creep.store[RESOURCE_ENERGY] > 0)
+                {
+                    const site = GetSiteToBuild(creep);
+                    if (site != null)
+                    {
+                        task = new Task("Build", site);
+                    }
+                }
+            }
+            
+            if (task == null)
+            {
+                if (CanHoldMoreEnergy(creep))
+                {
+                    const source = GetSourceToHarvest(creep);
+                    if (source != null)
+                    {
+                        task = new Task("Harvest", source);
+                    }
+                }
+                else
+                {
+                    //Reset to stop harvesting
+                    creep.memory.task = null;
+                    creep.memory.target = null;
+                }
+            }
         }
     }
     

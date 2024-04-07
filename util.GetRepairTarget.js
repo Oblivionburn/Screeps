@@ -1,20 +1,15 @@
-/*
-    Used by:
-        ai.GetTask
-*/
-
 const GetStructures_Damaged = require("util.GetStructures_Damaged");
 
 function GetRepairTarget(creep)
 {
-    const types = [STRUCTURE_SPAWN, STRUCTURE_EXTENSION, STRUCTURE_TOWER, STRUCTURE_ROAD, STRUCTURE_RAMPART, STRUCTURE_WALL];
-    const typeCount = types.length;
+    const names = ["spawn", "extension", "tower", "road", "rampart", "wall"];
+    const count = names.length;
     
-    for (let i = 0; i < typeCount; i++)
+    for (let i = 0; i < count; i++)
     {
-        const type = types[i];
+        const name = names[i];
         
-        const structure = GetStructures_Damaged(creep, type);
+        const structure = GetStructures_Damaged(creep, name);
         if (structure != null)
         {
             return structure;

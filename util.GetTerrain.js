@@ -1,8 +1,3 @@
-/*
-    Used by:
-        util.GetSourceHarvestPositions
-*/
-
 function GetTerrain(room, x, y)
 {
     const things = room.lookAt(x, y);
