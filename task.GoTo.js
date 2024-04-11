@@ -6,37 +6,39 @@ function GoTo(creep, position, roomName, reason)
     if (distance > 1)
     {
         let color = "";
-        if (reason == "Harvesting")
+        switch (reason)
         {
-            color = "#FFFFFF";
-        }
-        else if (reason == "Transfering")
-        {
-            reason = "Giving";
-            color = "#33CC00";
-        }
-        else if (reason == "Building")
-        {
-            color = "#0000FF";
-        }
-        else if (reason == "Upgrading")
-        {
-            color = "#00FFFF";
-        }
-        else if (reason == "Grabbing" ||
-                 reason == "Siphoning")
-        {
-            color = "#FFBF00";
-        }
-        else if (reason == "Repairing")
-        {
-            color = "#ff4d88";
-        }
-        else if (reason == "Attacking" ||
-                 reason == "Claiming" ||
-                 reason == "Invading")
-        {
-            color = "#FF0000";
+            case "Harvesting":
+                color = "#FFFFFF";
+                break;
+                
+            case "Transfering":
+                reason = "Giving";
+                color = "#33CC00";
+                break;
+                
+            case "Building":
+                color = "#0000FF";
+                break;
+                
+            case "Upgrading":
+                color = "#00FFFF";
+                break;
+                
+            case "Grabbing":
+            case "Siphoning":
+                color = "#FFBF00";
+                break;
+                
+            case "Repairing":
+                color = "#ff4d88";
+                break;
+                
+            case "Attacking":
+            case "Claiming":
+            case "Invading":
+                color = "#FF0000";
+                break;
         }
         
         creep.say(reason, true);

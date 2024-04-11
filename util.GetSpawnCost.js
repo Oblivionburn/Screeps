@@ -9,37 +9,39 @@ function GetSpawnCost(partList)
         {
             const part = partList[i];
             
-            if (part == "move")
+            switch (part)
             {
-                cost += 50;
-            }
-            else if (part == "work")
-            {
-                cost += 100;
-            }
-            else if (part == "carry")
-            {
-                cost += 50;
-            }
-            else if (part == "attack")
-            {
-                cost += 80;
-            }
-            else if (part == "ranged_attack")
-            {
-                cost += 150;
-            }
-            else if (part == "heal")
-            {
-                cost += 250;
-            }
-            else if (part == "claim")
-            {
-                cost += 600;
-            }
-            else if (part == "tough")
-            {
-                cost += 10;
+                case "move":
+                    cost += 50;
+                    break;
+                    
+                case "work":
+                    cost += 100;
+                    break;
+                    
+                case "carry":
+                    cost += 50;
+                    break;
+                    
+                case "attack":
+                    cost += 80;
+                    break;
+                    
+                case "ranged_attack":
+                    cost += 150;
+                    break;
+                    
+                case "heal":
+                    cost += 250;
+                    break;
+                    
+                case "claim":
+                    cost += 600;
+                    break;
+                    
+                case "tough":
+                    cost += 10;
+                    break;
             }
         }
     }

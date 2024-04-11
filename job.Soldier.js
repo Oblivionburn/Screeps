@@ -1,5 +1,5 @@
 const GetTask = require("ai.GetTask");
-const Attack = require("task.Attack");
+const Formation = require("task.Formation");
 const Guard = require("task.Guard");
 
 function Soldier(creep) 
@@ -7,13 +7,13 @@ function Soldier(creep)
     const task = GetTask(creep);
     if (task != null)
     {
-        if (task.Name == "Attack")
+        switch (task.Name)
         {
-            Attack(creep, task.Target);
-        }
-        else if (task.Name == "Guard")
-        {
-            Guard(creep, task.Target);
+            case "Formation":
+                Formation(creep, task.Target);
+                break;
+            case "Guard":
+                Guard(creep, task.Target);
         }
     }
 }

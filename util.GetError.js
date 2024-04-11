@@ -1,64 +1,39 @@
 function GetError(error) 
 {
-    if (error == -1)
+    switch (error)
     {
-        return "Not the owner";
-    }
-    else if (error == -2)
-    {
-        return "No path";
-    }
-    else if (error == -3)
-    {
-        return "Name exists";
-    }
-    else if (error == -4)
-    {
-        return "Busy";
-    }
-    else if (error == -5)
-    {
-        return "Not found";
-    }
-    else if (error == -6)
-    {
-        return "Not enough";
-    }
-    else if (error == -7)
-    {
-        return "Invalid target";
-    }
-    else if (error == -8)
-    {
-        return "Full";
-    }
-    else if (error == -9)
-    {
-        return "Not in range";
-    }
-    else if (error == -10)
-    {
-        return "Invalid args";
-    }
-    else if (error == -11)
-    {
-        return "Tired";
-    }
-    else if (error == -12)
-    {
-        return "No body part";
-    }
-    else if (error == -14)
-    {
-        return "RCL not enough";
-    }
-    else if (error == -15)
-    {
-        return "GCL not enough";
-    }
-    else
-    {
-        return error;
+        case -1:
+            return "Not the owner";
+        case -2:
+            return "No path";
+        case -3:
+            return "Name exists";
+        case -4:
+            return "Busy";
+        case -5:
+            return "Not found";
+        case -6:
+            return "Not enough";
+        case -7:
+            return "Invalid target";
+        case -8:
+            return "Full";
+        case -9:
+            return "Not in range";
+        case -10:
+            return "Invalid args";
+        case -11:
+            return "Tired";
+        case -12:
+            return "No body part";
+        case -13:
+            return "Unknown error";
+        case -14:
+            return "RCL not enough";
+        case -15:
+            return "GCL not enough";
+        default:
+            return error;
     }
 }
 

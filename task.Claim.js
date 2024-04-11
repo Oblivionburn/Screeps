@@ -1,3 +1,6 @@
+const Position = require('object.Position');
+const GoTo = require("task.GoTo");
+
 function Claim(creep, roomName) 
 {
     creep.memory.task = "Claiming";

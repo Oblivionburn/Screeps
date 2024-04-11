@@ -2,29 +2,30 @@ function GetCreeps(room, job)
 {
     let creeps = [];
     
-    if (job == "Injured")
+    switch (job)
     {
-        creeps = room.find(FIND_MY_CREEPS, 
-        {
-            filter: (creep) => 
+        case "Injured":
+            creeps = room.find(FIND_MY_CREEPS, 
             {
-                return (creep.hits < creep.hitsMax);
-            }
-        });
-    }
-    else if (job == "All")
-    {
-        creeps = room.find(FIND_MY_CREEPS);
-    }
-    else
-    {
-        creeps = room.find(FIND_MY_CREEPS, 
-        {
-            filter: (creep) => 
+                filter: (creep) => 
+                {
+                    return (creep.hits < creep.hitsMax);
+                }
+            });
+            break;
+            
+        case "All":
+            creeps = room.find(FIND_MY_CREEPS);
+            break;
+            
+        default:
+            creeps = room.find(FIND_MY_CREEPS, 
             {
-                return (creep.memory.job == job);
-            }
-        });
+                filter: (creep) => 
+                {
+                    return (creep.memory.job == job);
+                }
+            });
     }
     
     return creeps;

@@ -1,18 +1,10 @@
 function GetTerrain(room, x, y)
 {
-    const things = room.lookAt(x, y);
-    if (things != null)
+    const things = room.lookAt(x, y)
+        .filter(thing => thing.type == "terrain");
+    if (things.length > 0)
     {
-        const thingCount = things.length;
-        for (let t = 0; t < thingCount; t++)
-        {
-            const thing = things[t];
-            
-            if (thing.type == "terrain")
-            {
-                return thing.terrain;
-            }
-        }
+        return things[0].terrain;
     }
     
     return null;

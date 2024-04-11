@@ -2,42 +2,25 @@ const GetCreeps = require("util.GetCreeps");
 
 function Occupied(creep, x, y) 
 {
-    const otherCreeps = GetCreeps(creep.room, "All");
-    const creepCount = otherCreeps.length;
-    for (let c = 0; c < creepCount; c++)
+    const otherCreeps = GetCreeps(creep.room, "All")
+        .some(otherCreep => otherCreep.id != creep.id &&
+                              otherCreep.pos.x == x &&
+                              otherCreep.pos.y == y);
+    if (otherCreeps)             
     {
-        const otherCreep = otherCreeps[c];
-        if (otherCreep.id != creep.id)
-        {
-            if (otherCreep.pos.x == x &&
-                otherCreep.pos.y == y) 
-            {
-                return true;
-            }
-        }
+        return true;
     }
     
     const safe = ["road", "rampart"];
     
-    const things = creep.room.lookAt(x, y);
-    if (things != null)
+    const things = creep.room.lookAt(x, y)
+        .some(thing => (thing.type == "terrain" &&
+                         thing.terrain == "wall") ||
+                         (thing.type == "structure" &&
+                         !safe.includes(thing.structure.structureType)));
+    if (things)
     {
-        const thingCount = things.length;
-        for (let t = 0; t < thingCount; t++)
-        {
-            const thing = things[t];
-            
-            if (thing.type == "terrain" &&
-                thing.terrain == "wall")
-            {
-                return true;
-            }
-            else if (thing.type == "structure" &&
-                     !safe.includes(thing.structure.structureType))
-            {
-                return true;
-            }
-        }
+        return true;
     }
     
     return false;

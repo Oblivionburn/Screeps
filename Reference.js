@@ -1,9 +1,4 @@
 /*
-
---- Console Commands ---
-Game.creeps['Harvester1'].suicide()
-Game.rooms.sim.createConstructionSite(10, 15, STRUCTURE_ROAD);
-
 --- Creep Body Parts ---
 MOVE - 50 -	Decreases fatigue by 2 points per tick.
 WORK - 100 - Harvests 2 energy units from a source per tick. 

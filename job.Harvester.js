@@ -1,4 +1,5 @@
 const GetTask = require("ai.GetTask");
+const Combat = require("task.Combat");
 const Harvest = require("task.Harvest");
 const Transfer = require("task.Transfer");
 
@@ -7,13 +8,16 @@ function Harvester(creep)
     const task = GetTask(creep);
     if (task != null)
     {
-        if (task.Name == "Harvest")
+        switch (task.Name)
         {
-            Harvest(creep, task.Target);
-        }
-        else if (task.Name == "Transfer")
-        {
-            Transfer(creep, task.Target);
+            case "Combat":
+                Combat(creep, task.Target);
+                break;
+            case "Harvest":
+                Harvest(creep, task.Target);
+                break;
+            case "Transfer":
+                Transfer(creep, task.Target);
         }
     }
 }

@@ -1,7 +1,7 @@
 const GetStructures = require("util.GetStructures");
 const NextTo = require("util.NextTo");
 const GetOpenHarvestPositions = require("util.GetOpenHarvestPositions");
-const GetNearest = require("util.GetNearest");
+const GetNearestPosition = require("util.GetNearestPosition");
 
 function GetSourceToHarvest(creep)
 {
@@ -33,7 +33,7 @@ function GetSourceToHarvest(creep)
         }
         
         //Get nearest open harvest position
-        const nearest = GetNearest(creep.pos.x, creep.pos.y, availablePositions);
+        const nearest = GetNearestPosition(creep.pos.x, creep.pos.y, availablePositions);
         if (nearest != null)
         {
             //Get source next to nearest position

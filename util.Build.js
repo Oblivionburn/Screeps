@@ -5,55 +5,32 @@ function Build(room, position, type)
         position.Y > 0 &&
         position.Y < 49)
     {
-        let sites = [];
-        let exists = false;
-
-        //Check for terrain being anything other than plain
-        if (room.getTerrain().get(position.X, position.Y) != 0)
-        {
-            exists = true;
-        }
+        let sites = room.find(FIND_MY_CONSTRUCTION_SITES)
+            .some(site => site.pos.x == position.X &&
+                          site.pos.y == position.Y);
+                          
+        let exists = room.getTerrain().get(position.X, position.Y) != 0;
         
         if (!exists)
         {
-            sites = room.find(FIND_MY_CONSTRUCTION_SITES);
-            
-            const siteCount = sites.length;
-            for (let i = 0; i < siteCount; i++)
-            {
-                const site = sites[i];
-                
-                if (site.pos.x == position.X &&
-                    site.pos.y == position.Y)
-                {
-                    exists = true;
-                    break;
-                }
-            }
-        }
-        
-        if (!exists)
-        {
-            const structures = room.find(FIND_STRUCTURES);
-            
-            const structureCount = structures.length;
-            for (let i = 0; i < structureCount; i++)
-            {
-                const structure = structures[i];
-                
-                if (structure.pos.x == position.X &&
-                    structure.pos.y == position.Y)
-                {
-                    exists = true;
-                    break;
-                }
-            }
+            exists = room.find(FIND_STRUCTURES)
+                .some(site => structure.pos.x == position.X &&
+                              structure.pos.y == position.Y);
         }
         
         if (!exists &&
             sites.length < MAX_CONSTRUCTION_SITES)
         {
-            room.createConstructionSite(position.X, position.Y, type);
+            if (type == STRUCTURE_SPAWN)
+            {
+                room.createConstructionSite(position.X, position.Y, type, "HQ_" + room.name);
+            }
+            else
+            {
+                room.createConstructionSite(position.X, position.Y, type);
+            }
+            
+            console.log("Building " + type + ": " + position.X + "," + position.Y);
             return true;
         }
     }

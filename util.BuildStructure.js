@@ -14,6 +14,7 @@ function BuildStructure(room, position, structure_type)
             for (let j = 0; j < i; j++)
             {
                 position.Y++;
+                
                 success = Build(room, position, structure_type);
                 
                 if (success)

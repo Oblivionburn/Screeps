@@ -1,46 +1,57 @@
-/*
-    Used by:
-        task.Attack
-*/
+const Position = require('object.Position');
+const GetCreeps = require('util.GetCreeps');
+const GetBodyCount = require('util.GetBodyCount');
+const GetNearestThing = require('util.GetNearestThing');
+const GetDistance = require('util.GetDistance');
+const Combat = require('task.Combat');
+const GoTo = require('task.GoTo');
 
-const Position = require("object.Position");
-const GoTo = require("task.GoTo");
-const GetCreeps = require("util.GetCreeps");
-const GetNearest = require("util.GetNearest");
-const NextTo = require("util.NextTo");
-
-function Formation(creep, thing) 
+function Formation(creep, hostile) 
 {
     creep.memory.task = "Formation";
+    creep.memory.target = hostile.id;
     
-    const allCreeps = room.find(FIND_MY_CREEPS);
+    let ready = false;
+    const warriors = [];
     
-    const soldiers = GetCreeps(allCreeps, "Soldier");
-    const soldierCount = soldiers.length;
-    
-    let positions = [];
-    for (let i = 0; i < soldierCount; i++)
+    const creeps = GetCreeps(creep.room, "All");
+    for (let i = 0; i < creeps.length; i++)
     {
-        const soldier = soldiers[i];
-        if (soldier.id != creep.id)
+        const otherCreep = creeps[i];
+        if (otherCreep.id != creep.id)
         {
-            positions.push(new Position(soldier.pos.x, soldier.pos.y));
+            const attackParts = GetBodyCount(otherCreep, "attack");
+            if (attackParts > 0)
+            {
+                warriors.push(otherCreep);
+            }
         }
     }
     
-    const nearest = GetNearest(creep.pos.x, creep.pos.y, positions);
-    
-    if (NextTo(creep.pos.x, creep.pos.y, nearest.X, nearest.Y))
+    if (warriors.length > 0)
     {
-        return true;
+        const nearestWarrior = GetNearestThing(creep.pos.x, creep.pos.y, warriors);
+        
+        const distance = GetDistance(creep.pos.x, creep.pos.y, nearestWarrior.pos.x, nearestWarrior.pos.y);
+        if (distance > 2)
+        {
+            var position = new Position(nearestWarrior.pos.x, nearestWarrior.pos.y);
+            GoTo(creep, position, creep.room.name, creep.memory.task);
+        }
+        else
+        {
+            ready = true;
+        }
     }
     else
     {
-        GoTo(creep, nearest, creep.memory.task);
-        return false;
+        ready = true;
     }
     
-    return false;
+    if (ready)
+    {
+        Combat(creep, hostile);
+    }
 }
 
 module.exports = Formation;

@@ -26,18 +26,18 @@ function Siphon(creep, structure)
     if (total > 0)
     {
         const result = creep.withdraw(structure, RESOURCE_ENERGY);
-        if (result == 0) 
-        {
-            creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
-        }
-        else if (result == ERR_NOT_IN_RANGE)
+        if (result == ERR_NOT_IN_RANGE)
         {
             const position = new Position(structure.pos.x, structure.pos.y);
             GoTo(creep, position, creep.room.name, creep.memory.task);
         }
-        else if (debug)
+        else if (result == 0) 
         {
-            //console.log(creep.name + " siphon Error: " + GetError(result));
+            creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
+        }
+        else
+        {
+            console.log(creep.name + " siphon Error: " + GetError(result));
         }
     }
 }

@@ -2,30 +2,36 @@ function GetSpawnTemplate(job)
 {
     let template = [];
     
-    if (job == "Harvester")
+    switch (job)
     {
-        template = [WORK, CARRY, MOVE, MOVE]; //250
-    }
-    else if (job == "Builder")
-    {
-        template = [WORK, WORK, CARRY, MOVE]; //300
-    }
-    else if (job == "Upgrader" ||
-             job == "Fixer")
-    {
-        template = [ATTACK, WORK, CARRY, MOVE]; //280
-    }
-    else if (job == "Soldier")
-    {
-        template = [ATTACK, MOVE, MOVE, MOVE, TOUGH, TOUGH]; //250
-    }
-    else if (job == "Claimer")
-    {
-        template = [CLAIM, MOVE]; //650
-    }
-    else if (job == "Invader")
-    {
-        template = [ATTACK, WORK, CARRY, MOVE, MOVE, MOVE]; //380
+        case "Harvester":
+            template = [WORK, CARRY, MOVE, MOVE]; //250
+            break;
+            
+        case "Upgrader":
+        case "Fixer":
+            template = [ATTACK, WORK, CARRY, MOVE]; //280
+            break;
+            
+        case "Healer":
+            template = [WORK, WORK, CARRY, MOVE]; //300
+            break;
+            
+        case "Builder":
+            template = [WORK, WORK, CARRY, MOVE]; //300
+            break;
+            
+        case "Soldier":
+            template = [ATTACK, MOVE, MOVE, MOVE, TOUGH, TOUGH]; //250
+            break;
+            
+        case "Invader":
+            template = [ATTACK, WORK, CARRY, MOVE, MOVE, MOVE]; //380
+            break;
+            
+        case "Claimer":
+            template = [CLAIM, MOVE]; //650
+            break;
     }
     
     return template;

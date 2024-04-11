@@ -9,10 +9,12 @@ function HandleSpawns()
     {
         const spawn = Game.spawns[spawnName];
         
+        new RoomVisual(spawn.room.name).text("Energy:" + spawn.room.energyAvailable, spawn.pos.x, spawn.pos.y - 1.5, {color: "yellow", font: "bold 0.7 Calibri"});
+        
         const harvestPositions = GetSourceHarvestPositions(spawn.room);
         const harvestPositionCount = harvestPositions.length;
         
-        const jobs = ["Harvester", "Upgrader", "Soldier", "Builder", "Fixer"];
+        const jobs = ["Harvester", "Upgrader", "Healer", "Soldier", "Builder", "Fixer", "Invader", "Claimer"];
         const jobCounts = GetJobCounts(spawn.room, jobs);
 
         if (jobCounts["Harvester"] < spawn.room.controller.level + 1 &&
@@ -24,6 +26,10 @@ function HandleSpawns()
         {
             SpawnCreep(spawn, "Upgrader");
         }
+        //else if (jobCounts["Healer"] < spawn.room.controller.level - 1)
+        //{
+        //    SpawnCreep(spawn, "Healer");
+        //}
         else if (jobCounts["Soldier"] < spawn.room.controller.level - 1)
         {
             SpawnCreep(spawn, "Soldier");

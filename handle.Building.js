@@ -20,19 +20,19 @@ function HandleBuilding()
             let buildExtension = false;
             let buildTower = false;
             
-            const extensions = GetStructures(spawn.room, "extension");
+            const extensions = GetStructures(room, "extension");
             if (extensions != null)
             {
                 totalExtensions = extensions.length;
             }
             
-            const towers = GetStructures(spawn.room, "tower");
+            const towers = GetStructures(room, "tower");
             if (towers != null)
             {
                 totalTowers = towers.length;
             }
             
-            const sites = GetStructures(spawn.room, "site");
+            const sites = GetStructures(room, "site");
             if (sites != null)
             {
                 const siteCount = sites.length;
@@ -51,92 +51,101 @@ function HandleBuilding()
                 }
             }
             
-            if (spawn.room.controller.level == 2)
+            switch (spawn.room.controller.level)
             {
-                if (totalExtensions < 5)
-                {
-                    buildExtension = true;
-                }
-            }
-            else if (spawn.room.controller.level == 3)
-            {
-                if (totalExtensions < 10)
-                {
-                    buildExtension = true;
-                }
-                else if (totalTowers < 1)
-                {
-                    buildTower = true;
-                }
-            }
-            else if (spawn.room.controller.level == 4)
-            {
-                if (totalExtensions < 20)
-                {
-                    buildExtension = true;
-                }
-                else if (totalTowers < 1)
-                {
-                    buildTower = true;
-                }
-            }
-            else if (spawn.room.controller.level == 5)
-            {
-                if (totalExtensions < 30)
-                {
-                    buildExtension = true;
-                }
-                else if (totalTowers < 2)
-                {
-                    buildTower = true;
-                }
-            }
-            else if (spawn.room.controller.level == 6)
-            {
-                if (totalExtensions < 40)
-                {
-                    buildExtension = true;
-                }
-                else if (totalTowers < 2)
-                {
-                    buildTower = true;
-                }
-            }
-            else if (spawn.room.controller.level == 7)
-            {
-                if (totalExtensions < 50)
-                {
-                    buildExtension = true;
-                }
-                else if (totalTowers < 3)
-                {
-                    buildTower = true;
-                }
-            }
-            else if (spawn.room.controller.level == 8)
-            {
-                if (totalExtensions < 60)
-                {
-                    buildExtension = true;
-                }
-                else if (totalTowers < 6)
-                {
-                    buildTower = true;
-                }
+                case 2:
+                    if (totalExtensions < 5)
+                    {
+                        buildExtension = true;
+                    }
+                    break;
+                    
+                case 3:
+                    if (totalExtensions < 10)
+                    {
+                        buildExtension = true;
+                    }
+                    else if (totalTowers < 1)
+                    {
+                        buildTower = true;
+                    }
+                    break;
+                    
+                case 4:
+                    if (totalExtensions < 20)
+                    {
+                        buildExtension = true;
+                    }
+                    else if (totalTowers < 1)
+                    {
+                        buildTower = true;
+                    }
+                    break;
+                    
+                case 5:
+                    if (totalExtensions < 30)
+                    {
+                        buildExtension = true;
+                    }
+                    else if (totalTowers < 2)
+                    {
+                        buildTower = true;
+                    }
+                    break;
+                    
+                case 6:
+                    if (totalExtensions < 40)
+                    {
+                        buildExtension = true;
+                    }
+                    else if (totalTowers < 2)
+                    {
+                        buildTower = true;
+                    }
+                    break;
+                    
+                case 7:
+                    if (totalExtensions < 50)
+                    {
+                        buildExtension = true;
+                    }
+                    else if (totalTowers < 3)
+                    {
+                        buildTower = true;
+                    }
+                    break;
+                    
+                case 8:
+                    if (totalExtensions < 60)
+                    {
+                        buildExtension = true;
+                    }
+                    else if (totalTowers < 6)
+                    {
+                        buildTower = true;
+                    }
+                    break;
             }
             
-            if (buildExtension)
+            if (buildExtension ||
+                buildTower)
             {
-                BuildStructure(new Position(spawn.pos.x, spawn.pos.y), STRUCTURE_EXTENSION);
-            }
-            else if (buildTower)
-            {
-                BuildStructure(new Position(spawn.pos.x, spawn.pos.y), STRUCTURE_TOWER);
+                let position = new Position(spawn.pos.x, spawn.pos.y);
+                
+                if (buildExtension)
+                {
+                    BuildStructure(room, position, STRUCTURE_EXTENSION);
+                }
+                else if (buildTower)
+                {
+                    BuildStructure(room, position, STRUCTURE_TOWER);
+                }
             }
         }
         else if (room.controller.my)
         {
-            const position = GetSpawnPosition(room);
+            let position = GetSpawnPosition(room);
+            position.Y++;
             BuildStructure(room, position, STRUCTURE_SPAWN);
         }
     }

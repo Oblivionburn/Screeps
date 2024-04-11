@@ -2,6 +2,7 @@ const GetSpawnTemplate = require("util.GetSpawnTemplate");
 const GetSpawnCost = require("util.GetSpawnCost");
 const GetName = require("util.GetName");
 const CleanMemory = require("util.CleanMemory");
+const GetError = require("util.GetError");
 
 function SpawnCreep(spawn, job)
 {

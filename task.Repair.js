@@ -15,14 +15,14 @@ function Repair(creep, structure)
     if (total >= 0)
     {
         const result = creep.repair(structure);
-        if (result == 0) 
-        {
-            creep.say(total, true);
-        }
-        else if (result == ERR_NOT_IN_RANGE)
+        if (result == ERR_NOT_IN_RANGE)
         {
             var position = new Position(structure.pos.x, structure.pos.y);
             GoTo(creep, position, creep.room.name, creep.memory.task);
+        }
+        else if (result == 0) 
+        {
+            creep.say(total, true);
         }
         else
         {

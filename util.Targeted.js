@@ -1,18 +1,10 @@
+const GetCreeps = require("util.GetCreeps");
+
 function Targeted(creep, id)
 {
-    for (let creepName in Game.creeps) 
-    {
-        const otherCreep = Game.creeps[creepName];
-        if (otherCreep.id != creep.id)
-        {
-            if (otherCreep.memory.target == id) 
-            {
-                return true;
-            }
-        }
-    }
-    
-    return false;
+    return GetCreeps(creep.room, "All")
+        .some(otherCreep => otherCreep.id != creep.id &&
+                            otherCreep.memory.target == id);
 }
 
 module.exports = Targeted;

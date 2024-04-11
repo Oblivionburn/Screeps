@@ -3,7 +3,7 @@ const GetBodyCount = require("util.GetBodyCount");
 const Assault = require("task.Assault");
 const Flee = require("task.Flee");
 
-function Attack(creep, hostile) 
+function Combat(creep, hostile) 
 {
     const distance = GetDistance(creep.pos.x, creep.pos.y, hostile.pos.x, hostile.pos.y);
     if (GetBodyCount(creep, "attack") > 0)
@@ -37,4 +37,4 @@ function Attack(creep, hostile)
     }
 }
     
-module.exports = Attack;
+module.exports = Combat;

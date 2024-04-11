@@ -1,5 +1,6 @@
 const GetTask = require("ai.GetTask");
 const Invade = require("task.Invade");
+const Formation = require("task.Formation");
 const Harvest = require("task.Harvest");
 const Build = require("task.Build");
 
@@ -8,17 +9,19 @@ function Invader(creep)
     const task = GetTask(creep);
     if (task != null)
     {
-        if (task.Name == "Invade")
+        switch (task.Name)
         {
-            Invade(creep, task.Target);
-        }
-        else if (task.Name == "Harvest")
-        {
-            Harvest(creep, task.Target);
-        }
-        else if (task.Name == "Build")
-        {
-            Build(creep, task.Target);
+            case "Invade":
+                Invade(creep, task.Target);
+                break;
+            case "Formation":
+                Formation(creep, task.Target);
+                break;
+            case "Harvest":
+                Harvest(creep, task.Target);
+                break;
+            case "Build":
+                Build(creep, task.Target);
         }
     }
 }

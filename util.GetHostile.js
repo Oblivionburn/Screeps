@@ -1,5 +1,5 @@
 const Position = require("object.Position");
-const GetNearest = require("util.GetNearest");
+const GetNearestThing = require("util.GetNearestThing");
 
 function GetHostile(room, x, y)
 {
@@ -8,27 +8,7 @@ function GetHostile(room, x, y)
     
     if (hostileCount > 0) 
     {
-        const positions = [];
-        
-        for (let i = 0; i < hostileCount; i++)
-        {
-            const hostile = hostiles[i];
-            
-            positions[i] = new Position(hostile.pos.x, hostile.pos.y);
-        }
-        
-        const nearest = GetNearest(x, y, positions);
-        
-        for (let i = 0; i < hostileCount; i++)
-        {
-            const hostile = hostiles[i];
-            
-            if (hostile.pos.x == nearest.X &&
-                hostile.pos.y == nearest.Y)
-            {
-                return hostile;
-            }
-        }
+        return GetNearestThing(x, y, hostiles);
     }
     
     return null;

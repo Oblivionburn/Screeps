@@ -1,5 +1,5 @@
 const Position = require("object.Position");
-const GetNearest = require("util.GetNearest");
+const GetNearestThing = require("util.GetNearestThing");
 const GetCreeps = require("util.GetCreeps");
 
 function GetInjured(room, x, y)
@@ -9,29 +9,10 @@ function GetInjured(room, x, y)
     
     if (injuredCount > 0) 
     {
-        const positions = [];
-        
-        for (let i = 0; i < injuredCount; i++)
-        {
-            const injured = injuredCreeps[i];
-            positions.push(new Position(injured.pos.x, injured.pos.y));
-        }
-        
-        const nearest = GetNearest(x, y, positions);
-        if (nearest != null)
-        {
-            for (let i = 0; i < injuredCount; i++)
-            {
-                const injured = injuredCreeps[i];
-                
-                if (injured.pos.x == nearest.X &&
-                    injured.pos.y == nearest.Y)
-                {
-                    return injured;
-                }
-            }
-        }
+        return GetNearestThing(x, y, injuredCreeps);
     }
+    
+    return null;
 }
 
 module.exports = GetInjured;

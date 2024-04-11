@@ -1,6 +1,7 @@
 const GetStructures = require("util.GetStructures");
 const GetCreeps = require("util.GetCreeps");
 const CanHoldMoreEnergy = require("util.CanHoldMoreEnergy");
+const GetNearestThing = require("util.GetNearestThing");
 
 function GetTransferTarget(creep)
 {
@@ -9,64 +10,45 @@ function GetTransferTarget(creep)
     
     if (job == "Harvester")
     {
-        const spawns = GetStructures(creep.room, "spawn");
+        const spawns = GetStructures(creep.room, "spawn")
+            .filter(spawn => CanHoldMoreEnergy(spawn));
         if (spawns.length > 0)
         {
-            const spawn = spawns[0];
-            if (CanHoldMoreEnergy(spawn))
-            {
-                return spawn;
-            }
+            return spawns[0];
         }
         
-        const extensions = GetStructures(creep.room, "extension");
-        const extensionCounts = extensions.length;
-        for (let i = 0; i < extensionCounts; i++)
+        const availableExtensions = GetStructures(creep.room, "extension")
+            .filter(extension => CanHoldMoreEnergy(extension));
+        if (availableExtensions.length > 0)
         {
-            const extension = extensions[i];
-            if (CanHoldMoreEnergy(extension))
-            {
-                return extension;
-            }
+            return GetNearestThing(creep.pos.x, creep.pos.y, availableExtensions);
         }
     }
     
-    const towers = GetStructures(creep.room, "tower");
-    const towerCounts = towers.length;
-    for (let i = 0; i < towerCounts; i++)
+    const towers = GetStructures(creep.room, "tower")
+        .filter(tower => CanHoldMoreEnergy(tower));
+    if (towers.length > 0)
     {
-        const tower = towers[i];
-        if (CanHoldMoreEnergy(tower))
-        {
-            return tower;
-        }
+        return towers[0];
     }
     
     if (job != "Builder")
     {
-        const builders = GetCreeps(creep.room, "Builder");
-        const builderCounts = builders.length;
-        for (let i = 0; i < builderCounts; i++)
+        const builders = GetCreeps(creep.room, "Builder")
+            .filter(builder => CanHoldMoreEnergy(builder));
+        if (builders.length > 0)
         {
-            const builder = builders[i];
-            if (CanHoldMoreEnergy(builder))
-            {
-                return builder;
-            }
+            return builders[0];
         }
     }
     
     if (job == "Harvester")
     {
-        const fixers = GetCreeps(creep.room, "Fixer");
-        const fixerCounts = fixers.length;
-        for (let i = 0; i < fixerCounts; i++)
+        const fixers = GetCreeps(creep.room, "Fixer")
+            .filter(fixer => CanHoldMoreEnergy(fixer));
+        if (fixers.length > 0)
         {
-            const fixer = fixers[i];
-            if (CanHoldMoreEnergy(fixer))
-            {
-                return fixer;
-            }
+            return fixers[0];
         }
     }
     

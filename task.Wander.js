@@ -9,37 +9,39 @@ function Wander(creep)
     choice++;
     
     let position = null;
-    if (choice == TOP)
+    switch (choice)
     {
-        position = new Position(creep.pos.x, creep.pos.y - 1);
-    }
-    else if (choice == TOP_RIGHT)
-    {
-        position = new Position(creep.pos.x + 1, creep.pos.y - 1);
-    }
-    else if (choice == RIGHT)
-    {
-        position = new Position(creep.pos.x + 1, creep.pos.y);
-    }
-    else if (choice == BOTTOM_RIGHT)
-    {
-        position = new Position(creep.pos.x + 1, creep.pos.y + 1);
-    }
-    else if (choice == BOTTOM)
-    {
-        position = new Position(creep.pos.x, creep.pos.y + 1);
-    }
-    else if (choice == BOTTOM_LEFT)
-    {
-        position = new Position(creep.pos.x - 1, creep.pos.y + 1);
-    }
-    else if (choice == LEFT)
-    {
-        position = new Position(creep.pos.x - 1, creep.pos.y);
-    }
-    else if (choice == TOP_LEFT)
-    {
-        position = new Position(creep.pos.x - 1, creep.pos.y - 1);
+        case TOP:
+            position = new Position(creep.pos.x, creep.pos.y - 1);
+            break;
+            
+        case TOP_RIGHT:
+            position = new Position(creep.pos.x + 1, creep.pos.y - 1);
+            break;
+            
+        case RIGHT:
+            position = new Position(creep.pos.x + 1, creep.pos.y);
+            break;
+            
+        case BOTTOM_RIGHT:
+            position = new Position(creep.pos.x + 1, creep.pos.y + 1);
+            break;
+            
+        case BOTTOM:
+            position = new Position(creep.pos.x, creep.pos.y + 1);
+            break;
+            
+        case BOTTOM_LEFT:
+            position = new Position(creep.pos.x - 1, creep.pos.y + 1);
+            break;
+            
+        case LEFT:
+            position = new Position(creep.pos.x - 1, creep.pos.y);
+            break;
+            
+        case TOP_LEFT:
+            position = new Position(creep.pos.x - 1, creep.pos.y - 1);
+            break;
     }
     
     if (position.X != 0 &&

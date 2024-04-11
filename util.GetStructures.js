@@ -1,51 +1,43 @@
 function GetStructures(room, name)
 {
-    let structures = [];
-    
-    if (name == "source")
+    switch (name)
     {
-        structures = room.find(FIND_SOURCES);
-    }
-    else if (name == "spawn")
-    {
-        structures = room.find(FIND_MY_STRUCTURES, 
-        {
-            filter: (structure) => 
+        case "source":
+            return room.find(FIND_SOURCES);
+            
+        case "spawn":
+            return room.find(FIND_MY_STRUCTURES, 
             {
-                return structure.structureType == STRUCTURE_SPAWN;
-            }
-        });
-    }
-    else if (name == "extension")
-    {
-        structures = room.find(FIND_MY_STRUCTURES, 
-        {
-            filter: (structure) => 
+                filter: (structure) => 
+                {
+                    return structure.structureType == STRUCTURE_SPAWN;
+                }
+            });
+            
+        case "extension":
+            return room.find(FIND_MY_STRUCTURES, 
             {
-                return structure.structureType == STRUCTURE_EXTENSION;
-            }
-        });
-    }
-    else if (name == "tower")
-    {
-        structures = room.find(FIND_MY_STRUCTURES, 
-        {
-            filter: (structure) => 
+                filter: (structure) => 
+                {
+                    return structure.structureType == STRUCTURE_EXTENSION;
+                }
+            });
+            
+        case "tower":
+            return room.find(FIND_MY_STRUCTURES, 
             {
-                return structure.structureType == STRUCTURE_TOWER;
-            }
-        });
+                filter: (structure) => 
+                {
+                    return structure.structureType == STRUCTURE_TOWER;
+                }
+            });
+            
+        case "site":
+            return room.find(FIND_MY_CONSTRUCTION_SITES);
+            
+        case "flag":
+            return room.find(FIND_FLAGS);
     }
-    else if (name == "site")
-    {
-        structures = room.find(FIND_MY_CONSTRUCTION_SITES);
-    }
-    else if (name == "flag")
-    {
-        structures = room.find(FIND_FLAGS);
-    }
-
-    return structures;
 }
 
 module.exports = GetStructures;

@@ -1,5 +1,6 @@
 const Harvester = require("job.Harvester");
 const Upgrader = require("job.Upgrader");
+const Healer = require("job.Healer");
 const Builder = require("job.Builder");
 const Fixer = require("job.Fixer");
 const Soldier = require("job.Soldier");
@@ -13,39 +14,45 @@ function HandleCreeps()
         const creep = Game.creeps[creepName];
         const job = creep.memory.job;
         
-        if (job == "Harvester")
+        switch (job)
         {
-            Harvester(creep);
-        }
-        else if (job == "Upgrader")
-        {
-            Upgrader(creep);
-        }
-        else if (job == "Builder")
-        {
-            Builder(creep);
-        }
-        else if (job == "Fixer")
-        {
-            Fixer(creep);
-        }
-        else if (job == "Soldier")
-        {
-            Soldier(creep);
-        }
-        else if (job == "Claimer")
-        {
-            Claimer(creep);
-        }
-        else if (job == "Invader")
-        {
-            Invader(creep);
+            case "Harvester":
+                Harvester(creep);
+                break;
+                
+            case "Upgrader":
+                Upgrader(creep);
+                break;
+                
+            case "Healer":
+                Healer(creep);
+                break;
+                
+            case "Builder":
+                Builder(creep);
+                break;
+                
+            case "Fixer":
+                Fixer(creep);
+                break;
+                
+            case "Soldier":
+                Soldier(creep);
+                break;
+                
+            case "Claimer":
+                Claimer(creep);
+                break;
+                
+            case "Invader":
+                Invader(creep);
+                break;
         }
         
         if (creep.ticksToLive <= 61 && 
             creep.ticksToLive > 1)
         {
-            new RoomVisual(creep.room.name).text("dead in " +  (creep.ticksToLive - 1) + "...", creep.pos.x, creep.pos.y + 1, {color: "red", font: "bold 0.7 Calibri"});
+            new RoomVisual(creep.room.name).text("TicksToLive: " + (creep.ticksToLive - 1), creep.pos.x, creep.pos.y + 1, {color: "red", font: "bold 0.7 Calibri"});
         }
     }
 }

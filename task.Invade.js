@@ -11,10 +11,6 @@ function Invade(creep, roomName)
         creep.say(creep.memory.task, true);
         creep.moveTo(exit, {reusePath: 3, visualizePathStyle: {stroke: "#FF0000"}});
     }
-    else
-    {
-        
-    }
 }
     
 module.exports = Invade;

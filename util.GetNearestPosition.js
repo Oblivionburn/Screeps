@@ -1,6 +1,6 @@
 const GetDistance = require("util.GetDistance");
 
-function GetNearest(x, y, positions) 
+function GetNearestPosition(x, y, positions) 
 {
     if (positions != null)
     {
@@ -30,4 +30,4 @@ function GetNearest(x, y, positions)
     return null;
 }
 
-module.exports = GetNearest;
+module.exports = GetNearestPosition;

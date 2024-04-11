@@ -12,14 +12,14 @@ function Upgrade(creep, structure)
     var total = structure.progressTotal - structure.progress - 1;
     
     var result = creep.upgradeController(structure);
-    if (result == 0) 
-    {
-        creep.say(total, true);
-    }
-    else if (result == ERR_NOT_IN_RANGE)
+    if (result == ERR_NOT_IN_RANGE)
     {
         var position = new Position(structure.pos.x, structure.pos.y);
         GoTo(creep, position, creep.room.name, creep.memory.task);
+    }
+    else if (result == 0) 
+    {
+        creep.say(total, true);
     }
     else
     {

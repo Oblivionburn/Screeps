@@ -1,6 +1,6 @@
 const Position = require("object.Position");
 const Targeted = require("util.Targeted");
-const GetNearest = require("util.GetNearest");
+const GetNearestThing = require("util.GetNearestThing");
 
 function GetSiteToBuild(creep)
 {
@@ -35,7 +35,7 @@ function GetSiteToBuild(creep)
     //If no similar sites started yet, get nearest
     if (chosen.progress == 0)
     {
-        const positions = [];
+        const availableSites = [];
         
         //Get sites not targeted by other creeps
         for (let i = 0; i < sitesCount; i++)
@@ -45,26 +45,13 @@ function GetSiteToBuild(creep)
             if (!Targeted(creep, site.id) &&
                 site.progressTotal == chosen.progressTotal)
             {
-                positions.push(new Position(site.pos.x, site.pos.y));
+                availableSites.push(site);
             }
         }
         
-        const positionCount = positions.length;
-        if (positionCount > 0)
+        if (availableSites.length > 0)
         {
-            const nearest = GetNearest(creep.pos.x, creep.pos.y, positions);
-            
-            //Get site with nearest position
-            for (let i = 0; i < sitesCount; i++)
-            {
-                const site = sites[i];
-                
-                if (site.pos.x == nearest.X &&
-                    site.pos.y == nearest.Y)
-                {
-                    return site;
-                }
-            }
+            return GetNearestThing(creep.pos.x, creep.pos.y, availableSites);
         }
     }
     
