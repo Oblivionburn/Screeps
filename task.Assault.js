@@ -6,7 +6,7 @@ function Assault(creep, thing)
     creep.memory.task = "Attacking";
     creep.memory.target = thing.id;
     
-    var position = new Position(thing.pos.x, thing.pos.y);
+    const position = new Position(thing.pos.x, thing.pos.y);
     GoTo(creep, position, creep.room.name, creep.memory.task);
 }
 

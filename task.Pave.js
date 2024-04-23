@@ -11,35 +11,15 @@ function Pave(creep)
     
     if (!blocked)
     {
-        for (let i = 0; i < sitesCount; i++)
-        {
-            const site = sites[i];
-            
-            if (site.pos.x == creep.pos.x &&
-                site.pos.y == creep.pos.y)
-            {
-                blocked = true;
-                break;
-            }
-        }
+        blocked = sites.some(site => site.pos.x == creep.pos.x &&
+                                     site.pos.y == creep.pos.y);
     }
     
     if (!blocked)
     {
         sites = creep.room.find(FIND_STRUCTURES);
-        sitesCount = sites.length;
-        
-        for (let i = 0; i < sitesCount; i++)
-        {
-            const site = sites[i];
-            
-            if (site.pos.x == creep.pos.x &&
-                site.pos.y == creep.pos.y)
-            {
-                blocked = true;
-                break;
-            }
-        }
+        blocked = sites.some(site => site.pos.x == creep.pos.x &&
+                                     site.pos.y == creep.pos.y);
     }
     
     if (!blocked)

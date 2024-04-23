@@ -12,22 +12,10 @@ function Formation(creep, hostile)
     creep.memory.target = hostile.id;
     
     let ready = false;
-    const warriors = [];
     
-    const creeps = GetCreeps(creep.room, "All");
-    for (let i = 0; i < creeps.length; i++)
-    {
-        const otherCreep = creeps[i];
-        if (otherCreep.id != creep.id)
-        {
-            const attackParts = GetBodyCount(otherCreep, "attack");
-            if (attackParts > 0)
-            {
-                warriors.push(otherCreep);
-            }
-        }
-    }
-    
+    const warriors = GetCreeps(creep.room, "All")
+        .filter(warrior.id != creep.id &&
+                GetBodyCount(otherCreep, "attack") > 0);
     if (warriors.length > 0)
     {
         const nearestWarrior = GetNearestThing(creep.pos.x, creep.pos.y, warriors);
@@ -35,7 +23,7 @@ function Formation(creep, hostile)
         const distance = GetDistance(creep.pos.x, creep.pos.y, nearestWarrior.pos.x, nearestWarrior.pos.y);
         if (distance > 2)
         {
-            var position = new Position(nearestWarrior.pos.x, nearestWarrior.pos.y);
+            const position = new Position(nearestWarrior.pos.x, nearestWarrior.pos.y);
             GoTo(creep, position, creep.room.name, creep.memory.task);
         }
         else

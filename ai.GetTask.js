@@ -78,7 +78,7 @@ function GetTask(creep)
             if (task == null)
             {
                 if (CanHoldMoreEnergy(creep) &&
-                    creep.ticksToLive > 60)
+                    creep.ticksToLive > 30)
                 {
                     source = GetSourceToHarvest(creep);
                     if (source != null)

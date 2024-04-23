@@ -10,21 +10,21 @@ function Build(creep, structure)
     
     const work = GetBodyCount(creep, "work") * 5;
     
-    let total = structure.progressTotal - structure.progress - work;
-    if (total < 0)
+    let progress = structure.progress + work;
+    if (progress > structure.progressTotal)
     {
-        total = 0;    
+        progress = structure.progressTotal;    
     }
     
     const result = creep.build(structure);
     if (result == ERR_NOT_IN_RANGE)
     {
-        var position = new Position(structure.pos.x, structure.pos.y);
+        const position = new Position(structure.pos.x, structure.pos.y);
         GoTo(creep, position, creep.room.name, creep.memory.task);
     }
     else if (result == 0) 
     {
-        creep.say(total, true);
+        creep.say(progress + "/" + structure.progressTotal, true);
     }
     else
     {

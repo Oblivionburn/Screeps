@@ -144,9 +144,15 @@ function HandleBuilding()
         }
         else if (room.controller.my)
         {
+            //There's no spawn, but we've captured the controller
+            //So build a new Spawn!
+            
             let position = GetSpawnPosition(room);
-            position.Y++;
-            BuildStructure(room, position, STRUCTURE_SPAWN);
+            if (position != null)
+            {
+                position.Y++;
+                BuildStructure(room, position, STRUCTURE_SPAWN);
+            }
         }
     }
 }

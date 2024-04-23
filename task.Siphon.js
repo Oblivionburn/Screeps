@@ -33,7 +33,7 @@ function Siphon(creep, structure)
         }
         else if (result == 0) 
         {
-            creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
+            creep.say("Took:" + total, true);
         }
         else
         {

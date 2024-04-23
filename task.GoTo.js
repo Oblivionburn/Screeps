@@ -27,6 +27,7 @@ function GoTo(creep, position, roomName, reason)
                 
             case "Grabbing":
             case "Siphoning":
+                reason = "Taking";
                 color = "#FFBF00";
                 break;
                 

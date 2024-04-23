@@ -1,5 +1,5 @@
-var Position = require("object.Position");
-var GoTo = require("task.GoTo");
+const Position = require("object.Position");
+const GoTo = require("task.GoTo");
 const Pave = require("task.Pave");
 
 function Upgrade(creep, structure) 
@@ -9,12 +9,12 @@ function Upgrade(creep, structure)
     
     Pave(creep);
     
-    var total = structure.progressTotal - structure.progress - 1;
+    const total = structure.progressTotal - structure.progress - 1;
     
-    var result = creep.upgradeController(structure);
+    const result = creep.upgradeController(structure);
     if (result == ERR_NOT_IN_RANGE)
     {
-        var position = new Position(structure.pos.x, structure.pos.y);
+        const position = new Position(structure.pos.x, structure.pos.y);
         GoTo(creep, position, creep.room.name, creep.memory.task);
     }
     else if (result == 0) 

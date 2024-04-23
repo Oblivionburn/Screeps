@@ -21,16 +21,25 @@ function Build(room, position, type)
         if (!exists &&
             sites.length < MAX_CONSTRUCTION_SITES)
         {
+            let result = 1
             if (type == STRUCTURE_SPAWN)
             {
-                room.createConstructionSite(position.X, position.Y, type, "HQ_" + room.name);
+                result = room.createConstructionSite(position.X, position.Y, type, "HQ_" + room.name);
             }
             else
             {
-                room.createConstructionSite(position.X, position.Y, type);
+                result = room.createConstructionSite(position.X, position.Y, type);
             }
             
-            console.log("Building " + type + ": " + position.X + "," + position.Y);
+            if (result == 0)
+            {
+                console.log("Building " + type + ": " + position.X + "," + position.Y);
+            }
+            else
+            {
+                console.log("Error building " + type + " in room " + room.name + " at " + position.X + "," + position.Y + ": " + GetError(result));
+            }
+            
             return true;
         }
     }

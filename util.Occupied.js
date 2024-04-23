@@ -1,11 +1,10 @@
-const GetCreeps = require("util.GetCreeps");
+const GetCreeps_Other = require("util.GetCreeps_Other");
 
 function Occupied(creep, x, y) 
 {
-    const otherCreeps = GetCreeps(creep.room, "All")
-        .some(otherCreep => otherCreep.id != creep.id &&
-                              otherCreep.pos.x == x &&
-                              otherCreep.pos.y == y);
+    const otherCreeps = GetCreeps_Other(creep)
+        .some(otherCreep => otherCreep.pos.x == x &&
+                            otherCreep.pos.y == y);
     if (otherCreeps)             
     {
         return true;
@@ -14,10 +13,8 @@ function Occupied(creep, x, y)
     const safe = ["road", "rampart"];
     
     const things = creep.room.lookAt(x, y)
-        .some(thing => (thing.type == "terrain" &&
-                         thing.terrain == "wall") ||
-                         (thing.type == "structure" &&
-                         !safe.includes(thing.structure.structureType)));
+        .some(thing => (thing.type == "terrain" && thing.terrain == "wall") ||
+                       (thing.type == "structure" && !safe.includes(thing.structure.structureType)));
     if (things)
     {
         return true;

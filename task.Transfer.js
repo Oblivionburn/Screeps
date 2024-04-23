@@ -27,7 +27,7 @@ function Transfer(creep, thing)
     
     if (transfering > 0)
     {
-        var result = creep.transfer(thing, RESOURCE_ENERGY);
+        const result = creep.transfer(thing, RESOURCE_ENERGY);
         if (result == ERR_NOT_IN_RANGE)
         {
             const position = new Position(thing.pos.x, thing.pos.y);
