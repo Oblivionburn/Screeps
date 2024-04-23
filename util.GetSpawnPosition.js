@@ -1,5 +1,6 @@
 const Position = require("object.Position");
 const GetStructures = require("util.GetStructures");
+const CanBuild = require("util.CanBuild");
 
 function GetSpawnPosition(room) 
 {
@@ -44,7 +45,6 @@ function GetSpawnPosition(room)
         
         let found = false;
         let things = [];
-        const safe = ["road", "rampart"];
     
         //Max of 10 tiles away
         for (let i = 5; i <= 10; i++)
@@ -56,10 +56,7 @@ function GetSpawnPosition(room)
                 {
                     for (let x = source.pos.x - i; x < source.pos.x + i; x++)
                     {
-                        things = room.lookAt(x, y)
-                            .some(thing => (thing.type == "terrain" && thing.terrain == "wall") ||
-                                           (thing.type == "structure" && !safe.includes(thing.structure.structureType)));
-                        if (things.length == 0)
+                        if (CanBuild(room, x, y))
                         {
                             return new Position(x, y);
                         }
@@ -68,21 +65,13 @@ function GetSpawnPosition(room)
                 else
                 {
                     let x = source.pos.x - i;
-                    
-                    things = room.lookAt(x, y)
-                        .some(thing => (thing.type == "terrain" && thing.terrain == "wall") ||
-                                       (thing.type == "structure" && !safe.includes(thing.structure.structureType)));
-                    if (things.length == 0)
+                    if (CanBuild(room, x, y))
                     {
                         return new Position(x, y);
                     }
                     
                     let x = source.pos.x + i;
-                    
-                    things = room.lookAt(x, y)
-                        .some(thing => (thing.type == "terrain" && thing.terrain == "wall") ||
-                                       (thing.type == "structure" && !safe.includes(thing.structure.structureType)));
-                    if (things.length == 0)
+                    if (CanBuild(room, x, y))
                     {
                         return new Position(x, y);
                     }
