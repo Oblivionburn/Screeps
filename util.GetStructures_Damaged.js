@@ -21,7 +21,7 @@ function GetStructures_Damaged(creep, name)
             break;
             
         case "container":
-            return room.find(FIND_MY_STRUCTURES, 
+            return room.find(FIND_STRUCTURES, 
             {
                 filter: (structure) => 
                 {
@@ -31,7 +31,7 @@ function GetStructures_Damaged(creep, name)
             });
             
         case "storage":
-            return room.find(FIND_MY_STRUCTURES, 
+            return room.find(FIND_STRUCTURES, 
             {
                 filter: (structure) => 
                 {
