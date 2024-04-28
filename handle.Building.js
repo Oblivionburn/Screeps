@@ -14,11 +14,27 @@ function HandleBuilding()
         {
             const spawn = spawns[0];
             
+            let totalContainers = 0;
+            let totalStorage = 0;
             let totalExtensions = 0;
             let totalTowers = 0;
             
+            let buildContainer = false;
+            let buildStorage = false;
             let buildExtension = false;
             let buildTower = false;
+            
+            const containers = GetStructures(room, "container");
+            if (containers != null)
+            {
+                totalContainers = containers.length;
+            }
+            
+            const storages = GetStructures(room, "storage");
+            if (storages != null)
+            {
+                totalStorage = storages.length;
+            }
             
             const extensions = GetStructures(room, "extension");
             if (extensions != null)
@@ -40,7 +56,15 @@ function HandleBuilding()
                 {
                     const site = sites[i];
                     
-                    if (site.structureType == STRUCTURE_EXTENSION)
+                    if (site.structureType == STRUCTURE_CONTAINER)
+                    {
+                        totalContainers++;
+                    }
+                    else if (site.structureType == STRUCTURE_STORAGE)
+                    {
+                        totalStorage++;
+                    }
+                    else if (site.structureType == STRUCTURE_EXTENSION)
                     {
                         totalExtensions++;
                     }
@@ -53,15 +77,30 @@ function HandleBuilding()
             
             switch (spawn.room.controller.level)
             {
+                case 1:
+                    if (totalContainers < 1)
+                    {
+                        buildContainer = true;
+                    }
+                    break;
+                    
                 case 2:
-                    if (totalExtensions < 5)
+                    if (totalContainers < 1)
+                    {
+                        buildContainer = true;
+                    }
+                    else if (totalExtensions < 5)
                     {
                         buildExtension = true;
                     }
                     break;
                     
                 case 3:
-                    if (totalExtensions < 10)
+                    if (totalContainers < 1)
+                    {
+                        buildContainer = true;
+                    }
+                    else if (totalExtensions < 10)
                     {
                         buildExtension = true;
                     }
@@ -72,7 +111,11 @@ function HandleBuilding()
                     break;
                     
                 case 4:
-                    if (totalExtensions < 20)
+                    if (totalStorage < 1)
+                    {
+                        buildStorage = true;
+                    }
+                    else if (totalExtensions < 20)
                     {
                         buildExtension = true;
                     }
@@ -83,7 +126,11 @@ function HandleBuilding()
                     break;
                     
                 case 5:
-                    if (totalExtensions < 30)
+                    if (totalStorage < 1)
+                    {
+                        buildStorage = true;
+                    }
+                    else if (totalExtensions < 30)
                     {
                         buildExtension = true;
                     }
@@ -94,7 +141,11 @@ function HandleBuilding()
                     break;
                     
                 case 6:
-                    if (totalExtensions < 40)
+                    if (totalStorage < 1)
+                    {
+                        buildStorage = true;
+                    }
+                    else if (totalExtensions < 40)
                     {
                         buildExtension = true;
                     }
@@ -105,7 +156,11 @@ function HandleBuilding()
                     break;
                     
                 case 7:
-                    if (totalExtensions < 50)
+                    if (totalStorage < 1)
+                    {
+                        buildStorage = true;
+                    }
+                    else if (totalExtensions < 50)
                     {
                         buildExtension = true;
                     }
@@ -116,7 +171,11 @@ function HandleBuilding()
                     break;
                     
                 case 8:
-                    if (totalExtensions < 60)
+                    if (totalStorage < 1)
+                    {
+                        buildStorage = true;
+                    }
+                    else if (totalExtensions < 60)
                     {
                         buildExtension = true;
                     }
@@ -127,12 +186,22 @@ function HandleBuilding()
                     break;
             }
             
-            if (buildExtension ||
+            if (buildContainer ||
+                buildStorage ||
+                buildExtension ||
                 buildTower)
             {
                 let position = new Position(spawn.pos.x, spawn.pos.y);
                 
-                if (buildExtension)
+                if (buildContainer)
+                {
+                    BuildStructure(room, position, STRUCTURE_CONTAINER);
+                }
+                else if (buildStorage)
+                {
+                    BuildStructure(room, position, STRUCTURE_STORAGE);
+                }
+                else if (buildExtension)
                 {
                     BuildStructure(room, position, STRUCTURE_EXTENSION);
                 }

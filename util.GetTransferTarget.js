@@ -23,6 +23,20 @@ function GetTransferTarget(creep)
         {
             return GetNearestThing(creep.pos.x, creep.pos.y, availableExtensions);
         }
+        
+        const availableContainers = GetStructures(creep.room, "container")
+            .filter(container => CanHoldMoreEnergy(container));
+        if (availableContainers.length > 0)
+        {
+            return GetNearestThing(creep.pos.x, creep.pos.y, availableContainers);
+        }
+        
+        const availableStorage = GetStructures(creep.room, "storage")
+            .filter(storage => CanHoldMoreEnergy(storage));
+        if (availableStorage.length > 0)
+        {
+            return GetNearestThing(creep.pos.x, creep.pos.y, availableStorage);
+        }
     }
     
     const towers = GetStructures(creep.room, "tower")

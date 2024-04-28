@@ -33,7 +33,8 @@ function GetSiteToBuild(creep)
     }
     
     //If no similar sites started yet, get nearest
-    if (chosen.progress == 0)
+    if (chosen != null &&
+        chosen.progress == 0)
     {
         const availableSites = [];
         

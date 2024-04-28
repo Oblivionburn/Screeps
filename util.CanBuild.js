@@ -14,8 +14,8 @@ function CanBuild(room, x, y)
         if (!exists)
         {
             exists = room.find(FIND_STRUCTURES)
-                .some(site => structure.pos.x == x &&
-                              structure.pos.y == y);
+                .some(site => site.pos.x == x &&
+                              site.pos.y == y);
         }
         
         if (!exists &&

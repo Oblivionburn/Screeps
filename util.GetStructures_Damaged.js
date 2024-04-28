@@ -13,20 +13,40 @@ function GetStructures_Damaged(creep, name)
             {
                 filter: (structure) => 
                 {
-                    return (structure.structureType == STRUCTURE_SPAWN) 
-                            && structure.hits < structure.hitsMax;
+                    return structure.structureType == STRUCTURE_SPAWN
+                        && structure.hits < structure.hitsMax;
                     
                 }
             });
             break;
+            
+        case "container":
+            return room.find(FIND_MY_STRUCTURES, 
+            {
+                filter: (structure) => 
+                {
+                    return structure.structureType == STRUCTURE_CONTAINER
+                        && structure.hits < structure.hitsMax;
+                }
+            });
+            
+        case "storage":
+            return room.find(FIND_MY_STRUCTURES, 
+            {
+                filter: (structure) => 
+                {
+                    return structure.structureType == STRUCTURE_STORAGE
+                        && structure.hits < structure.hitsMax;
+                }
+            });
             
         case "extension":
             structures = creep.room.find(FIND_MY_STRUCTURES, 
             {
                 filter: (structure) => 
                 {
-                    return (structure.structureType == STRUCTURE_EXTENSION) 
-                            && structure.hits < structure.hitsMax;
+                    return structure.structureType == STRUCTURE_EXTENSION
+                        && structure.hits < structure.hitsMax;
                 }
             });
             break;
@@ -36,7 +56,7 @@ function GetStructures_Damaged(creep, name)
             {
                 filter: (structure) => 
                 {
-                    return (structure.structureType == STRUCTURE_TOWER) 
+                    return structure.structureType == STRUCTURE_TOWER
                         && structure.hits < structure.hitsMax;
                 }
             });
@@ -47,7 +67,7 @@ function GetStructures_Damaged(creep, name)
             {
                 filter: (structure) => 
                 {
-                    return (structure.structureType == STRUCTURE_ROAD) 
+                    return structure.structureType == STRUCTURE_ROAD
                         && structure.hits < structure.hitsMax;
                 }
             });
@@ -58,7 +78,7 @@ function GetStructures_Damaged(creep, name)
             {
                 filter: (structure) => 
                 {
-                    return (structure.structureType == STRUCTURE_WALL) 
+                    return structure.structureType == STRUCTURE_WALL
                         && structure.hits < structure.hitsMax;
                 }
             });
@@ -69,7 +89,7 @@ function GetStructures_Damaged(creep, name)
             {
                 filter: (structure) => 
                 {
-                    return (structure.structureType == STRUCTURE_RAMPART) 
+                    return structure.structureType == STRUCTURE_RAMPART
                         && structure.hits < structure.hitsMax;
                 }
             });
@@ -79,6 +99,8 @@ function GetStructures_Damaged(creep, name)
     const structureCount = structures.length;
     
     if (name == "spawn" ||
+        name == "container" ||
+        name == "storage" ||
         name == "extension" ||
         name == "wall" ||
         name == "rampart")
