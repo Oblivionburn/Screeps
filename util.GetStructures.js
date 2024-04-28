@@ -50,9 +50,6 @@ function GetStructures(room, name)
                 }
             });
             
-        case "site":
-            return room.find(FIND_MY_CONSTRUCTION_SITES);
-            
         case "flag":
             return room.find(FIND_FLAGS);
     }

@@ -2,9 +2,12 @@ const Position = require("object.Position");
 const GetStructures = require("util.GetStructures");
 const BuildStructure = require("util.BuildStructure");
 const GetSpawnPosition = require("util.GetSpawnPosition");
+const GetConstructionSites = require("util.GetConstructionSites");
 
 function HandleBuilding()
 {
+    const structureTypes = ["container", "storage", "extension", "tower"];
+    
     for (let roomName in Game.rooms)
     {
         const room = Game.rooms[roomName];
@@ -14,202 +17,101 @@ function HandleBuilding()
         {
             const spawn = spawns[0];
             
-            let totalContainers = 0;
-            let totalStorage = 0;
-            let totalExtensions = 0;
-            let totalTowers = 0;
-            
-            let buildContainer = false;
-            let buildStorage = false;
-            let buildExtension = false;
-            let buildTower = false;
-            
-            const containers = GetStructures(room, "container");
-            if (containers != null)
-            {
-                totalContainers = containers.length;
-            }
-            
-            const storages = GetStructures(room, "storage");
-            if (storages != null)
-            {
-                totalStorage = storages.length;
-            }
-            
-            const extensions = GetStructures(room, "extension");
-            if (extensions != null)
-            {
-                totalExtensions = extensions.length;
-            }
-            
-            const towers = GetStructures(room, "tower");
-            if (towers != null)
-            {
-                totalTowers = towers.length;
-            }
-            
-            const sites = GetStructures(room, "site");
-            if (sites != null)
-            {
-                const siteCount = sites.length;
-                for (let i = 0; i < siteCount; i++)
-                {
-                    const site = sites[i];
-                    
-                    switch (site.structureType)
-                    {
-                        case STRUCTURE_CONTAINER:
-                            totalContainers++;
-                            break;
-                            
-                        case STRUCTURE_STORAGE:
-                            totalStorage++;
-                            break;
-                            
-                        case STRUCTURE_EXTENSION:
-                            totalExtensions++;
-                            break;
-                            
-                        case STRUCTURE_TOWER:
-                            totalTowers++;
-                            break;
-                    }
-                }
-            }
+            let buildStructures = {};
             
             switch (spawn.room.controller.level)
             {
                 case 1:
-                    if (totalContainers < 1)
-                    {
-                        buildContainer = true;
-                    }
+                    buildStructures["container"] = 1;
                     break;
                     
                 case 2:
-                    if (totalContainers < 1)
-                    {
-                        buildContainer = true;
-                    }
-                    else if (totalExtensions < 5)
-                    {
-                        buildExtension = true;
-                    }
+                    buildStructures["container"] = 1;
+                    buildStructures["extension"] = 5;
                     break;
                     
                 case 3:
-                    if (totalContainers < 1)
-                    {
-                        buildContainer = true;
-                    }
-                    else if (totalExtensions < 10)
-                    {
-                        buildExtension = true;
-                    }
-                    else if (totalTowers < 1)
-                    {
-                        buildTower = true;
-                    }
+                    buildStructures["container"] = 1;
+                    buildStructures["extension"] = 10;
+                    buildStructures["tower"] = 1;
                     break;
                     
                 case 4:
-                    if (totalStorage < 1)
-                    {
-                        buildStorage = true;
-                    }
-                    else if (totalExtensions < 20)
-                    {
-                        buildExtension = true;
-                    }
-                    else if (totalTowers < 1)
-                    {
-                        buildTower = true;
-                    }
+                    buildStructures["container"] = 1;
+                    buildStructures["extension"] = 20;
+                    buildStructures["tower"] = 1;
                     break;
                     
                 case 5:
-                    if (totalStorage < 1)
-                    {
-                        buildStorage = true;
-                    }
-                    else if (totalExtensions < 30)
-                    {
-                        buildExtension = true;
-                    }
-                    else if (totalTowers < 2)
-                    {
-                        buildTower = true;
-                    }
+                    buildStructures["storage"] = 1;
+                    buildStructures["extension"] = 30;
+                    buildStructures["tower"] = 2;
                     break;
                     
                 case 6:
-                    if (totalStorage < 1)
-                    {
-                        buildStorage = true;
-                    }
-                    else if (totalExtensions < 40)
-                    {
-                        buildExtension = true;
-                    }
-                    else if (totalTowers < 2)
-                    {
-                        buildTower = true;
-                    }
+                    buildStructures["storage"] = 1;
+                    buildStructures["extension"] = 40;
+                    buildStructures["tower"] = 2;
                     break;
                     
                 case 7:
-                    if (totalStorage < 1)
-                    {
-                        buildStorage = true;
-                    }
-                    else if (totalExtensions < 50)
-                    {
-                        buildExtension = true;
-                    }
-                    else if (totalTowers < 3)
-                    {
-                        buildTower = true;
-                    }
+                    buildStructures["storage"] = 1;
+                    buildStructures["extension"] = 50;
+                    buildStructures["tower"] = 3;
                     break;
                     
                 case 8:
-                    if (totalStorage < 1)
-                    {
-                        buildStorage = true;
-                    }
-                    else if (totalExtensions < 60)
-                    {
-                        buildExtension = true;
-                    }
-                    else if (totalTowers < 6)
-                    {
-                        buildTower = true;
-                    }
+                    buildStructures["storage"] = 1;
+                    buildStructures["extension"] = 60;
+                    buildStructures["tower"] = 6;
                     break;
             }
             
-            if (buildContainer ||
-                buildStorage ||
-                buildExtension ||
-                buildTower)
+            for (let i = 0; i < structureTypes.length; i++)
             {
-                let position = new Position(spawn.pos.x, spawn.pos.y);
+                let type = structureTypes[i];
                 
-                if (buildContainer)
+                if (buildStructures.hasOwnProperty(type))
                 {
-                    BuildStructure(room, position, STRUCTURE_CONTAINER);
-                }
-                else if (buildStorage)
-                {
-                    BuildStructure(room, position, STRUCTURE_STORAGE);
-                }
-                else if (buildExtension)
-                {
-                    BuildStructure(room, position, STRUCTURE_EXTENSION);
-                }
-                else if (buildTower)
-                {
-                    BuildStructure(room, position, STRUCTURE_TOWER);
+                    let total = 0;
+                    
+                    let structures = GetStructures(room, type);
+                    if (structures != null)
+                    {
+                        total = structures.length;
+                    }
+                    
+                    let sites = GetConstructionSites(room, type);
+                    if (sites != null)
+                    {
+                        total += sites.length;
+                    }
+                    
+                    if (total < buildStructures[type])
+                    {
+                        let position = new Position(spawn.pos.x, spawn.pos.y);
+                        
+                        switch (type)
+                        {
+                            case "container":
+                                BuildStructure(room, position, STRUCTURE_CONTAINER);
+                                break;
+                                
+                            case "storage":
+                                BuildStructure(room, position, STRUCTURE_STORAGE);
+                                break;
+                            
+                            case "extension":
+                                BuildStructure(room, position, STRUCTURE_EXTENSION);
+                                break;
+                                
+                            case "tower":
+                                BuildStructure(room, position, STRUCTURE_TOWER);
+                                break;
+                        }
+                        
+                        break;
+                    }
                 }
             }
         }
