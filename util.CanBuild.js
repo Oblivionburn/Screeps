@@ -5,11 +5,16 @@ function CanBuild(room, x, y)
         y > 0 &&
         y < 49)
     {
-        let sites = room.find(FIND_MY_CONSTRUCTION_SITES)
+        let allSites = room.find(FIND_MY_CONSTRUCTION_SITES);
+                          
+        let exists = allSites
             .some(site => site.pos.x == x &&
                           site.pos.y == y);
                           
-        let exists = room.getTerrain().get(x, y) != 0;
+        if (!exists)
+        {
+            exists = room.getTerrain().get(x, y) != 0;
+        }
         
         if (!exists)
         {
@@ -19,7 +24,7 @@ function CanBuild(room, x, y)
         }
         
         if (!exists &&
-            sites.length < MAX_CONSTRUCTION_SITES)
+            allSites.length < MAX_CONSTRUCTION_SITES)
         {
             return true;
         }

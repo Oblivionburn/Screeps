@@ -56,21 +56,23 @@ function HandleBuilding()
                 {
                     const site = sites[i];
                     
-                    if (site.structureType == STRUCTURE_CONTAINER)
+                    switch (site.structureType)
                     {
-                        totalContainers++;
-                    }
-                    else if (site.structureType == STRUCTURE_STORAGE)
-                    {
-                        totalStorage++;
-                    }
-                    else if (site.structureType == STRUCTURE_EXTENSION)
-                    {
-                        totalExtensions++;
-                    }
-                    else if (site.structureType == STRUCTURE_TOWER)
-                    {
-                        totalTowers++;
+                        case STRUCTURE_CONTAINER:
+                            totalContainers++;
+                            break;
+                            
+                        case STRUCTURE_STORAGE:
+                            totalStorage++;
+                            break;
+                            
+                        case STRUCTURE_EXTENSION:
+                            totalExtensions++;
+                            break;
+                            
+                        case STRUCTURE_TOWER:
+                            totalTowers++;
+                            break;
                     }
                 }
             }
