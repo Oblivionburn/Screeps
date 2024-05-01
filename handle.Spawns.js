@@ -5,6 +5,8 @@ const GetRoomToInvade = require("util.GetRoomToInvade");
 
 function HandleSpawns() 
 {
+    const jobs = ["Harvester", "Upgrader", "Healer", "Soldier", "Builder", "Fixer", "Invader", "Claimer"];
+    
     for (let spawnName in Game.spawns)
     {
         const spawn = Game.spawns[spawnName];
@@ -16,8 +18,7 @@ function HandleSpawns()
         
         const harvestPositions = GetSourceHarvestPositions(spawn.room);
         const harvestPositionCount = harvestPositions.length;
-        
-        const jobs = ["Harvester", "Upgrader", "Healer", "Soldier", "Builder", "Fixer", "Invader", "Claimer"];
+
         const jobCounts = GetJobCounts(spawn.room, jobs);
 
         if (jobCounts["Harvester"] < controllerLevel + 1 &&

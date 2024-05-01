@@ -19,8 +19,7 @@ function GetSourceHarvestPositions(room)
             for (let x = source.pos.x - 1; x < source.pos.x + 2; x++)
             {
                 //Check for wall at position
-                const terrain = GetTerrain(room, x, y);
-                if (terrain != "wall")
+                if (room.getTerrain().get(x, y) != 1)
                 {
                     //If clear, add position to list
                     positions.push(new Position(x, y));

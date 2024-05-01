@@ -1,6 +1,6 @@
 function GetSpawnCost(partList) 
 {
-    let cost = 0;
+    let total = 0;
     
     if (partList != null)
     {
@@ -12,41 +12,41 @@ function GetSpawnCost(partList)
             switch (part)
             {
                 case "move":
-                    cost += 50;
+                    total += 50;
                     break;
                     
                 case "work":
-                    cost += 100;
+                    total += 100;
                     break;
                     
                 case "carry":
-                    cost += 50;
+                    total += 50;
                     break;
                     
                 case "attack":
-                    cost += 80;
+                    total += 80;
                     break;
                     
                 case "ranged_attack":
-                    cost += 150;
+                    total += 150;
                     break;
                     
                 case "heal":
-                    cost += 250;
+                    total += 250;
                     break;
                     
                 case "claim":
-                    cost += 600;
+                    total += 600;
                     break;
                     
                 case "tough":
-                    cost += 10;
+                    total += 10;
                     break;
             }
         }
     }
     
-    return cost;
+    return total;
 }
 
 module.exports = GetSpawnCost;

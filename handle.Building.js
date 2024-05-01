@@ -19,7 +19,7 @@ function HandleBuilding()
             
             let buildStructures = {};
             
-            switch (spawn.room.controller.level)
+            switch (room.controller.level)
             {
                 case 1:
                     buildStructures["container"] = 1;

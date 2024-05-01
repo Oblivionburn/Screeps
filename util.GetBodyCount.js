@@ -1,6 +1,6 @@
 function GetBodyCount(creep, type)
 {
-    let result = 0;
+    let total = 0;
     
     const bodyCount = creep.body.length;
     for (let i = 0; i < bodyCount; i++)
@@ -9,11 +9,11 @@ function GetBodyCount(creep, type)
         if (body.type == type &&
             body.hits > 0)
         {
-            result++;
+            total++;
         }
     }
     
-    return result;
+    return total;
 }
 
 module.exports = GetBodyCount;
