@@ -4,58 +4,66 @@ const GetName = require("util.GetName");
 const CleanMemory = require("util.CleanMemory");
 const GetError = require("util.GetError");
 
-function SpawnCreep(spawn, job)
+function SpawnCreep(spawn, job, scale)
 {
-    const body = [];
-    let result = 0;
-    
     if (spawn.spawning == null)
     {
         const template = GetSpawnTemplate(job);
         const templatePartCount = template.length;
         
         const templateCost = GetSpawnCost(template);
-        const templateAmount = Math.floor(spawn.room.energyAvailable / templateCost);
+        const maxScale = Math.floor(spawn.room.energyAvailable / templateCost);
         
-        for (let p = 0; p < templatePartCount; p++)
+        for (let s = scale; s > 0; s--)
         {
-            const part = template[p];
-            
-            for (let a = 0; a < templateAmount; a++)
+            if (s <= maxScale)
             {
-                body.push(part);
-            }
-        }
-        
-        if (body.length > 0)
-        {
-            const cost = GetSpawnCost(body);
-            
-            if (cost <= spawn.room.energyAvailable)
-            {
-                CleanMemory();
+                const body = [];
                 
-                result = spawn.spawnCreep(body, GetName(job), 
+                for (let p = 0; p < templatePartCount; p++)
                 {
-                    memory: 
+                    const part = template[p];
+                    
+                    for (let a = 0; a < s; a++)
                     {
-                        home: spawn.room.name,
-                        job: job,
-                        task: null
+                        body.push(part);
                     }
-                });
-            }
-            
-            if (result < 0)
-            {
-                console.log("Error for " + spawn.name + ": " + GetError(result));
-            }
-            else
-            {
-                console.log(spawn.name + " spawned: " + job + " for " + cost + " energy.");
+                }
+                
+                if (body.length > 0)
+                {
+                    const cost = GetSpawnCost(body);
+                    
+                    if (cost <= spawn.room.energyAvailable)
+                    {
+                        CleanMemory();
+                        
+                        const result = spawn.spawnCreep(body, GetName(job), 
+                        {
+                            memory: 
+                            {
+                                home: spawn.room.name,
+                                job: job,
+                                task: null
+                            }
+                        });
+                        
+                        if (result < 0)
+                        {
+                            console.log("Error for " + spawn.name + ": " + GetError(result));
+                        }
+                        else if (result == 0)
+                        {
+                            console.log(spawn.name + " spawned: " + job + " for " + cost + " energy.");
+                            return true;
+                        }
+                    }
+                }
             }
         }
     }
+    
+    return false;
 }
 
 module.exports = SpawnCreep;

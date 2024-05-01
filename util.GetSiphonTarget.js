@@ -4,7 +4,9 @@ const Position = require("object.Position");
 
 function GetSiphonTarget(creep)
 {
-    const containers = creep.room.find(FIND_MY_STRUCTURES, 
+    const available = [];
+    
+    const containers = creep.room.find(FIND_STRUCTURES, 
     {
         filter: (structure) => 
         {
@@ -13,29 +15,7 @@ function GetSiphonTarget(creep)
         }
     });
     
-    const storages = creep.room.find(FIND_MY_STRUCTURES, 
-    {
-        filter: (structure) => 
-        {
-            return structure.structureType == STRUCTURE_STORAGE
-                && structure.store[RESOURCE_ENERGY] > 0;
-        }
-    });
-    
-    const extensions = creep.room.find(FIND_MY_STRUCTURES, 
-    {
-        filter: (structure) => 
-        {
-            return structure.structureType == STRUCTURE_EXTENSION
-                && structure.store[RESOURCE_ENERGY] > 0;
-        }
-    });
-    
-    const available = [];
     const containersCount = containers.length;
-    const storageCount = storages.length;
-    const extensionCount = extensions.length;
-    
     if (containersCount > 0)
     {
         for (let i = 0; i < containersCount; i++)
@@ -48,27 +28,55 @@ function GetSiphonTarget(creep)
             }
         }
     }
-    else if (storageCount > 0)
+    
+    if (available.length == 0)
     {
-        for (let i = 0; i < storageCount; i++)
+        const storages = creep.room.find(FIND_STRUCTURES, 
         {
-            const storage = storages[i];
-            
-            if (!Targeted(creep, storage.id))
+            filter: (structure) => 
             {
-                available.push(storage);
+                return structure.structureType == STRUCTURE_STORAGE
+                    && structure.store[RESOURCE_ENERGY] > 0;
+            }
+        });
+        
+        const storageCount = storages.length;
+        if (storageCount > 0)
+        {
+            for (let i = 0; i < storageCount; i++)
+            {
+                const storage = storages[i];
+                
+                if (!Targeted(creep, storage.id))
+                {
+                    available.push(storage);
+                }
             }
         }
     }
-    else if (extensionCount > 0)
+    
+    if (available.length == 0)
     {
-        for (let i = 0; i < extensionCount; i++)
+        const extensions = creep.room.find(FIND_MY_STRUCTURES, 
         {
-            const extension = extensions[i];
-            
-            if (!Targeted(creep, extension.id))
+            filter: (structure) => 
             {
-                available.push(extension);
+                return structure.structureType == STRUCTURE_EXTENSION
+                    && structure.store[RESOURCE_ENERGY] > 0;
+            }
+        });
+        
+        const extensionCount = extensions.length;
+        if (extensionCount > 0)
+        {
+            for (let i = 0; i < extensionCount; i++)
+            {
+                const extension = extensions[i];
+                
+                if (!Targeted(creep, extension.id))
+                {
+                    available.push(extension);
+                }
             }
         }
     }

@@ -11,36 +11,39 @@ function HandleSpawns()
         
         new RoomVisual(spawn.room.name).text("Energy:" + spawn.room.energyAvailable, spawn.pos.x, spawn.pos.y - 1.5, {color: "yellow", font: "bold 0.7 Calibri"});
         
+        const controllerLevel = spawn.room.controller.level;
+        const scale = controllerLevel - 1;
+        
         const harvestPositions = GetSourceHarvestPositions(spawn.room);
         const harvestPositionCount = harvestPositions.length;
         
         const jobs = ["Harvester", "Upgrader", "Healer", "Soldier", "Builder", "Fixer", "Invader", "Claimer"];
         const jobCounts = GetJobCounts(spawn.room, jobs);
 
-        if (jobCounts["Harvester"] < spawn.room.controller.level + 1 &&
+        if (jobCounts["Harvester"] < controllerLevel + 1 &&
             jobCounts["Harvester"] < harvestPositionCount)
         {
-            SpawnCreep(spawn, "Harvester"); 
+            SpawnCreep(spawn, "Harvester", scale); 
         }
-        else if (jobCounts["Upgrader"] < spawn.room.controller.level + 1)
+        else if (jobCounts["Upgrader"] < controllerLevel + 1)
         {
-            SpawnCreep(spawn, "Upgrader");
+            SpawnCreep(spawn, "Upgrader", scale);
         }
-        //else if (jobCounts["Healer"] < spawn.room.controller.level - 1)
+        //else if (jobCounts["Healer"] < controllerLevel - 1)
         //{
         //    SpawnCreep(spawn, "Healer");
         //}
-        else if (jobCounts["Soldier"] < spawn.room.controller.level - 1)
+        else if (jobCounts["Soldier"] < controllerLevel - 1)
         {
-            SpawnCreep(spawn, "Soldier");
+            SpawnCreep(spawn, "Soldier", scale);
         }
         else if (jobCounts["Builder"] < 1)
         {
-            SpawnCreep(spawn, "Builder");
+            SpawnCreep(spawn, "Builder", scale);
         }
-        else if (jobCounts["Fixer"] < spawn.room.controller.level - 1)
+        else if (jobCounts["Fixer"] < controllerLevel - 1)
         {
-            SpawnCreep(spawn, "Fixer");
+            SpawnCreep(spawn, "Fixer", scale);
         }
         
         if (Game.spawns.length < Game.gcl.level)

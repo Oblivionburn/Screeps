@@ -145,6 +145,13 @@ function GetTask(creep)
                     }
                 }
             }
+            
+            if (task == null)
+            {
+                //Reset to stop targeting
+                creep.memory.task = null;
+                creep.memory.target = null;
+            }
             break;
             
         case "Fixer":
@@ -183,6 +190,13 @@ function GetTask(creep)
                 {
                     task = new Task("Transfer", target);
                 }
+            }
+            
+            if (task == null)
+            {
+                //Reset to stop targeting
+                creep.memory.task = null;
+                creep.memory.target = null;
             }
             break;
             
