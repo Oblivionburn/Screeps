@@ -11,7 +11,12 @@ function Repair(creep, structure)
     const work = GetBodyCount(creep, "work") * 100;
     const hitsMissing = structure.hitsMax - structure.hits;
     
-    const total = hitsMissing - work;
+    let total = hitsMissing - work;
+    if (total < 0)
+    {
+        total = 0;
+    }
+    
     if (total >= 0)
     {
         const result = creep.repair(structure);

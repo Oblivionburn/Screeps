@@ -5,12 +5,9 @@ function GetSpawnTemplate(job)
     switch (job)
     {
         case "Harvester":
-            template = [WORK, CARRY, MOVE, MOVE]; //250
-            break;
-            
-        case "Upgrader":
         case "Fixer":
-            template = [ATTACK, WORK, CARRY, MOVE]; //280
+        case "Upgrader":
+            template = [WORK, CARRY, MOVE, MOVE]; //250
             break;
             
         case "Healer":

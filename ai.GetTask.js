@@ -64,7 +64,7 @@ function GetTask(creep)
             target = GetHostile(creep.room, creep.pos.x, creep.pos.y);
             if (target != null)
             {
-                task = new Task("Formation", target);
+                task = new Task("Attack", target);
             }
             
             if (task == null &&
@@ -158,7 +158,7 @@ function GetTask(creep)
             target = GetHostile(creep.room, creep.pos.x, creep.pos.y);
             if (target != null)
             {
-                task = new Task("Formation", target);
+                task = new Task("Attack", target);
             }
             
             if (task == null &&
@@ -170,6 +170,10 @@ function GetTask(creep)
                 {
                     task = new Task("Siphon", target);
                 }
+                else
+                {
+                    //console.log(creep.name + " found no siphon target!");
+                }
             }
             
             if (task == null &&
@@ -179,6 +183,10 @@ function GetTask(creep)
                 if (target != null)
                 {
                     task = new Task("Repair", target);
+                }
+                else
+                {
+                    //console.log(creep.name + " found no repair target!");
                 }
             }
             

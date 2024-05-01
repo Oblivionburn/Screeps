@@ -41,7 +41,7 @@ function HandleSpawns()
         {
             SpawnCreep(spawn, "Builder", scale);
         }
-        else if (jobCounts["Fixer"] < controllerLevel - 1)
+        else if (jobCounts["Fixer"] < controllerLevel)
         {
             SpawnCreep(spawn, "Fixer", scale);
         }

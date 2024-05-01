@@ -21,7 +21,7 @@ function GetStructures_Damaged(creep, name)
             break;
             
         case "container":
-            return room.find(FIND_STRUCTURES, 
+            structures = creep.room.find(FIND_STRUCTURES, 
             {
                 filter: (structure) => 
                 {
@@ -29,9 +29,10 @@ function GetStructures_Damaged(creep, name)
                         && structure.hits < structure.hitsMax;
                 }
             });
+            break;
             
         case "storage":
-            return room.find(FIND_STRUCTURES, 
+            structures = creep.room.find(FIND_STRUCTURES, 
             {
                 filter: (structure) => 
                 {
@@ -39,6 +40,7 @@ function GetStructures_Damaged(creep, name)
                         && structure.hits < structure.hitsMax;
                 }
             });
+            break;
             
         case "extension":
             structures = creep.room.find(FIND_MY_STRUCTURES, 
@@ -106,9 +108,7 @@ function GetStructures_Damaged(creep, name)
         name == "rampart")
     {
         //Get structure with lowest hits
-        let chosen = structures
-            .filter(structure => !Targeted(creep, structure.id))
-            .sort((s1, s2) => s1.hits <= s2.hits);
+        let chosen = structures.sort((s1, s2) => s1.hits <= s2.hits);
         if (chosen.length > 0)
         {
             return GetNearestThing(creep.pos.x, creep.pos.y, chosen);

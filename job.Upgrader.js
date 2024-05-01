@@ -1,5 +1,5 @@
 const GetTask = require("ai.GetTask");
-const Formation = require("task.Formation");
+const Combat = require("task.Combat");
 const Harvest = require("task.Harvest");
 const Upgrade = require("task.Upgrade");
 
@@ -10,8 +10,8 @@ function Upgrader(creep)
     {
         switch (task.Name)
         {
-            case "Formation":
-                Formation(creep, task.Target);
+            case "Combat":
+                Combat(creep, task.Target);
                 break;
             case "Harvest":
                 Harvest(creep, task.Target);

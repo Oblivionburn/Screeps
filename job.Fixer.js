@@ -1,5 +1,5 @@
 const GetTask = require("ai.GetTask");
-const Formation = require("task.Formation");
+const Combat = require("task.Combat");
 const Siphon = require("task.Siphon");
 const Repair = require("task.Repair");
 const Transfer = require("task.Transfer");
@@ -11,8 +11,8 @@ function Fixer(creep)
     {
         switch (task.Name)
         {
-            case "Formation":
-                Formation(creep, task.Target);
+            case "Combat":
+                Combat(creep, task.Target);
                 break;
             case "Siphon":
                 Siphon(creep, task.Target);
