@@ -21,11 +21,7 @@ function GetSiphonTarget(creep)
         for (let i = 0; i < containersCount; i++)
         {
             const container = containers[i];
-            
-            if (!Targeted(creep, container.id))
-            {
-                available.push(container);
-            }
+            available.push(container);
         }
     }
     
@@ -46,11 +42,7 @@ function GetSiphonTarget(creep)
             for (let i = 0; i < storageCount; i++)
             {
                 const storage = storages[i];
-                
-                if (!Targeted(creep, storage.id))
-                {
-                    available.push(storage);
-                }
+                available.push(storage);
             }
         }
     }
