@@ -18,10 +18,7 @@ function GetJobCounts(room, jobs)
         const creep = creeps[i];
         if (jobs.includes(creep.memory.job))
         {
-            if (jobCounts.hasOwnProperty(creep.memory.job))
-            {
-                jobCounts[creep.memory.job]++;
-            }
+            jobCounts[creep.memory.job]++;
         }
     }
     

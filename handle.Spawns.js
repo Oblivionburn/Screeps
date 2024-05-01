@@ -16,6 +16,8 @@ function HandleSpawns()
         const controllerLevel = spawn.room.controller.level;
         const scale = controllerLevel - 1;
         
+        const fixerMax = controllerLevel > 3 ? 3 : controllerLevel;
+        
         const harvestPositions = GetSourceHarvestPositions(spawn.room);
         const harvestPositionCount = harvestPositions.length;
 
@@ -42,7 +44,7 @@ function HandleSpawns()
         {
             SpawnCreep(spawn, "Builder", scale);
         }
-        else if (jobCounts["Fixer"] < controllerLevel)
+        else if (jobCounts["Fixer"] < fixerMax)
         {
             SpawnCreep(spawn, "Fixer", scale);
         }
