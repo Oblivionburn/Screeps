@@ -8,7 +8,13 @@ const Upgrade = require("task.Upgrade");
 
 function Upgrader(creep) 
 {
+    const debug = true;
+    
     const currentTask = creep.memory.task;
+    const energy = creep.store[RESOURCE_ENERGY];
+    const controller = creep.room.controller;
+    const controllerProgress = controller.progress;
+    const controllerProgressTotal = controller.progressTotal;
     
     let task = null;
     let target = null;
@@ -19,12 +25,14 @@ function Upgrader(creep)
         task = new Task("Combat", target);
     }
     
-    if (task == null &&
-        currentTask != "Harvesting" &&
-        creep.store[RESOURCE_ENERGY] > 0 &&
-        creep.room.controller.progress < creep.room.controller.progressTotal)
+    if (task == null)
     {
-        task = new Task("Upgrade", creep.room.controller);
+        if (energy > 0 &&
+            currentTask != "Harvesting" &&
+            controllerProgress < controllerProgressTotal)
+        {
+            task = new Task("Upgrade", controller);
+        }
     }
     
     if (task == null)
@@ -58,6 +66,7 @@ function Upgrader(creep)
                 break;
             case "Upgrade":
                 Upgrade(creep, task.Target);
+                break;
         }
     }
 }

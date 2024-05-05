@@ -11,25 +11,32 @@ function HandleSpawns()
     for (let spawnName in Game.spawns)
     {
         const spawn = Game.spawns[spawnName];
+        const room = spawn.room;
         
-        new RoomVisual(spawn.room.name).text("Energy:" + spawn.room.energyAvailable, spawn.pos.x, spawn.pos.y - 1.5, {color: "yellow", font: "bold 0.7 Calibri"});
+        new RoomVisual(room.name).text("Energy:" + room.energyAvailable, spawn.pos.x, spawn.pos.y - 1.5, {color: "yellow", font: "bold 0.7 Calibri"});
         
-        const controllerLevel = spawn.room.controller.level;
-        const scale = controllerLevel - 1;
+        const controller = room.controller;
+        const controllerLevel = controller.level;
+        const scale = controllerLevel;
         
-        const fixerMax = controllerLevel > 3 ? 3 : controllerLevel;
-        
-        const harvestPositions = GetSourceHarvestPositions(spawn.room);
+        const harvestPositions = GetSourceHarvestPositions(room);
         const harvestPositionCount = harvestPositions.length;
+        
+        const harvesterMax = harvestPositionCount - 1;
+        const upgraderMax = Math.floor(harvestPositionCount / 2);
+        const soldierMax = controllerLevel > 2 ? 2 : controllerLevel;
+        const builderMax = 1;
+        const fixerMax = controllerLevel > 3 ? 3 : controllerLevel;
+        const claimerMax = 1;
+        const invaderMax = 1;
 
-        const jobCounts = GetJobCounts(spawn.room, jobs);
+        const jobCounts = GetJobCounts(room, jobs);
 
-        if (jobCounts["Harvester"] < controllerLevel + 1 &&
-            jobCounts["Harvester"] < harvestPositionCount)
+        if (jobCounts["Harvester"] < harvesterMax)
         {
             SpawnCreep(spawn, "Harvester", scale); 
         }
-        else if (jobCounts["Upgrader"] < controllerLevel + 1)
+        else if (jobCounts["Upgrader"] < upgraderMax)
         {
             SpawnCreep(spawn, "Upgrader", scale);
         }
@@ -37,11 +44,11 @@ function HandleSpawns()
         //{
         //    SpawnCreep(spawn, "Healer");
         //}
-        else if (jobCounts["Soldier"] < controllerLevel - 1)
+        else if (jobCounts["Soldier"] < soldierMax)
         {
             SpawnCreep(spawn, "Soldier", scale);
         }
-        else if (jobCounts["Builder"] < 1)
+        else if (jobCounts["Builder"] < builderMax)
         {
             SpawnCreep(spawn, "Builder", scale);
         }
@@ -51,15 +58,15 @@ function HandleSpawns()
         }
         else if (spawnCount < Game.gcl.level)
         {
-            const room = GetRoomToInvade(spawn.room);
-            if (room != null)
+            const roomToInvade = GetRoomToInvade(room);
+            if (roomToInvade != null)
             {
                 //Will continually spawn as creeps go to other room
-                if (jobCounts["Claimer"] < 1)
+                if (jobCounts["Claimer"] < claimerMax)
                 {
                     SpawnCreep(spawn, "Claimer", scale);
                 }
-                else if (jobCounts["Invader"] < 1)
+                else if (jobCounts["Invader"] < invaderMax)
                 {
                     SpawnCreep(spawn, "Invader", scale);
                 }

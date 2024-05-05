@@ -1,4 +1,5 @@
 const GetDistance = require("util.GetDistance");
+const GetError = require("util.GetError");
 
 function GoTo(creep, position, roomName, reason) 
 {
@@ -47,7 +48,7 @@ function GoTo(creep, position, roomName, reason)
         }
         
         creep.say(reason, true);
-        creep.moveTo(new RoomPosition(position.X, position.Y, roomName), {reusePath: 4, visualizePathStyle: {stroke: color}});
+        creep.moveTo(position.X, position.Y, {reusePath: 10, maxOps: 100, visualizePathStyle: {stroke: color}});
     }
 }
 

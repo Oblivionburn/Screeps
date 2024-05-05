@@ -1,57 +1,199 @@
-const Position = require("object.Position");
-const GoTo = require("task.GoTo");
+const Occupied = require("util.Occupied");
 
-function GoToward(creep, target) 
+function GoToward(creep, target)
 {
-    let position = new Position(creep.pos.x, creep.pos.y);
+    let x = creep.pos.x;
+    let y = creep.pos.y;
     
-    if (creep.pos.x < target.pos.x)
+    if (creep.pos.x < target.X)
     {
-        //Go right
-        position.X++;
+        //Move right
+        x++;
         
-        if (creep.pos.y < target.pos.y)
+        if (creep.pos.y < target.Y)
         {
-            //Go down
-            position.Y++;
+            //Move down
+            y++;
+            
+            if (Occupied(creep, x, y))
+            {
+                let choice = Math.floor(Math.random() * 2);
+                choice++;
+                if (choice == 1)
+                {
+                    //Just down
+                    x--;
+                }
+                else if (choice == 2)
+                {
+                    //Just right
+                    y--;
+                }
+            }
         }
-        else if (creep.pos.y > target.pos.y)
+        else if (creep.pos.y > target.Y)
         {
-            //Go up
-            position.Y--;
+            //Move up
+            y--;
+            
+            if (Occupied(creep, x, y))
+            {
+                let choice = Math.floor(Math.random() * 2);
+                choice++;
+                if (choice == 1)
+                {
+                    //Just up
+                    x--;
+                }
+                else if (choice == 2)
+                {
+                    //Just right
+                    y++;
+                }
+            }
         }
     }
-    else if (creep.pos.x > target.pos.x)
+    else if (creep.pos.x > target.X)
     {
-        //Go left
-        position.X--;
+        //Move left
+        x--;
         
-        if (creep.pos.y < target.pos.y)
+        if (creep.pos.y < target.Y)
         {
-            //Go down
-            position.Y++;
+            //Move down
+            y++;
+            
+            if (Occupied(creep, x, y))
+            {
+                let choice = Math.floor(Math.random() * 2);
+                choice++;
+                if (choice == 1)
+                {
+                    //Just down
+                    x++;
+                }
+                else if (choice == 2)
+                {
+                    //Just left
+                    y--;
+                }
+            }
         }
-        else if (creep.pos.y > target.pos.y)
+        else if (creep.pos.y > target.Y)
         {
-            //Go up
-            position.Y--;
+            //Move up
+            y--;
+            
+            if (Occupied(creep, x, y))
+            {
+                let choice = Math.floor(Math.random() * 2);
+                choice++;
+                if (choice == 1)
+                {
+                    //Just up
+                    x++;
+                }
+                else if (choice == 2)
+                {
+                    //Just left
+                    y++;
+                }
+            }
         }
     }
-    else
+    else if (creep.pos.y < target.Y)
     {
-        if (creep.pos.y < target.pos.y)
+        //Move down
+        y++;
+        
+        if (Occupied(creep, x, y))
         {
-            //Go down
-            position.Y++;
+            let choice = Math.floor(Math.random() * 2);
+            choice++;
+            if (choice == 1)
+            {
+                //Move right
+                x++;
+            }
+            else if (choice == 2)
+            {
+                //Move left
+                x--;
+            }
         }
-        else if (creep.pos.y > target.pos.y)
+        
+        if (Occupied(creep, x, y))
         {
-            //Go up
-            position.Y--;
+            //Move just right or left
+            y--;
+        }
+    }
+    else if (creep.pos.y > target.Y)
+    {
+        //Move up
+        y--;
+        
+        if (Occupied(creep, x, y))
+        {
+            let choice = Math.floor(Math.random() * 2);
+            choice++;
+            if (choice == 1)
+            {
+                //Move right
+                x++;
+            }
+            else if (choice == 2)
+            {
+                //Move left
+                x--;
+            }
+        }
+        
+        if (Occupied(creep, x, y))
+        {
+            //Move just right or left
+            y++;
         }
     }
     
-    GoTo(creep, position, creep.room.name, creep.memory.task);
+    if (x < creep.pos.x)
+    {
+        if (y < creep.pos.y)
+        {
+            creep.move(TOP_LEFT);
+        }
+        else if (y > creep.pos.y)
+        {
+            creep.move(BOTTOM_LEFT);
+        }
+        else
+        {
+            creep.move(LEFT);
+        }
+    }
+    else if (x > creep.pos.x)
+    {
+        if (y < creep.pos.y)
+        {
+            creep.move(TOP_RIGHT);
+        }
+        else if (y > creep.pos.y)
+        {
+            creep.move(BOTTOM_RIGHT);
+        }
+        else
+        {
+            creep.move(RIGHT);
+        }
+    }
+    else if (y < creep.pos.y)
+    {
+        creep.move(TOP);
+    }
+    else if (y > creep.pos.y)
+    {
+        creep.move(BOTTOM);
+    }
 }
 
 module.exports = GoToward;

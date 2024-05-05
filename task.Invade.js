@@ -9,7 +9,7 @@ function Invade(creep, roomName)
         const exit = creep.pos.findClosestByRange(exitDirection);
         
         creep.say(creep.memory.task, true);
-        creep.moveTo(exit, {reusePath: 3, visualizePathStyle: {stroke: "#FF0000"}});
+        creep.moveTo(exit, {reusePath: 10, maxOps: 200, visualizePathStyle: {stroke: "#FF0000"}});
     }
 }
     

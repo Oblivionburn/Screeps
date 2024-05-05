@@ -13,16 +13,16 @@ function CanBuild(room, x, y)
             return false;
         }
         
-        //Check if there's a wall at the coords
-        const wall = room.getTerrain().get(x, y) == 1;      
-        if (wall)
+        //Check if there's a construction site at the coords
+        const constructionSites = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
+        if (constructionSites.length > 0)
         {
             return false;
         }
         
-        //Check if there's a construction site at the coords
-        const constructionSites = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
-        if (constructionSites.length > 0)
+        //Check if there's a wall at the coords
+        const wall = room.getTerrain().get(x, y) == 1;      
+        if (wall)
         {
             return false;
         }
