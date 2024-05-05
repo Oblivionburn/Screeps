@@ -32,7 +32,7 @@ function HandleSpawns()
         const claimerMax = 1;
         const invaderMax = 10;
 
-        const jobCounts = GetJobCounts(room, jobs);
+        const jobCounts = Memory.JobCounts[room.name];
         
         if (jobCounts["Harvester"] < harvesterMax)
         {
@@ -61,30 +61,25 @@ function HandleSpawns()
         else if (spawnCount < Game.gcl.level)
         {
             const roomToInvade = GetRoomToInvade(room);
-            if (roomToInvade != null)
+            if (roomToInvade)
             {
-                let otherRoom = null;
-                for (let visibleRoomName in Game.rooms)
+                let otherRoom = Game.rooms[roomToInvade];
+                if (otherRoom)
                 {
-                    const visibleRoom = Game.rooms[visibleRoomName];
-                    if (visibleRoom.name == roomToInvade)
+                    const otherHarvestPositions = GetSourceHarvestPositions(otherRoom);
+                    
+                    if (jobCounts["Claimer"] < claimerMax &&
+                        GetStructures(otherRoom, "spawn").length == 0 &&
+                        GetConstructionSites(otherRoom, STRUCTURE_SPAWN).length == 0)
                     {
-                        otherRoom = visibleRoom;
-                        break;
+                        SpawnCreep(spawn, "Claimer", scale);
                     }
-                }
-                
-                if (jobCounts["Claimer"] < claimerMax &&
-                    GetStructures(otherRoom, "spawn").length == 0 &&
-                    GetConstructionSites(otherRoom, STRUCTURE_SPAWN).length == 0)
-                {
-                    SpawnCreep(spawn, "Claimer", scale);
-                }
-                else if (Memory.invaders < invaderMax &&
-                         GetStructures(otherRoom, "spawn").length == 0 &&
-                         GetConstructionSites(otherRoom, STRUCTURE_SPAWN).length > 0)
-                {
-                    SpawnCreep(spawn, "Invader", scale);
+                    else if (Memory.Invaders < otherHarvestPositions.length + 2 &&
+                             GetStructures(otherRoom, "spawn").length == 0 &&
+                             GetConstructionSites(otherRoom, STRUCTURE_SPAWN).length > 0)
+                    {
+                        SpawnCreep(spawn, "Invader", scale);
+                    }
                 }
             }
         }

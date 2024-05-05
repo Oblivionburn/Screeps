@@ -1,5 +1,6 @@
 const GetAdjacentRoom = require("util.GetAdjacentRoom");
 const GetStructures = require("util.GetStructures");
+const GetSourceHarvestPositions = require("util.GetSourceHarvestPositions");
 
 function GetRoomToInvade(currentRoom)
 {
@@ -62,6 +63,7 @@ function GetRoomToInvade(currentRoom)
             {
                 otherRoom = Game.rooms[visibleRoom];
                 
+                
                 if (otherRoom.name == roomName &&
                     otherRoom.controller &&
                     otherRoom.controller.my &&
@@ -72,11 +74,16 @@ function GetRoomToInvade(currentRoom)
                 }
             }
             
-            if (!alreadyOwnRoom &&
-                otherRoom &&
-                otherRoom.controller)
+            if (otherRoom)
             {
-                possibleRooms.push(roomName);
+                const harvestPositions = GetSourceHarvestPositions(otherRoom);
+                
+                if (!alreadyOwnRoom &&
+                    otherRoom.controller &&
+                    harvestPositions.length > 0)
+                {
+                    possibleRooms.push(roomName);
+                }
             }
         }
     });

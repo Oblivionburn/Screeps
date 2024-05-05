@@ -7,7 +7,8 @@ const GetJobCounts = require("util.GetJobCounts");
 
 function HandleBuilding()
 {
-    Memory.invaders = 0;
+    Memory.Invaders = 0;
+    const RoomJobCounts = {};
     const jobs = ["Harvester", "Upgrader", "Healer", "Soldier", "Builder", "Fixer", "Invader", "Claimer"];
     const structureTypes = ["container", "storage", "extension", "tower"];
     
@@ -16,7 +17,10 @@ function HandleBuilding()
         const room = Game.rooms[roomName];
         
         const jobCounts = GetJobCounts(room, jobs);
-        Memory.invaders += jobCounts["Invader"];
+
+        RoomJobCounts[roomName] = jobCounts;
+        
+        Memory.Invaders += jobCounts["Invader"];
         
         const spawns = GetStructures(room, "spawn");
         if (spawns.length > 0)
@@ -136,6 +140,8 @@ function HandleBuilding()
             }
         }
     }
+    
+    Memory.JobCounts = RoomJobCounts;
 }
 
 module.exports = HandleBuilding;
