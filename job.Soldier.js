@@ -1,9 +1,11 @@
 const Task = require("object.Task");
 const GetHostile = require("util.GetHostile");
-const GetCreeps_Other = require("util.GetCreeps_Other");
+const GetCreeps_ToGuard = require("util.GetCreeps_ToGuard");
 const GetNearestThing = require("util.GetNearestThing");
+const GetStructures = require("util.GetStructures");
 const Formation = require("task.Formation");
 const Guard = require("task.Guard");
+const Wander = require("task.Wander");
 
 function Soldier(creep) 
 {
@@ -19,25 +21,29 @@ function Soldier(creep)
     if (task == null)
     {
         const guardJobsFilter = ["Soldier", "Invader", "Claimer"];
-        const otherCreeps = GetCreeps_Other(creep, guardJobsFilter);
+        const otherCreeps = GetCreeps_ToGuard(creep, guardJobsFilter);
         if (otherCreeps.length > 0)
         {
-            const otherCreep = GetNearestThing(creep.pos.x, creep.pos.y, otherCreeps);
-            if (otherCreep)
+            target = GetNearestThing(creep.pos.x, creep.pos.y, otherCreeps);
+            if (target != null)
             {
-                task = new Task("Guard", otherCreep);
+                task = new Task("Guard", target);
             }
-        }
-        else
-        {
-            task = new Task("Wander", null);
         }
     }
     
     if (task == null)
     {
-        creep.memory.task = null;
-        creep.memory.target = null;
+        const spawn = GetStructures(creep.room, "spawn");
+        if (spawn != null)
+        {
+            task = new Task("Guard", spawn);
+        }
+    }
+    
+    if (task == null)
+    {
+        task = new Task("Wander", null);
     }
     
     if (task != null)
@@ -49,6 +55,9 @@ function Soldier(creep)
                 break;
             case "Guard":
                 Guard(creep, task.Target);
+                break;
+            case "Wander":
+                Wander(creep);
                 break;
         }
     }

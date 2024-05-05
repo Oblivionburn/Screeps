@@ -20,6 +20,12 @@ function Claimer(creep)
         task = new Task("Claim", creep.room.name);
     }
     
+    if (task == null)
+    {
+        creep.memory.task = null;
+        creep.memory.target = null;
+    }
+    
     if (task != null)
     {
         Claim(creep, task.Target);
