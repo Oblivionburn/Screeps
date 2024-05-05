@@ -30,10 +30,10 @@ function HandleSpawns()
         const builderMax = 1;
         const fixerMax = controllerLevel > 3 ? 3 : controllerLevel;
         const claimerMax = 1;
-        const invaderMax = 1;
+        const invaderMax = 10;
 
         const jobCounts = GetJobCounts(room, jobs);
-
+        
         if (jobCounts["Harvester"] < harvesterMax)
         {
             SpawnCreep(spawn, "Harvester", scale); 
@@ -80,7 +80,7 @@ function HandleSpawns()
                 {
                     SpawnCreep(spawn, "Claimer", scale);
                 }
-                else if (jobCounts["Invader"] < invaderMax &&
+                else if (Memory.invaders < invaderMax &&
                          GetStructures(otherRoom, "spawn").length == 0 &&
                          GetConstructionSites(otherRoom, STRUCTURE_SPAWN).length > 0)
                 {

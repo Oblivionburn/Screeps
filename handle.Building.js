@@ -3,14 +3,20 @@ const GetStructures = require("util.GetStructures");
 const BuildStructure = require("util.BuildStructure");
 const GetSpawnPosition = require("util.GetSpawnPosition");
 const GetConstructionSites = require("util.GetConstructionSites");
+const GetJobCounts = require("util.GetJobCounts");
 
 function HandleBuilding()
 {
+    Memory.invaders = 0;
+    const jobs = ["Harvester", "Upgrader", "Healer", "Soldier", "Builder", "Fixer", "Invader", "Claimer"];
     const structureTypes = ["container", "storage", "extension", "tower"];
     
     for (let roomName in Game.rooms)
     {
         const room = Game.rooms[roomName];
+        
+        const jobCounts = GetJobCounts(room, jobs);
+        Memory.invaders += jobCounts["Invader"];
         
         const spawns = GetStructures(room, "spawn");
         if (spawns.length > 0)

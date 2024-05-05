@@ -37,8 +37,9 @@ function SpawnCreep(spawn, job, scale)
                     if (cost <= spawn.room.energyAvailable)
                     {
                         CleanMemory();
+                        const creepName = GetName(job);
                         
-                        const result = spawn.spawnCreep(body, GetName(job), 
+                        const result = spawn.spawnCreep(body, creepName, 
                         {
                             memory: 
                             {
@@ -50,7 +51,7 @@ function SpawnCreep(spawn, job, scale)
                         
                         if (result < 0)
                         {
-                            console.log("Error for " + spawn.name + ": " + GetError(result));
+                            console.log("Error spawning " + creepName + " at " + spawn.name + ": " + GetError(result));
                         }
                         else if (result == 0)
                         {
