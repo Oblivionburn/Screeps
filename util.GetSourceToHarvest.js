@@ -12,23 +12,25 @@ function GetSourceToHarvest(creep)
     {
         const availablePositions = [];
         
-        //Check if creep is already next to a source
         for (let i = 0; i < sourceCount; i++)
         {
             const source = sources[i];
-            
-            if (NextTo(creep.pos.x, creep.pos.y, source.pos.x, source.pos.y))
+            if (source.energy > 0)
             {
-                return source;
-            }
-            
-            //Get all open harvest positions
-            const harvestPositions = GetOpenHarvestPositions(creep, source);
-            const harvestCount = harvestPositions.length;
-            for (let i = 0; i < harvestCount; i++)
-            {
-                const harvestPosition = harvestPositions[i];
-                availablePositions.push(harvestPosition);
+                //Check if creep is already next to a source
+                if (NextTo(creep.pos.x, creep.pos.y, source.pos.x, source.pos.y))
+                {
+                    return source;
+                }
+                
+                //Get all open harvest positions
+                const harvestPositions = GetOpenHarvestPositions(creep, source);
+                const harvestCount = harvestPositions.length;
+                for (let i = 0; i < harvestCount; i++)
+                {
+                    const harvestPosition = harvestPositions[i];
+                    availablePositions.push(harvestPosition);
+                }
             }
         }
         

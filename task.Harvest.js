@@ -36,7 +36,7 @@ function Harvest(creep, structure)
         {
             creep.say(total + "/" + creep.store.getCapacity(RESOURCE_ENERGY), true);
         }
-        else
+        else if (result != -6)
         {
             console.log(creep.name + " harvest Error: " + GetError(result));
         }
