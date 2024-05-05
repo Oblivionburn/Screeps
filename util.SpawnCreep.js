@@ -13,7 +13,7 @@ function SpawnCreep(spawn, job, scale)
         
         const templateCost = GetSpawnCost(template);
         const maxScale = Math.floor(spawn.room.energyAvailable / templateCost);
-        
+
         for (let s = scale; s > 0; s--)
         {
             if (s <= maxScale)

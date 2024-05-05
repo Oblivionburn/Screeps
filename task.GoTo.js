@@ -9,36 +9,40 @@ function GoTo(creep, position, roomName, reason)
         switch (reason)
         {
             case "Harvesting":
-                color = "#FFFFFF";
+                color = "#FFFFFF"; //White
                 break;
                 
             case "Transfering":
                 reason = "Giving";
-                color = "#33CC00";
+                color = "#00FF00"; //Green
                 break;
                 
             case "Building":
-                color = "#0000FF";
+                color = "#0000FF"; //Blue
                 break;
                 
             case "Upgrading":
-                color = "#00FFFF";
+                color = "#00FFFF"; //Cyan
                 break;
                 
             case "Grabbing":
             case "Siphoning":
                 reason = "Taking";
-                color = "#FFBF00";
+                color = "#FFFF00"; //Yellow
                 break;
                 
             case "Repairing":
-                color = "#ff4d88";
+                color = "#FF00FF"; //Magenta
+                break;
+                
+            case "Guarding":
+                color = "#000000"; //Black
                 break;
                 
             case "Attacking":
             case "Claiming":
             case "Invading":
-                color = "#FF0000";
+                color = "#FF0000"; //Red
                 break;
         }
         

@@ -1,4 +1,5 @@
 const CanBuild = require("util.CanBuild");
+const GetError = require("util.GetError");
 
 function Build(room, position, type)
 {

@@ -91,6 +91,8 @@ function BuildStructure(room, position, structure_type)
             }
         }
     }
+    
+    return success;
 }
 
 module.exports = BuildStructure;

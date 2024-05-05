@@ -5,6 +5,7 @@ const WithinBoundary = require("util.WithinBoundary");
 function Guard(creep, target) 
 {
     creep.memory.task = "Guarding";
+    creep.memory.target = target.id;
 
     let choice = Math.floor(Math.random() * 8);
     choice++;

@@ -8,7 +8,7 @@ function CanBuild(room, x, y)
     {
         //Check if there's a structure at the coords
         const structures = room.lookForAt(LOOK_STRUCTURES, x, y);
-        if (structures)
+        if (structures.length > 0)
         {
             return false;
         }
@@ -22,7 +22,7 @@ function CanBuild(room, x, y)
         
         //Check if there's a construction site at the coords
         const constructionSites = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
-        if (blocked)
+        if (constructionSites.length > 0)
         {
             return false;
         }

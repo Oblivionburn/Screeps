@@ -1,15 +1,28 @@
-const GetTask = require("ai.GetTask");
+const Task = require("object.Task");
+const GetRoomToInvade = require("util.GetRoomToInvade");
 const Claim = require("task.Claim");
 
 function Claimer(creep)
 {
-    const task = GetTask(creep);
+    let task = null;
+    
+    if (creep.room.controller &&
+        creep.room.controller.my)
+    {
+        roomName = GetRoomToInvade(creep.room);
+        if (roomName != null)
+        {
+            task = new Task("Claim", roomName);
+        }
+    }
+    else
+    {
+        task = new Task("Claim", creep.room.name);
+    }
+    
     if (task != null)
     {
-        if (task.Name == "Claim")
-        {
-            Claim(creep, task.Target);
-        }
+        Claim(creep, task.Target);
     }
 }
 

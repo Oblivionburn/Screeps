@@ -4,6 +4,9 @@ const CanBuild = require("util.CanBuild");
 
 function GetSpawnPosition(room) 
 {
+    let x = 0;
+    let y = 0;
+    
     const sources = GetStructures(room, "source");
     if (sources.length > 1)
     {
@@ -14,10 +17,7 @@ function GetSpawnPosition(room)
         
         const x_diff = Math.abs(source1.pos.x - source2.pos.x);
         const y_diff = Math.abs(source1.pos.y - source2.pos.y);
-        
-        let x = 0;
-        let y = 0;
-        
+
         if (source1.pos.x > source2.pos.x)
         {
             x = source2.pos.x + Math.ceil(x_diff / 2);
@@ -49,28 +49,28 @@ function GetSpawnPosition(room)
         //Max of 10 tiles away
         for (let i = 5; i <= 10; i++)
         {
-            for (let y = source.pos.y - i; y <= source.pos.y + i; y++)
+            for (let y_pos = source.pos.y - i; y_pos <= source.pos.y + i; y_pos++)
             {
-                if (y == source.pos.y - i ||
-                    y == source.pos.y + i)
+                if (y_pos == source.pos.y - i ||
+                    y_pos == source.pos.y + i)
                 {
-                    for (let x = source.pos.x - i; x < source.pos.x + i; x++)
+                    for (let x_pos = source.pos.x - i; x_pos < source.pos.x + i; x_pos++)
                     {
-                        if (CanBuild(room, x, y))
+                        if (CanBuild(room, x_pos, y_pos))
                         {
-                            return new Position(x, y);
+                            return new Position(x_pos, y_pos);
                         }
                     }
                 }
                 else
                 {
-                    let x = source.pos.x - i;
+                    x = source.pos.x - i;
                     if (CanBuild(room, x, y))
                     {
                         return new Position(x, y);
                     }
                     
-                    let x = source.pos.x + i;
+                    x = source.pos.x + i;
                     if (CanBuild(room, x, y))
                     {
                         return new Position(x, y);

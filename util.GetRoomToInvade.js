@@ -2,7 +2,7 @@ const GetAdjacentRoom = require("util.GetAdjacentRoom");
 
 function GetRoomToInvade(currentRoom)
 {
-    let adjacentRooms = [];
+    let adjacentRooms = {};
     let possibleRooms = [];
     let currentRoomName = currentRoom.name;
     
@@ -17,41 +17,43 @@ function GetRoomToInvade(currentRoom)
     
     let index = currentRoomName.indexOf(n_s);
     let w_e_num = Number(currentRoomName.substring(1, index));
-    let n_s_num = Number(currentRoomName.substring(index, currentRoomName.length));
+    let n_s_num = Number(currentRoomName.substring(index + 1, currentRoomName.length));
     
     //Get adjacent rooms
     let topRoom = GetAdjacentRoom(TOP, w_e, w_e_num, n_s, n_s_num);
     if (topRoom != "")
     {
-        adjacentRooms.push(topRoom);
+        adjacentRooms[topRoom] = FIND_EXIT_TOP;
     }
     
     let rightRoom = GetAdjacentRoom(RIGHT, w_e, w_e_num, n_s, n_s_num);
     if (rightRoom != "")
     {
-        adjacentRooms.push(rightRoom);
+        adjacentRooms[rightRoom] = FIND_EXIT_RIGHT;
     }
     
     let bottomRoom = GetAdjacentRoom(BOTTOM, w_e, w_e_num, n_s, n_s_num);
     if (bottomRoom != "")
     {
-        adjacentRooms.push(bottomRoom);
+        adjacentRooms[bottomRoom] = FIND_EXIT_BOTTOM;
     }
     
     let leftRoom = GetAdjacentRoom(LEFT, w_e, w_e_num, n_s, n_s_num);
     if (leftRoom != "")
     {
-        adjacentRooms.push(leftRoom);
+        adjacentRooms[leftRoom] = FIND_EXIT_LEFT;
     }
     
-    const adjacentCount = adjacentRooms.length;
-    for (let i = 0; i < adjacentCount; i++)
+    //const adjacentCount = Object.keys(adjacentRooms).length;
+    Object.keys(adjacentRooms).forEach(function (key)
     {
-        const roomName = adjacentRooms[i];
+        const roomName = key;
+        const roomDirection = adjacentRooms[key];
         
         const direction = currentRoom.findExitTo(roomName);
         if (direction != ERR_NO_PATH &&
-            direction != ERR_INVALID_ARGS)
+            direction != ERR_INVALID_ARGS &&
+            direction == roomDirection)
         {
             let alreadyOwnRoom = false;
             for (let visibleRoom in Game.rooms)
@@ -70,7 +72,7 @@ function GetRoomToInvade(currentRoom)
                 possibleRooms.push(roomName);
             }
         }
-    }
+    });
     
     if (possibleRooms.length > 0)
     {

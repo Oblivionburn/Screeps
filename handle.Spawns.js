@@ -6,6 +6,7 @@ const GetRoomToInvade = require("util.GetRoomToInvade");
 function HandleSpawns() 
 {
     const jobs = ["Harvester", "Upgrader", "Healer", "Soldier", "Builder", "Fixer", "Invader", "Claimer"];
+    const spawnCount = Object.keys(Game.spawns).length;
     
     for (let spawnName in Game.spawns)
     {
@@ -48,20 +49,19 @@ function HandleSpawns()
         {
             SpawnCreep(spawn, "Fixer", scale);
         }
-        
-        if (Game.spawns.length < Game.gcl.level)
+        else if (spawnCount < Game.gcl.level)
         {
             const room = GetRoomToInvade(spawn.room);
             if (room != null)
             {
                 //Will continually spawn as creeps go to other room
-                if (jobCounts["Invader"] < 1)
+                if (jobCounts["Claimer"] < 1)
                 {
-                    SpawnCreep(spawn, "Invader");
+                    SpawnCreep(spawn, "Claimer", scale);
                 }
-                else if (jobCounts["Claimer"] < 1)
+                else if (jobCounts["Invader"] < 1)
                 {
-                    SpawnCreep(spawn, "Claimer");
+                    SpawnCreep(spawn, "Invader", scale);
                 }
             }
         }
