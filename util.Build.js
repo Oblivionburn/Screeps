@@ -17,7 +17,7 @@ function Build(room, position, type)
         
         if (result == 0)
         {
-            console.log("Building " + type + ": " + position.X + "," + position.Y);
+            console.log("Building " + type + " (" + position.X + "," + position.Y + ") in " + room.name);
         }
         else
         {

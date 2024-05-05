@@ -48,7 +48,7 @@ function GoTo(creep, position, roomName, reason)
         }
         
         creep.say(reason, true);
-        creep.moveTo(position.X, position.Y, {reusePath: 10, maxOps: 100, visualizePathStyle: {stroke: color}});
+        creep.moveTo(position.X, position.Y, {reusePath: 10, visualizePathStyle: {stroke: color}});
     }
 }
 

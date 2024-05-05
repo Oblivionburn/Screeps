@@ -1,5 +1,5 @@
 const Position = require("object.Position");
-const GoTo = require("task.GoTo");
+const GoToward = require("task.GoToward");
 const WithinBoundary = require("util.WithinBoundary");
 
 function Guard(creep, target) 
@@ -55,11 +55,13 @@ function Guard(creep, target)
     
     if (WithinBoundary(position.X, position.Y, min_x, max_x, min_y, max_y))
     {
-        GoTo(creep, position, creep.room.name, creep.memory.task);
+        //GoTo(creep, position, creep.room.name, creep.memory.task);
+        GoToward(creep, position);
     }
     else
     {
-        GoTo(creep, new Position(target.pos.x, target.pos.y), creep.room.name, creep.memory.task);
+        //GoTo(creep, new Position(target.pos.x, target.pos.y), creep.room.name, creep.memory.task);
+        GoToward(creep, new Position(target.pos.x, target.pos.y));
     }
 }
 

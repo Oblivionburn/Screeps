@@ -2,6 +2,8 @@ const GetSourceHarvestPositions = require("util.GetSourceHarvestPositions");
 const SpawnCreep = require("util.SpawnCreep");
 const GetJobCounts = require("util.GetJobCounts");
 const GetRoomToInvade = require("util.GetRoomToInvade");
+const GetStructures = require("util.GetStructures");
+const GetConstructionSites = require("util.GetConstructionSites");
 
 function HandleSpawns() 
 {
@@ -61,12 +63,26 @@ function HandleSpawns()
             const roomToInvade = GetRoomToInvade(room);
             if (roomToInvade != null)
             {
-                //Will continually spawn as creeps go to other room
-                if (jobCounts["Claimer"] < claimerMax)
+                let otherRoom = null;
+                for (let visibleRoomName in Game.rooms)
+                {
+                    const visibleRoom = Game.rooms[visibleRoomName];
+                    if (visibleRoom.name == roomToInvade)
+                    {
+                        otherRoom = visibleRoom;
+                        break;
+                    }
+                }
+                
+                if (jobCounts["Claimer"] < claimerMax &&
+                    GetStructures(otherRoom, "spawn").length == 0 &&
+                    GetConstructionSites(otherRoom, STRUCTURE_SPAWN).length == 0)
                 {
                     SpawnCreep(spawn, "Claimer", scale);
                 }
-                else if (jobCounts["Invader"] < invaderMax)
+                else if (jobCounts["Invader"] < invaderMax &&
+                         GetStructures(otherRoom, "spawn").length == 0 &&
+                         GetConstructionSites(otherRoom, STRUCTURE_SPAWN).length > 0)
                 {
                     SpawnCreep(spawn, "Invader", scale);
                 }

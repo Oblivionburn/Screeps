@@ -6,8 +6,9 @@ function Claimer(creep)
 {
     let task = null;
     
-    if (creep.room.controller &&
-        creep.room.controller.my)
+    if ((creep.room.controller &&
+         creep.room.controller.my) ||
+         !creep.room.controller)
     {
         roomName = GetRoomToInvade(creep.room);
         if (roomName != null)

@@ -1,4 +1,5 @@
 const GetAdjacentRoom = require("util.GetAdjacentRoom");
+const GetStructures = require("util.GetStructures");
 
 function GetRoomToInvade(currentRoom)
 {
@@ -55,19 +56,25 @@ function GetRoomToInvade(currentRoom)
             direction != ERR_INVALID_ARGS &&
             direction == roomDirection)
         {
+            let otherRoom = null;
             let alreadyOwnRoom = false;
             for (let visibleRoom in Game.rooms)
             {
-                const room = Game.rooms[visibleRoom];
-                if (room.name == roomName &&
-                    room.controller.my)
+                otherRoom = Game.rooms[visibleRoom];
+                
+                if (otherRoom.name == roomName &&
+                    otherRoom.controller &&
+                    otherRoom.controller.my &&
+                    GetStructures(otherRoom, "spawn").length > 0)
                 {
                     alreadyOwnRoom = true;
                     break;
                 }
             }
             
-            if (!alreadyOwnRoom)
+            if (!alreadyOwnRoom &&
+                otherRoom &&
+                otherRoom.controller)
             {
                 possibleRooms.push(roomName);
             }
